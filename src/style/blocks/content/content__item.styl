@@ -1,0 +1,17 @@
+:local
+    .content__item
+        position: relative
+
+        &:hover
+            &:before
+                content: ''
+                position: absolute
+                top: 0
+                left: 0
+                bottom: 0
+                right: 0
+                border: 2px solid #373737
+                opacity: .8
+
+            .content__itemBar
+                display: block
