@@ -2,7 +2,7 @@ import React from 'react';
 
 import css from '../../style/blocks/editor-bar/index.styl';
 
-const download = require('./download.svg');
+import IcoDownload from './download.svg';
 
 export default class BottomBar extends React.Component {
     render () {
@@ -10,7 +10,7 @@ export default class BottomBar extends React.Component {
             <div className={css.editorBar}>
                 <div className={css.editorBar__btnsContainer}>
                     <div className={css.editorBar__button}>
-                        <img className={css.editorBar__buttonIco} src={download} alt="" />
+                        <IcoDownload className={css.editorBar__buttonIco} />
                         <span className={css.editorBar__buttonText}>
                             Download JSON
                         </span>

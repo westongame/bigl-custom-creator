@@ -85,7 +85,18 @@ module.exports = {
             },
             {
                 test: /\.svg$/,
-                loader: 'file-loader',
+                loaders: [
+                    'babel-loader',
+                    {
+                        loader: 'react-svg-loader',
+                        query: {
+                            svgo: {
+                                plugins: [{removeTitle: false}],
+                                floatPrecision: 2
+                            }
+                        }
+                    }
+                ],
                 exclude: '/node_modules/'
             }
         ]

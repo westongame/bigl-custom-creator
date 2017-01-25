@@ -2,7 +2,7 @@ import React from 'react';
 
 import css from '../../style/blocks/editor-bar/index.styl';
 
-const eye = require('./eye.svg');
+import IcoEye from './eye.svg';
 
 export default class TopBar extends React.Component {
     render () {
@@ -10,7 +10,7 @@ export default class TopBar extends React.Component {
             <div className={css.editorBar}>
                 <div className={css.editorBar__btnsContainer}>
                     <div className={css.editorBar__button}>
-                        <img className={css.editorBar__buttonIco} src={eye} alt="" />
+                        <IcoEye className={css.editorBar__buttonIco} />
                         <span className={css.editorBar__buttonText}>
                             Preview
                         </span>
