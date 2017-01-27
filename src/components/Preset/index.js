@@ -3,7 +3,7 @@ import React from 'react';
 import cssGrid from '../../style/blocks/grid/index.styl';
 import cssImage from '../../style/blocks/image-holder/index.styl';
 
-import IcoPlaceholder from './image.svg';
+import IcoPlaceholder from './empty-image.svg';
 
 export default class Preset extends React.Component {
     render () {

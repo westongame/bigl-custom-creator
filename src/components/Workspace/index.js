@@ -17,7 +17,7 @@ export default class Workspace extends React.Component {
                             sidebar
                         </div>
                         <div className={css.workspace__content}>
-                            <Content />
+                            <Content onPresetEdit={this.props.onPresetEdit}/>
                         </div>
                     </div>
                 </div>
@@ -25,3 +25,7 @@ export default class Workspace extends React.Component {
         );
     }
 }
+
+Workspace.propTypes = {
+    onPresetEdit: React.PropTypes.func
+};
