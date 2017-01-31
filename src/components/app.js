@@ -24,7 +24,9 @@ export default class App extends React.Component {
                     <TopBar />
                 </div>
                 <div className={[css.editor__barContainer, css.editor__barContainer_position_bottom].join(' ')}>
-                    <BottomBar />
+                    <BottomBar
+                        customTitle={this.props.customTitle}
+                    />
                 </div>
             </div>
         );

@@ -6,4 +6,10 @@ export default class AppDispatcher extends TanokDispatcher {
         state.isEditingPreset = payload;
         return [state];
     }
+    
+    @on('onTitleEdit')
+    onTitleEdit(payload, state) {
+        state.customTitle = payload;
+        return [state];
+    }
 }
