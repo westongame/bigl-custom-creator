@@ -1,4 +1,5 @@
 import React from 'react';
+import { tanokComponent } from 'tanok';
 
 import Preset from '../Preset'
 
@@ -8,6 +9,7 @@ import IcoTrash from './trash.svg';
 
 import css from '../../style/blocks/content/index.styl';
 
+@tanokComponent
 export default class Content extends React.Component {
     constructor(props) {
         super(props);
@@ -16,7 +18,7 @@ export default class Content extends React.Component {
     }
 
     onEdit() {
-        this.props.onPresetEdit(true);
+        this.send('onPresetEdit', true);
     }
 
     render () {
@@ -58,7 +60,3 @@ export default class Content extends React.Component {
         );
     }
 }
-
-Content.propTypes = {
-    onPresetEdit: React.PropTypes.func
-};

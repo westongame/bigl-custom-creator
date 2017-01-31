@@ -1,10 +1,12 @@
 import React from 'react';
+import { tanokComponent } from 'tanok';
 
 import EditImage from '../EditImage';
 import Preset from '../Preset';
 
 import css from '../../style/blocks/pane/index.styl';
 
+@tanokComponent
 export default class Pane extends React.Component {
     constructor(props) {
         super(props);
@@ -14,7 +16,7 @@ export default class Pane extends React.Component {
     }
 
     onEditCancel() {
-        this.props.onPresetEdit(false);
+        this.send('onPresetEdit', false);
     }
 
     renderActionsSection() {
@@ -72,6 +74,5 @@ export default class Pane extends React.Component {
 }
 
 Pane.propTypes = {
-    onPresetEdit: React.PropTypes.func,
     isEditingPreset: React.PropTypes.bool
 };
