@@ -36,7 +36,7 @@ export default class Workspace extends React.Component {
                     />
                     <div className={css.workspace__contentContainer}>
                         <div className={css.workspace__sidebar}>
-                            <SideBar />
+                            <SideBar/>
                         </div>
                         <div className={css.workspace__content}>
                             <Content tanokStream={this.props.tanokStream} />
