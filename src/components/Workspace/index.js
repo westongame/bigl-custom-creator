@@ -1,6 +1,7 @@
 import React from 'react';
 import { tanokComponent } from 'tanok';
 
+import SideBar from '../SideBar';
 import Content from '../Content';
 
 import css from '../../style/blocks/workspace/index.styl';
@@ -35,7 +36,7 @@ export default class Workspace extends React.Component {
                     />
                     <div className={css.workspace__contentContainer}>
                         <div className={css.workspace__sidebar}>
-                            sidebar
+                            <SideBar />
                         </div>
                         <div className={css.workspace__content}>
                             <Content tanokStream={this.props.tanokStream} />
