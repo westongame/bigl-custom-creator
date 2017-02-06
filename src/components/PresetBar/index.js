@@ -30,6 +30,7 @@ export default class PresetBar extends React.Component {
                         <div
                             className={css.presetBar__button}
                             title="Remove"
+                            onClick={this.props.onDelete}
                         >
                             <IcoTrash className={css.presetBar__buttonIco} />
                         </div>
@@ -45,5 +46,6 @@ export default class PresetBar extends React.Component {
 }
 
 PresetBar.propTypes = {
-    onEdit: React.PropTypes.func
+    onEdit: React.PropTypes.func,
+    onDelete: React.PropTypes.func
 };

@@ -11,18 +11,7 @@ export default class Content extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            barVisibility: false
-        };
-
-        this.onItemHover = this.onItemHover.bind(this);
         this.onEdit = this.onEdit.bind(this);
-    }
-
-    onItemHover() {
-        this.setState({
-            barVisibility: !this.state.barVisibility
-        });
     }
 
     onEdit() {
@@ -32,18 +21,8 @@ export default class Content extends React.Component {
     render () {
         return (
             <div className={css.content}>
-                <div
-                    className={css.content__item}
-                    onMouseEnter={this.onItemHover}
-                    onMouseLeave={this.onItemHover}
-                >
-                    {
-                        this.state.barVisibility ?
-                            <PresetBar
-                                onEdit={this.onEdit}
-                            />
-                        : null
-                    }
+                <div className={css.content__item}>
+                    <PresetBar onEdit={this.onEdit} />
                     <Preset />
                 </div>
             </div>

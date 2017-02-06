@@ -7,7 +7,6 @@
         left: 0
 
         &:before
-            content: ''
             position: absolute
             top: 0
             left: 0
@@ -15,3 +14,10 @@
             right: 0
             border: 2px solid #373737
             opacity: .8
+
+        &:hover
+            &:before
+                content: ''
+
+            .presetBar__container
+                opacity: .9

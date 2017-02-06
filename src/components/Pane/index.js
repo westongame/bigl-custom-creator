@@ -11,15 +11,42 @@ export default class Pane extends React.Component {
     constructor(props) {
         super(props);
 
+        this.onBlur = this.onBlur.bind(this);
         this.renderActionsSection = this.renderActionsSection.bind(this);
         this.onEditCancel = this.onEditCancel.bind(this);
     }
 
+    onBlur(event) {
+        const updatedMenuPresets = this.props.menuPresets;
+        const value = event.currentTarget.value;
+
+        for (let i = 0; i < value; i++) {
+            updatedMenuPresets[this.props.indexOfEditingMenuPreset].links.push(
+                {
+                    text: 'Link'
+                }
+            );
+        }
+
+        this.send('updateMenuPresets', updatedMenuPresets);
+    }
+    
     onEditCancel() {
         this.send('onPresetEdit', false);
     }
 
     renderActionsSection() {
+        if (this.props.isEditingMenuPreset) {
+            return (
+                <div>
+                    <input
+                        type="number"
+                        onBlur={this.onBlur}
+                    />
+                </div>
+            );
+        }
+
         if (this.props.isEditingPreset) {
             return (
                 <div>
@@ -74,5 +101,8 @@ export default class Pane extends React.Component {
 }
 
 Pane.propTypes = {
+    isEditingMenuPreset: React.PropTypes.bool,
+    menuPresets: React.PropTypes.array,
+    indexOfEditingMenuPreset: React.PropTypes.number,
     isEditingPreset: React.PropTypes.bool
 };

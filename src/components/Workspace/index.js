@@ -36,7 +36,10 @@ export default class Workspace extends React.Component {
                     />
                     <div className={css.workspace__contentContainer}>
                         <div className={css.workspace__sidebar}>
-                            <SideBar/>
+                            <SideBar
+                                menuPresets={this.props.menuPresets}
+                                tanokStream={this.props.tanokStream}
+                            />
                         </div>
                         <div className={css.workspace__content}>
                             <Content tanokStream={this.props.tanokStream} />
@@ -47,3 +50,7 @@ export default class Workspace extends React.Component {
         );
     }
 }
+
+Workspace.propTypes = {
+    menuPresets: React.PropTypes.array
+};
