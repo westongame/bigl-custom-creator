@@ -1,16 +1,27 @@
 :local
     .pane__presetContainer
+        display: flex
+        height: 80px
+        margin-bottom: 20px
+        padding: 5px
+        box-sizing: border-box
         border: 1px solid #ddd
         border-radius: 4px
-        margin-bottom: 10px
+        background-color: #fafafa
         cursor: pointer
-        padding: 5px
         user-select: none
 
         &:hover
             box-shadow: 1px 1px 3px 1px #eee
 
         &:active
-            box-shadow: 0 0 1px 1px #eee inset
-            padding-top: 6px
-            padding-bottom: 4px
+            position: relative
+            top: 2px
+            box-shadow: 0 0 3px 3px #eee inset
+
+        @media screen and (min-width: 1800px)
+            display: inline-flex
+            width: calc(50% - 10px)
+
+            &:nth-child(odd)
+                margin-left: 20px
