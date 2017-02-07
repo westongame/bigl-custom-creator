@@ -27,6 +27,7 @@ export default class Sidebar extends React.Component {
 
         delete updatedMenuPresets[index];
 
+        this.send('onMenuPresetEdit', false);
         this.send('updateMenuPresets', updatedMenuPresets);
     }
 

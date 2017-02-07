@@ -15,7 +15,9 @@ export default class MenuPreset extends React.Component {
         this.props.menuProps.links.forEach((item, index) => {
             items.push(
                 <div className={css.categoryTree__item} key={index}>
-                    <a className={css.categoryTree__link} href="#">{item.text}</a>
+                    <a className={css.categoryTree__link} href={item.href}>
+                        {item.text}
+                    </a>
                 </div>
             );
         });
@@ -26,7 +28,9 @@ export default class MenuPreset extends React.Component {
     render() {
         return (
             <div className={css.categoryTree}>
-                <div className={css.categoryTree__title}>{this.props.menuProps.title}</div>
+                <div className={css.categoryTree__title}>
+                    {this.props.menuProps.title}
+                </div>
                 <div className={css.categoryTree__container}>
                     {this.renderLinks()}
                 </div>

@@ -9,6 +9,7 @@ export default class EditMenuPreset extends React.Component {
         this.updateMenuPresets = this.updateMenuPresets.bind(this);
         this.onFocus = this.onFocus.bind(this);
         this.handleCountInputChange = this.handleCountInputChange.bind(this);
+        this.handleTitleInputChange = this.handleTitleInputChange.bind(this);
         this.changeLinksCount = this.changeLinksCount.bind(this);
         this.renderLinkItems = this.renderLinkItems.bind(this);
     }
@@ -45,6 +46,20 @@ export default class EditMenuPreset extends React.Component {
         this.updateMenuPresets(updatedMenuPresets);
     }
 
+    handleTextInputChange(target, index, event) {
+        const updatedMenuPresets = this.props.menuPresets;
+        updatedMenuPresets[this.props.indexOfEditingMenuPreset].links[index][target] = event.currentTarget.value;
+
+        this.updateMenuPresets(updatedMenuPresets);
+    }
+
+    handleTitleInputChange(event) {
+        const updatedMenuPresets = this.props.menuPresets;
+        updatedMenuPresets[this.props.indexOfEditingMenuPreset].title = event.currentTarget.value;
+
+        this.updateMenuPresets(updatedMenuPresets);
+    }
+
     renderLinkItems() {
         const items = [];
 
@@ -52,16 +67,18 @@ export default class EditMenuPreset extends React.Component {
             items.push(
                 <div key={index}>
                     <div>
-                        link text:
                         <input
                             type="text"
+                            value={item.text}
+                            onChange={this.handleTextInputChange.bind(this, 'text', index)}
                             onFocus={this.onFocus}
                         />
                     </div>
                     <div>
-                        link href:
                         <input
                             type="text"
+                            value={item.href}
+                            onChange={this.handleTextInputChange.bind(this, 'href', index)}
                             onFocus={this.onFocus}
                         />
                     </div>
@@ -76,11 +93,17 @@ export default class EditMenuPreset extends React.Component {
     render() {
         return (
             <div>
-                links count:
                 <input
                     type="number"
                     value={this.props.editingMenuPresetLinksCount}
                     onChange={this.handleCountInputChange}
+                    onFocus={this.onFocus}
+                />
+                <br />
+                <input
+                    type="text"
+                    value={this.props.menuPresets[this.props.indexOfEditingMenuPreset].title}
+                    onChange={this.handleTitleInputChange}
                     onFocus={this.onFocus}
                 />
                 <br />
