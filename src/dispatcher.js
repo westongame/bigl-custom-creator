@@ -45,7 +45,7 @@ export default class AppDispatcher extends TanokDispatcher {
 
     @on('DeletePreset')
     DeletePreset(payload, state) {
-        delete state.content[payload];
+        state.content.splice(payload, 1);
         return [state];
     }
 }
