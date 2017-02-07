@@ -4,7 +4,7 @@ import { tanokComponent } from 'tanok';
 import EditImage from '../EditImage';
 import Preset from '../Preset';
 
-import { presets } from '../templates/presets';
+import { presets } from '../../templates/presets';
 
 import css from '../../style/blocks/pane/index.styl';
 
