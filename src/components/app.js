@@ -15,6 +15,7 @@ export default class App extends React.Component {
                     <Workspace
                         tanokStream={this.props.tanokStream}
                         menuPresets={this.props.menuPresets.structure}
+                        content={this.props.content}
                     />
                 </div>
                 <div className={css.editor__paneContainer}>
@@ -39,3 +40,7 @@ export default class App extends React.Component {
         );
     }
 }
+
+App.propTypes = {
+    content: React.PropTypes.array, // TODO more specific proptype needed
+};

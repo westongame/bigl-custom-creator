@@ -42,7 +42,10 @@ export default class Workspace extends React.Component {
                             />
                         </div>
                         <div className={css.workspace__content}>
-                            <Content tanokStream={this.props.tanokStream} />
+                            <Content
+                                content={this.props.content}
+                                tanokStream={this.props.tanokStream}
+                            />
                         </div>
                     </div>
                 </div>
@@ -52,5 +55,6 @@ export default class Workspace extends React.Component {
 }
 
 Workspace.propTypes = {
+    content: React.PropTypes.array, // TODO more specific proptype needed
     menuPresets: React.PropTypes.array
 };

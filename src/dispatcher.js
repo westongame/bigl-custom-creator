@@ -36,4 +36,16 @@ export default class AppDispatcher extends TanokDispatcher {
         state.isEditingPreset = payload;
         return [state];
     }
+
+    @on('AddPreset')
+    AddPreset(payload, state) {
+        state.content.push(payload);
+        return [state];
+    }
+
+    @on('DeletePreset')
+    DeletePreset(payload, state) {
+        delete state.content[payload];
+        return [state];
+    }
 }

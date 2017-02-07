@@ -12,6 +12,7 @@ export default class Content extends React.Component {
         super(props);
 
         this.onEdit = this.onEdit.bind(this);
+        this.onDelete = this.onDelete.bind(this);
     }
 
     onEdit() {
@@ -19,41 +20,27 @@ export default class Content extends React.Component {
         this.send('onPresetEdit', true);
     }
 
+    onDelete(index) {
+        this.send('DeletePreset', index);
+    }
+
     render () {
-        const structure = { columns:
-            [
-                {
-                    columns: [
-                        {
-                            items: [
-                                {
-                                    imageSrc: 'http://static-cache.ua.uaprom.net/custom-view/BIGL/custom-100/custom-100-img1.png',
-                                    title: 'title'
-                                }
-                            ]
-                        },
-                        {
-                            items: [{}]
-                        }
-                    ]
-                },
-                {
-                    items: [
-                        {
-                            imageSrc: 'http://static-cache.ua.uaprom.net/custom-view/BIGL/custom-100/custom-100-img3.png',
-                            title: 'title'
-                        }
-                    ]
-                }
-            ]
-        };
         return (
             <div className={css.content}>
-                <div className={css.content__item}>
-                    <PresetBar onEdit={this.onEdit} />
-                    <Preset structure={structure} />
-                </div>
+                {this.props.content.map((item, index) => (
+                    <div key={index} className={css.content__item}>
+                        <PresetBar
+                            onEdit={this.onEdit}
+                            onDelete={() => this.onDelete(index)}
+                        />
+                        <Preset structure={item} />
+                    </div>
+                ))}
             </div>
         );
     }
 }
+
+Content.propTypes = {
+    content: React.PropTypes.array, // TODO more specific proptype needed
+};

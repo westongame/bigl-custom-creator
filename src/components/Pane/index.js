@@ -3,9 +3,7 @@ import { tanokComponent } from 'tanok';
 
 import EditMenuPreset from '../EditMenuPreset';
 import EditImage from '../EditImage';
-import Preset from '../Preset';
-
-import { presets } from '../../templates/presets';
+import AddPreset from '../AddPreset';
 
 import css from '../../style/blocks/pane/index.styl';
 
@@ -66,16 +64,7 @@ export default class Pane extends React.Component {
             );
         }
 
-        return (
-            <div>
-                <div className={css.pane__title}>Presets</div>
-                {presets.map((item, index) => (
-                    <div key={index} className={css.pane__presetContainer}>
-                        <Preset structure={item} />
-                    </div>
-                ))}
-            </div>
-        );
+        return <AddPreset tanokStream={this.props.tanokStream} />
     }
 
     render() {

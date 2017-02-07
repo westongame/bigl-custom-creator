@@ -6,22 +6,22 @@ import cssImage from '../../style/blocks/image-holder/index.styl';
 import IcoPlaceholder from './empty-image.svg';
 
 export default class Preset extends React.Component {
-    makeGridColumn(structure, id) {
+    makeGridColumn(structure, key) {
         return (
-            <div key={id} className={cssGrid.grid__column}>
+            <div key={key} className={cssGrid.grid__column}>
                 {this.generateMarkup(structure)}
             </div>
         )
     }
 
-    makeGridItem(content, id) {
+    makeGridItem(content, key) {
         let image = <IcoPlaceholder className={cssImage.imageHolder__placeholder} />;
         if (content.imageSrc && content.title) {
             image = <img className={cssImage.imageHolder__img} src={content.imageSrc} alt={content.title} />
         }
 
         return (
-            <div key={id} className={cssGrid.grid__row}>
+            <div key={key} className={cssGrid.grid__row}>
                 <div className={cssGrid.grid__item}>
                     <div className={cssImage.imageHolder}>
                         {image}
@@ -35,11 +35,11 @@ export default class Preset extends React.Component {
         if (structure.columns) {
             return (
                 <div className={cssGrid.grid__row}>
-                    {structure.columns.map((structure, id) => this.makeGridColumn(structure, id))}
+                    {structure.columns.map((structure, key) => this.makeGridColumn(structure, key))}
                 </div>
             )
         } else if (structure.items) {
-            return structure.items.map((content, id) => this.makeGridItem(content, id))
+            return structure.items.map((content, key) => this.makeGridItem(content, key))
         }
     }
 
@@ -53,5 +53,5 @@ export default class Preset extends React.Component {
 }
 
 Preset.propTypes = {
-    structure: React.PropTypes.object
+    structure: React.PropTypes.object, // TODO more specific proptype needed
 };

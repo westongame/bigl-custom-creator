@@ -2,6 +2,7 @@ import { menuPresetTemplate } from './templates/menuPreset';
 
 export default class Model {
     constructor() {
+        this.content = [];
         this.menuPresets = {
             structure: menuPresetTemplate,
             isEditing: false,
