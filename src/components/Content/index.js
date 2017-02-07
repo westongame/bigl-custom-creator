@@ -15,6 +15,7 @@ export default class Content extends React.Component {
     }
 
     onEdit() {
+        this.send('onMenuPresetEdit', false);
         this.send('onPresetEdit', true);
     }
 

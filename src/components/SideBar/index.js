@@ -15,17 +15,17 @@ export default class Sidebar extends React.Component {
         this.renderItems = this.renderItems.bind(this);
     }
 
-    onEdit(item) {
+    onEdit(item, index) {
         this.send('onPresetEdit', false);
-        this.send('editingMenuPresetIndex', this.props.menuPresets.indexOf(item));
+        this.send('editingMenuPresetIndex', index);
+        this.send('editingMenuPresetLinksCount', item.links.length);
         this.send('onMenuPresetEdit', true);
     }
 
-    onDelete(item) {
+    onDelete(index) {
         const updatedMenuPresets = this.props.menuPresets;
-        const itemIndex = updatedMenuPresets.indexOf(item);
 
-        delete updatedMenuPresets[itemIndex];
+        delete updatedMenuPresets[index];
 
         this.send('updateMenuPresets', updatedMenuPresets);
     }
@@ -35,10 +35,19 @@ export default class Sidebar extends React.Component {
 
         updatedMenuPresets.push(
             {
-                title: 'Title',
+                title: 'Menu title',
                 links: [
                     {
-                        text: 'Link'
+                        text: 'Link',
+                        href: '#'
+                    },
+                    {
+                        text: 'Link',
+                        href: '#'
+                    },
+                    {
+                        text: 'Link',
+                        href: '#'
                     }
                 ]
             }
@@ -57,8 +66,8 @@ export default class Sidebar extends React.Component {
                     key={index}
                 >
                     <PresetBar
-                        onEdit={this.onEdit.bind(this, item)}
-                        onDelete={this.onDelete.bind(this, item)}
+                        onEdit={this.onEdit.bind(this, item, index)}
+                        onDelete={this.onDelete.bind(this, index)}
                     />
                     <MenuPreset menuProps={item} />
                 </div>

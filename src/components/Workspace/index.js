@@ -37,8 +37,8 @@ export default class Workspace extends React.Component {
                     <div className={css.workspace__contentContainer}>
                         <div className={css.workspace__sidebar}>
                             <SideBar
-                                menuPresets={this.props.menuPresets}
                                 tanokStream={this.props.tanokStream}
+                                menuPresets={this.props.menuPresets}
                             />
                         </div>
                         <div className={css.workspace__content}>

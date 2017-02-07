@@ -8,44 +8,22 @@ import BottomBar from './BottomBar';
 import css from '../style/blocks/editor/index.styl';
 
 export default class App extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.addMenuPreset = this.addMenuPreset.bind(this);
-    }
-
-    addMenuPreset() {
-        this.state.menuPresets.push(
-            {
-                title: 'Title',
-                links: [
-                    {
-                        text: 'Link'
-                    }
-                ]
-            }
-        );
-
-        this.setState({
-            menuPresets: this.state.menuPresets
-        });
-    }
-
     render() {
         return (
             <div className={css.editor}>
                 <div className={css.editor__workspaceContainer}>
                     <Workspace
-                        menuPresets={this.props.menuPresets}
                         tanokStream={this.props.tanokStream}
+                        menuPresets={this.props.menuPresets.structure}
                     />
                 </div>
                 <div className={css.editor__paneContainer}>
                     <Pane
                         tanokStream={this.props.tanokStream}
-                        isEditingMenuPreset={this.props.isEditingMenuPreset}
-                        menuPresets={this.props.menuPresets}
-                        indexOfEditingMenuPreset={this.props.indexOfEditingMenuPreset}
+                        menuPresets={this.props.menuPresets.structure}
+                        isEditingMenuPreset={this.props.menuPresets.isEditing}
+                        indexOfEditingMenuPreset={this.props.menuPresets.editingIndex}
+                        editingMenuPresetLinksCount={this.props.menuPresets.editingLinksCount}
                         isEditingPreset={this.props.isEditingPreset}
                     />
                 </div>

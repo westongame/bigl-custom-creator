@@ -1,6 +1,7 @@
 import React from 'react';
 import { tanokComponent } from 'tanok';
 
+import EditMenuPreset from '../EditMenuPreset';
 import EditImage from '../EditImage';
 import Preset from '../Preset';
 
@@ -13,24 +14,8 @@ export default class Pane extends React.Component {
     constructor(props) {
         super(props);
 
-        this.onBlur = this.onBlur.bind(this);
         this.renderActionsSection = this.renderActionsSection.bind(this);
         this.onEditCancel = this.onEditCancel.bind(this);
-    }
-
-    onBlur(event) {
-        const updatedMenuPresets = this.props.menuPresets;
-        const value = event.currentTarget.value;
-
-        for (let i = 0; i < value; i++) {
-            updatedMenuPresets[this.props.indexOfEditingMenuPreset].links.push(
-                {
-                    text: 'Link'
-                }
-            );
-        }
-
-        this.send('updateMenuPresets', updatedMenuPresets);
     }
 
     onEditCancel() {
@@ -40,12 +25,12 @@ export default class Pane extends React.Component {
     renderActionsSection() {
         if (this.props.isEditingMenuPreset) {
             return (
-                <div>
-                    <input
-                        type="number"
-                        onBlur={this.onBlur}
-                    />
-                </div>
+                <EditMenuPreset
+                    tanokStream={this.props.tanokStream}
+                    menuPresets={this.props.menuPresets}
+                    indexOfEditingMenuPreset={this.props.indexOfEditingMenuPreset}
+                    editingMenuPresetLinksCount={this.props.editingMenuPresetLinksCount}
+                />
             );
         }
 
@@ -105,8 +90,9 @@ export default class Pane extends React.Component {
 }
 
 Pane.propTypes = {
-    isEditingMenuPreset: React.PropTypes.bool,
     menuPresets: React.PropTypes.array,
+    isEditingMenuPreset: React.PropTypes.bool,
     indexOfEditingMenuPreset: React.PropTypes.number,
+    editingMenuPresetLinksCount: React.PropTypes.number,
     isEditingPreset: React.PropTypes.bool
 };
