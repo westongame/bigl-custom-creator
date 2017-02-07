@@ -25,17 +25,27 @@ export default class Content extends React.Component {
     }
 
     render () {
+        const { content } = this.props;
+        const placeholder = (
+            <div className={css.content__placeholder}>
+                Add some presets here ==>
+            </div>
+        );
+
         return (
             <div className={css.content}>
-                {this.props.content.map((item, index) => (
-                    <div key={index} className={css.content__item}>
-                        <PresetBar
-                            onEdit={this.onEdit}
-                            onDelete={() => this.onDelete(index)}
-                        />
-                        <Preset structure={item} />
-                    </div>
-                ))}
+                { content.length
+                    ? content.map((item, index) => (
+                        <div key={index} className={css.content__item}>
+                            <PresetBar
+                                onEdit={this.onEdit}
+                                onDelete={() => this.onDelete(index)}
+                            />
+                            <Preset structure={item} />
+                        </div>
+                    ))
+                    : placeholder
+                }
             </div>
         );
     }
