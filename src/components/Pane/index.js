@@ -18,17 +18,36 @@ export default class Pane extends React.Component {
 
     onEditCancel() {
         this.send('onPresetEdit', false);
+        this.send('onMenuPresetEdit', false);
     }
 
     renderActionsSection() {
         if (this.props.isEditingMenuPreset) {
             return (
-                <EditMenuPreset
-                    tanokStream={this.props.tanokStream}
-                    menuPresets={this.props.menuPresets}
-                    indexOfEditingMenuPreset={this.props.indexOfEditingMenuPreset}
-                    editingMenuPresetLinksCount={this.props.editingMenuPresetLinksCount}
-                />
+                <div>
+                    <div className={css.pane__title}>Edit menu</div>
+                    <div className={css.pane__menuEditContainer}>
+                        <EditMenuPreset
+                            tanokStream={this.props.tanokStream}
+                            menuPresets={this.props.menuPresets}
+                            indexOfEditingMenuPreset={this.props.indexOfEditingMenuPreset}
+                            editingMenuPresetLinksCount={this.props.editingMenuPresetLinksCount}
+                        />
+                    </div>
+                    <div className={css.pane__btnHolder}>
+                        <div
+                            className={css.pane__btn}
+                            onClick={this.onEditCancel}
+                        >
+                            Cancel
+                        </div>
+                    </div>
+                    <div className={css.pane__btnHolder}>
+                        <div className={css.pane__btn}>
+                            Save
+                        </div>
+                    </div>
+                </div>
             );
         }
 

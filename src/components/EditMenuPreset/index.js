@@ -1,6 +1,9 @@
 import React from 'react';
 import { tanokComponent } from 'tanok';
 
+import css from '../../style/blocks/edit-menu/index.styl';
+import cssInput from '../../style/blocks/textbox/index.styl';
+
 @tanokComponent
 export default class EditMenuPreset extends React.Component {
     constructor(props) {
@@ -65,24 +68,33 @@ export default class EditMenuPreset extends React.Component {
 
         this.props.menuPresets[this.props.indexOfEditingMenuPreset].links.forEach((item, index) => {
             items.push(
-                <div key={index}>
-                    <div>
-                        <input
-                            type="text"
-                            value={item.text}
-                            onChange={this.handleTextInputChange.bind(this, 'text', index)}
-                            onFocus={this.onFocus}
-                        />
+                <div
+                    className={css.editMenu__item}
+                    key={index}
+                >
+                    <div className={css.editMenu__title}>
+                        Link {index + 1}:
                     </div>
-                    <div>
-                        <input
-                            type="text"
-                            value={item.href}
-                            onChange={this.handleTextInputChange.bind(this, 'href', index)}
-                            onFocus={this.onFocus}
-                        />
+                    <div className={css.editMenu__inputHolder}>
+                        <div className={css.editMenu__inputWrapper}>
+                            <input
+                                className={cssInput.textbox}
+                                type="text"
+                                value={item.text}
+                                onChange={this.handleTextInputChange.bind(this, 'text', index)}
+                                onFocus={this.onFocus}
+                            />
+                        </div>
+                        <div className={css.editMenu__inputWrapper}>
+                            <input
+                                className={cssInput.textbox}
+                                type="text"
+                                value={item.href}
+                                onChange={this.handleTextInputChange.bind(this, 'href', index)}
+                                onFocus={this.onFocus}
+                            />
+                        </div>
                     </div>
-                    <br />
                 </div>
             );
         });
@@ -92,24 +104,36 @@ export default class EditMenuPreset extends React.Component {
 
     render() {
         return (
-            <div>
-                <input
-                    type="number"
-                    value={this.props.editingMenuPresetLinksCount}
-                    onChange={this.handleCountInputChange}
-                    onFocus={this.onFocus}
-                />
-                <br />
-                <input
-                    type="text"
-                    value={this.props.menuPresets[this.props.indexOfEditingMenuPreset].title}
-                    onChange={this.handleTitleInputChange}
-                    onFocus={this.onFocus}
-                />
-                <br />
-                <div>
-                    {this.renderLinkItems()}
+            <div className={css.editMenu}>
+                <div className={css.editMenu__item}>
+                    <div className={css.editMenu__title}>
+                        Links count:
+                    </div>
+                    <div className={css.editMenu__inputHolder}>
+                        <input
+                            className={[cssInput.textbox, cssInput.textbox_type_number].join(' ')}
+                            type="number"
+                            value={this.props.editingMenuPresetLinksCount}
+                            onChange={this.handleCountInputChange}
+                            onFocus={this.onFocus}
+                        />
+                    </div>
                 </div>
+                <div className={css.editMenu__item}>
+                    <div className={css.editMenu__title}>
+                        Menu title:
+                    </div>
+                    <div className={css.editMenu__inputHolder}>
+                        <input
+                            className={cssInput.textbox}
+                            type="text"
+                            value={this.props.menuPresets[this.props.indexOfEditingMenuPreset].title}
+                            onChange={this.handleTitleInputChange}
+                            onFocus={this.onFocus}
+                        />
+                    </div>
+                </div>
+                {this.renderLinkItems()}
             </div>
         );
     }

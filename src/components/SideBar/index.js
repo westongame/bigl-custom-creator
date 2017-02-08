@@ -82,8 +82,13 @@ export default class Sidebar extends React.Component {
         return (
             <div className={css.sidebar}>
                 {this.renderItems()}
-                <div className={css.sidebar__item}>
-                    <button onClick={this.onAdd}>Add menu preset</button>
+                <div className={css.sidebar__btnHolder}>
+                    <div
+                        className={css.sidebar__plusBtn}
+                        onClick={this.onAdd}
+                    >
+                        +
+                    </div>
                 </div>
             </div>
         );
