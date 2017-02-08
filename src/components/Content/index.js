@@ -23,6 +23,7 @@ export default class Content extends React.Component {
 
     onDelete(index) {
         this.send('DeletePreset', index);
+        this.send('onPresetEdit', false);
     }
 
     render () {
