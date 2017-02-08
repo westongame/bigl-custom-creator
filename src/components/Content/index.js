@@ -15,9 +15,10 @@ export default class Content extends React.Component {
         this.onDelete = this.onDelete.bind(this);
     }
 
-    onEdit() {
+    onEdit(index) {
         this.send('onMenuPresetEdit', false);
         this.send('onPresetEdit', true);
+        this.send('setContentEditIndex', index);
     }
 
     onDelete(index) {
@@ -38,7 +39,7 @@ export default class Content extends React.Component {
                     ? content.map((item, index) => (
                         <div key={index} className={css.content__item}>
                             <PresetBar
-                                onEdit={this.onEdit}
+                                onEdit={() =>this.onEdit(index)}
                                 onDelete={() => this.onDelete(index)}
                             />
                             <Preset structure={item} />

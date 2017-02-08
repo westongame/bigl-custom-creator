@@ -2,8 +2,8 @@ import React from 'react';
 import { tanokComponent } from 'tanok';
 
 import EditMenuPreset from '../EditMenuPreset';
-import EditImage from '../EditImage';
 import AddPreset from '../AddPreset';
+import EditPreset from '../EditPreset';
 
 import css from '../../style/blocks/pane/index.styl';
 
@@ -11,7 +11,6 @@ import css from '../../style/blocks/pane/index.styl';
 export default class Pane extends React.Component {
     constructor(props) {
         super(props);
-
         this.renderActionsSection = this.renderActionsSection.bind(this);
         this.onEditCancel = this.onEditCancel.bind(this);
     }
@@ -54,17 +53,12 @@ export default class Pane extends React.Component {
         if (this.props.isEditingPreset) {
             return (
                 <div>
-                    <div className={css.pane__title}>Images</div>
+                    <div className={css.pane__title}>Edit preset</div>
                     <div className={css.pane__imageEditContainer}>
-                        <div className={css.pane__imageEditContainerItem}>
-                            <EditImage />
-                        </div>
-                        <div className={css.pane__imageEditContainerItem}>
-                            <EditImage />
-                        </div>
-                        <div className={css.pane__imageEditContainerItem}>
-                            <EditImage />
-                        </div>
+                        <EditPreset
+                            tanokStream={this.props.tanokStream}
+                            block={this.props.content[this.props.contentEditIndex]}
+                        />
                     </div>
                     <div className={css.pane__btnHolder}>
                         <div
@@ -98,6 +92,8 @@ export default class Pane extends React.Component {
 }
 
 Pane.propTypes = {
+    content: React.PropTypes.array, // TODO more specific proptype needed
+    contentEditIndex: React.PropTypes.number,
     menuPresets: React.PropTypes.array,
     isEditingMenuPreset: React.PropTypes.bool,
     indexOfEditingMenuPreset: React.PropTypes.number,

@@ -37,6 +37,18 @@ export default class AppDispatcher extends TanokDispatcher {
         return [state];
     }
 
+    @on('setContentEditIndex')
+    setContentEditIndex(payload, state) {
+        state.contentEditIndex = payload;
+        return [state];
+    }
+
+    @on('updateContentItem')
+    updateContentItem(payload, state) {
+        state.content[state.contentEditIndex] = payload
+        return [state];
+    }
+
     @on('AddPreset')
     AddPreset(payload, state) {
         state.content.push(payload);

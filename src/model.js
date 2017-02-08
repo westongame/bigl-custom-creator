@@ -9,6 +9,7 @@ export default class Model {
             editingIndex: 0,
             editingLinksCount: 0
         };
+        this.contentEditIndex = 0;
         this.isEditingPreset = false;
         this.customTitle = 'Untitled';
     }

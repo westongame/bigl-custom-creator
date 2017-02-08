@@ -21,6 +21,8 @@ export default class App extends React.Component {
                 <div className={css.editor__paneContainer}>
                     <Pane
                         tanokStream={this.props.tanokStream}
+                        content={this.props.content}
+                        contentEditIndex={this.props.contentEditIndex}
                         menuPresets={this.props.menuPresets.structure}
                         isEditingMenuPreset={this.props.menuPresets.isEditing}
                         indexOfEditingMenuPreset={this.props.menuPresets.editingIndex}
