@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import cssGrid from '../../style/blocks/grid/index.styl';
 import cssImage from '../../style/blocks/image-holder/index.styl';
@@ -28,7 +29,10 @@ export default class Preset extends React.Component {
                     href={content.link}
                     title={content.title}
                 >
-                    <div className={cssImage.imageHolder}>
+                    <div className={classNames(
+                        cssImage.imageHolder,
+                        { [cssImage.imageHolder_type_preview]: this.props.isPreviewMode }
+                    )}>
                         {image}
                     </div>
                 </a>
@@ -58,5 +62,6 @@ export default class Preset extends React.Component {
 }
 
 Preset.propTypes = {
+    isPreviewMode: React.PropTypes.bool,
     structure: React.PropTypes.object, // TODO more specific proptype needed
 };

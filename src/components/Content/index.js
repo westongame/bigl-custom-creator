@@ -28,22 +28,33 @@ export default class Content extends React.Component {
 
     render () {
         const { content } = this.props;
-        const placeholder = (
+        let placeholder = (
             <div className={css.content__placeholder}>
                 Add some presets here ==>
             </div>
         );
+
+        if(this.props.isPreviewMode) {
+            placeholder = null;
+        }
 
         return (
             <div className={css.content}>
                 { content.length
                     ? content.map((item, index) => (
                         <div key={index} className={css.content__item}>
-                            <PresetBar
-                                onEdit={() =>this.onEdit(index)}
-                                onDelete={() => this.onDelete(index)}
+                            {
+                                !this.props.isPreviewMode ?
+                                    <PresetBar
+                                        onEdit={() =>this.onEdit(index)}
+                                        onDelete={() => this.onDelete(index)}
+                                    />
+                                : null
+                            }
+                            <Preset
+                                isPreviewMode={this.props.isPreviewMode}
+                                structure={item}
                             />
-                            <Preset structure={item} />
                         </div>
                     ))
                     : placeholder
@@ -54,5 +65,6 @@ export default class Content extends React.Component {
 }
 
 Content.propTypes = {
+    isPreviewMode: React.PropTypes.bool,
     content: React.PropTypes.array, // TODO more specific proptype needed
 };

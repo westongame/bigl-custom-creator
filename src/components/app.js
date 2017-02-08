@@ -1,19 +1,41 @@
 import React from 'react';
+import { tanokComponent } from 'tanok';
+import classNames from 'classnames';
 
 import Workspace from './Workspace';
 import Pane from './Pane';
 import TopBar from './TopBar';
 import BottomBar from './BottomBar';
 
+import IcoCross from './cross.svg';
+
 import css from '../style/blocks/editor/index.styl';
 
+@tanokComponent
 export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.exitPreviewMode = this.exitPreviewMode.bind(this);
+    }
+
+    exitPreviewMode() {
+        this.send('previewMode', false);
+    }
+
     render() {
         return (
-            <div className={css.editor}>
+            <div className={classNames(css.editor, { [css.editor_type_preview]: this.props.isPreviewMode })}>
+                <div className={css.editor__barContainer}>
+                    <TopBar
+                        tanokStream={this.props.tanokStream}
+                        isPreviewMode={this.props.isPreviewMode}
+                    />
+                </div>
                 <div className={css.editor__workspaceContainer}>
                     <Workspace
                         tanokStream={this.props.tanokStream}
+                        isPreviewMode={this.props.isPreviewMode}
                         menuPresets={this.props.menuPresets.structure}
                         content={this.props.content}
                     />
@@ -30,14 +52,22 @@ export default class App extends React.Component {
                         isEditingPreset={this.props.isEditingPreset}
                     />
                 </div>
-                <div className={css.editor__barContainer}>
-                    <TopBar />
-                </div>
                 <div className={[css.editor__barContainer, css.editor__barContainer_position_bottom].join(' ')}>
-                    <BottomBar
-                        customTitle={this.props.customTitle}
-                    />
+                    <BottomBar customTitle={this.props.customTitle}/>
                 </div>
+                {
+                    this.props.isPreviewMode ?
+                        <div
+                            className={css.editor__previewExitBtn}
+                            onClick={this.exitPreviewMode}
+                        >
+                            <span className={css.editor__previewExitBtnText}>
+                                Exit preview mode
+                            </span>
+                            <IcoCross className={css.editor__previewExitBtnIco} />
+                        </div>
+                    : null
+                }
             </div>
         );
     }

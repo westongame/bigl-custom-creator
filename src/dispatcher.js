@@ -1,6 +1,12 @@
 import { TanokDispatcher, on } from 'tanok';
 
 export default class AppDispatcher extends TanokDispatcher {
+    @on('previewMode')
+    previewMode(payload, state) {
+        state.isPreviewMode = payload;
+        return [state];
+    }
+    
     @on('onTitleEdit')
     onTitleEdit(payload, state) {
         state.customTitle = payload;

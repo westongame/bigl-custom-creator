@@ -1,0 +1,18 @@
+:local
+    .editor__previewExitBtn
+        position: fixed
+        right: 15px
+        top: 15px
+        opacity: .6
+        transition: opacity .1s
+        cursor: pointer
+
+        &:hover
+            opacity: 1
+
+            .editor__previewExitBtnText
+                &:after
+                    display: none
+
+            .editor__previewExitBtnIco
+                fill: #f55832

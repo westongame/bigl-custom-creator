@@ -66,10 +66,14 @@ export default class Sidebar extends React.Component {
                     className={css.sidebar__item}
                     key={index}
                 >
-                    <PresetBar
-                        onEdit={this.onEdit.bind(this, item, index)}
-                        onDelete={this.onDelete.bind(this, index)}
-                    />
+                    {
+                        !this.props.isPreviewMode ?
+                            <PresetBar
+                                onEdit={this.onEdit.bind(this, item, index)}
+                                onDelete={this.onDelete.bind(this, index)}
+                            />
+                        : null
+                    }
                     <MenuPreset menuProps={item} />
                 </div>
             );
@@ -82,19 +86,24 @@ export default class Sidebar extends React.Component {
         return (
             <div className={css.sidebar}>
                 {this.renderItems()}
-                <div className={css.sidebar__btnHolder}>
-                    <div
-                        className={css.sidebar__plusBtn}
-                        onClick={this.onAdd}
-                    >
-                        +
-                    </div>
-                </div>
+                {
+                    !this.props.isPreviewMode ?
+                        <div className={css.sidebar__btnHolder}>
+                            <div
+                                className={css.sidebar__plusBtn}
+                                onClick={this.onAdd}
+                            >
+                                +
+                            </div>
+                        </div>
+                    : null
+                }
             </div>
         );
     }
 }
 
 Sidebar.propTypes = {
+    isPreviewMode: React.PropTypes.bool,
     menuPresets: React.PropTypes.array
 };

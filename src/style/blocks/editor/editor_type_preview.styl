@@ -1,0 +1,18 @@
+:local
+    .editor_type_preview
+        overflow: hidden
+
+        .editor__barContainer
+            transform: translateY(-100%)
+            transition: _animation-duration all _animation-duration
+
+        .editor__barContainer_position_bottom
+            transform: translateY(100%)
+
+        .editor__paneContainer
+            transform: translateX(100%)
+            transition: _animation-duration all
+
+        .editor__workspaceContainer
+            left: 15%
+            transition: _animation-duration all

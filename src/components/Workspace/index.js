@@ -1,5 +1,6 @@
 import React from 'react';
 import { tanokComponent } from 'tanok';
+import classNames from 'classnames';
 
 import SideBar from '../SideBar';
 import Content from '../Content';
@@ -25,12 +26,16 @@ export default class Workspace extends React.Component {
 
     render () {
         return (
-            <div className={css.workspace}>
+            <div className={classNames(
+                css.workspace,
+                { [css.workspace_type_preview]: this.props.isPreviewMode }
+            )}>
                 <div className={css.workspace__wrapper}>
                     <input
                         className={css.workspace__titleInput}
                         type="text"
                         defaultValue="Untitled"
+                        disabled={this.props.isPreviewMode}
                         onFocus={this.onFocus}
                         onBlur={this.onBlur}
                     />
@@ -38,13 +43,15 @@ export default class Workspace extends React.Component {
                         <div className={css.workspace__sidebar}>
                             <SideBar
                                 tanokStream={this.props.tanokStream}
+                                isPreviewMode={this.props.isPreviewMode}
                                 menuPresets={this.props.menuPresets}
                             />
                         </div>
                         <div className={css.workspace__content}>
                             <Content
-                                content={this.props.content}
                                 tanokStream={this.props.tanokStream}
+                                isPreviewMode={this.props.isPreviewMode}
+                                content={this.props.content}
                             />
                         </div>
                     </div>
@@ -55,6 +62,7 @@ export default class Workspace extends React.Component {
 }
 
 Workspace.propTypes = {
+    isPreviewMode: React.PropTypes.bool,
     content: React.PropTypes.array, // TODO more specific proptype needed
     menuPresets: React.PropTypes.array
 };
