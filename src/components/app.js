@@ -53,7 +53,11 @@ export default class App extends React.Component {
                     />
                 </div>
                 <div className={[css.editor__barContainer, css.editor__barContainer_position_bottom].join(' ')}>
-                    <BottomBar customTitle={this.props.customTitle}/>
+                    <BottomBar
+                        customTitle={this.props.customTitle}
+                        menuStructure={this.props.menuPresets.structure}
+                        contentStructure={this.props.content}
+                    />
                 </div>
                 {
                     this.props.isPreviewMode ?

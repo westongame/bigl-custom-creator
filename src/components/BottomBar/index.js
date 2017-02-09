@@ -7,14 +7,16 @@ import IcoDownload from './download.svg';
 export default class BottomBar extends React.Component {
     constructor(props) {
         super(props);
-        
+
         this.onDownload = this.onDownload.bind(this);
     }
 
     onDownload(e) {
         const link = e.currentTarget;
         const data = {
-            title: this.props.customTitle
+            title: this.props.customTitle,
+            menu: this.props.menuStructure,
+            content: this.props.contentStructure,
         };
         const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
         const url = URL.createObjectURL(blob);
