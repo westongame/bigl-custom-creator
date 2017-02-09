@@ -18,8 +18,8 @@ export default class Preset extends React.Component {
     makeGridItem(content, key) {
         let image = <IcoPlaceholder className={cssImage.imageHolder__placeholder} />;
 
-        if (content.imageSrc && content.title) {
-            image = <img className={cssImage.imageHolder__img} src={content.imageSrc} alt={content.title} />
+        if (content.imageSrc) {
+            image = <img className={cssImage.imageHolder__img} src={content.imageSrc} alt={content.title || ''} />
         }
 
         return (

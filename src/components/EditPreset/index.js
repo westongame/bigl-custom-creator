@@ -14,6 +14,7 @@ export default class EditPreset extends React.Component {
         this.onFocus = this.onFocus.bind(this);
         this.getItems = this.getItems.bind(this);
         this.updateBlock = this.updateBlock.bind(this);
+        this.onImageUpload = this.onImageUpload.bind(this);
     }
 
     onFocus(event) {
@@ -40,6 +41,17 @@ export default class EditPreset extends React.Component {
         this.send('updateContentItem', updatedBlock)
     }
 
+    onImageUpload(id, event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+             let updatedBlock = this.updateBlock(this.props.block, id, 'imageSrc', e.target.result);
+             updatedBlock = this.updateBlock(this.props.block, id, 'imageName', file.name);
+             this.send('updateContentItem', updatedBlock)
+        };
+        reader.readAsDataURL(file);
+    }
+
     getItems(structure, id='0') {
         if (structure.columns) {
             return structure.columns.map((structure, index) => this.getItems(structure, id + index))
@@ -48,7 +60,11 @@ export default class EditPreset extends React.Component {
                 id = id + index;
                 return (
                     <div key={id} className={css.pane__imageEditContainerItem}>
-                        <EditImage imageSrc={content.imageSrc} />
+                        <EditImage
+                            imageSrc={content.imageSrc}
+                            imageName={content.imageName}
+                            onChange={(e) => this.onImageUpload(id, e)}
+                        />
                         <div className={cssEdit.editMenu__item}>
                             <div className={cssEdit.editMenu__title}>
                                 Title:
