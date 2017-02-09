@@ -10,7 +10,6 @@ const PRODUCTION = process.env.NODE_ENV === 'production';
 let externals = {
     'react': 'React',
     'react-dom': 'ReactDOM',
-    'classnames': 'classNames'
 };
 let entry = [ './src/index.js' ];
 let publicPath = './';
