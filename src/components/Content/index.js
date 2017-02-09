@@ -30,7 +30,7 @@ export default class Content extends React.Component {
         const { content } = this.props;
         let placeholder = (
             <div className={css.content__placeholder}>
-                Add some presets here ==>
+                Add some presets here
             </div>
         );
 

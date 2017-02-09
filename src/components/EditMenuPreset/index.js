@@ -107,20 +107,6 @@ export default class EditMenuPreset extends React.Component {
             <div className={css.editMenu}>
                 <div className={css.editMenu__item}>
                     <div className={css.editMenu__title}>
-                        Links count:
-                    </div>
-                    <div className={css.editMenu__inputHolder}>
-                        <input
-                            className={[cssInput.textbox, cssInput.textbox_type_number].join(' ')}
-                            type="number"
-                            value={this.props.editingMenuPresetLinksCount}
-                            onChange={this.handleCountInputChange}
-                            onFocus={this.onFocus}
-                        />
-                    </div>
-                </div>
-                <div className={css.editMenu__item}>
-                    <div className={css.editMenu__title}>
                         Menu title:
                     </div>
                     <div className={css.editMenu__inputHolder}>
@@ -129,6 +115,20 @@ export default class EditMenuPreset extends React.Component {
                             type="text"
                             value={this.props.menuPresets[this.props.indexOfEditingMenuPreset].title}
                             onChange={this.handleTitleInputChange}
+                            onFocus={this.onFocus}
+                        />
+                    </div>
+                </div>
+                <div className={css.editMenu__item}>
+                    <div className={css.editMenu__title}>
+                        Links count:
+                    </div>
+                    <div className={css.editMenu__inputHolder}>
+                        <input
+                            className={[cssInput.textbox, cssInput.textbox_type_number].join(' ')}
+                            type="number"
+                            value={this.props.editingMenuPresetLinksCount}
+                            onChange={this.handleCountInputChange}
                             onFocus={this.onFocus}
                         />
                     </div>
