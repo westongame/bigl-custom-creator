@@ -1,0 +1,8 @@
+{
+  "extends": "@evo/eslint-config-uaprom",
+  "rules": {
+    "no-underscore-dangle": ["error", { "allow" : ["__Rewire__", "__ResetDependency__"]}],
+    "no-unused-expressions": "off",
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }]
+  }
+}
