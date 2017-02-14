@@ -77,7 +77,7 @@ export default class Pane extends React.Component {
             );
         }
 
-        return <AddPreset tanokStream={this.props.tanokStream} />
+        return <AddPreset tanokStream={this.props.tanokStream} />;
     }
 
     render() {
@@ -92,11 +92,12 @@ export default class Pane extends React.Component {
 }
 
 Pane.propTypes = {
-    content: React.PropTypes.array, // TODO more specific proptype needed
-    contentEditIndex: React.PropTypes.number,
-    menuPresets: React.PropTypes.array,
-    isEditingMenuPreset: React.PropTypes.bool,
-    indexOfEditingMenuPreset: React.PropTypes.number,
-    editingMenuPresetLinksCount: React.PropTypes.number,
-    isEditingPreset: React.PropTypes.bool
+    tanokStream: React.PropTypes.object.isRequired,
+    content: React.PropTypes.array.isRequired, // TODO more specific proptype needed
+    contentEditIndex: React.PropTypes.number.isRequired,
+    menuPresets: React.PropTypes.array.isRequired,
+    isEditingMenuPreset: React.PropTypes.bool.isRequired,
+    indexOfEditingMenuPreset: React.PropTypes.number.isRequired,
+    editingMenuPresetLinksCount: React.PropTypes.number.isRequired,
+    isEditingPreset: React.PropTypes.bool.isRequired,
 };

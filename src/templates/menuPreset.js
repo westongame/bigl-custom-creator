@@ -4,16 +4,16 @@ export const menuPresetTemplate = [
         links: [
             {
                 text: 'Link',
-                href: '#'
+                href: '#',
             },
             {
                 text: 'Link',
-                href: '#'
+                href: '#',
             },
             {
                 text: 'Link',
-                href: '#'
-            }
-        ]
-    }
+                href: '#',
+            },
+        ],
+    },
 ];

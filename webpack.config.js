@@ -8,33 +8,33 @@ const DEVELOPMENT = process.env.NODE_ENV === 'development';
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
 let externals = {
-    'react': 'React',
+    react: 'React',
     'react-dom': 'ReactDOM',
 };
-let entry = [ './src/index.js' ];
+let entry = ['./src/index.js'];
 let publicPath = './';
 let filename = 'bundle.[hash:10].min.js';
 let stylLoader = ExtractTextPlugin.extract({
     fallbackLoader: 'style-loader',
     loader: [
         'css-loader?localIdentName=[hash:base64:6]',
-        'stylus-loader'
-    ]
+        'stylus-loader',
+    ],
 });
 let plugins = [
-        new webpack.optimize.UglifyJsPlugin(),
-        new webpack.DefinePlugin({
-            DEVELOPMENT: JSON.stringify(DEVELOPMENT),
-            PRODUCTION: JSON.stringify(PRODUCTION)
-        }),
-        new ExtractTextPlugin({
-            filename: 'index.[contenthash:10].min.css',
-        }),
-        new OptimizeCssAssetsPlugin(),
-        new HTMLWebpackPlugin({
-            template: 'index-template.html'
-        })
-    ];
+    new webpack.optimize.UglifyJsPlugin(),
+    new webpack.DefinePlugin({
+        DEVELOPMENT: JSON.stringify(DEVELOPMENT),
+        PRODUCTION: JSON.stringify(PRODUCTION),
+    }),
+    new ExtractTextPlugin({
+        filename: 'index.[contenthash:10].min.css',
+    }),
+    new OptimizeCssAssetsPlugin(),
+    new HTMLWebpackPlugin({
+        template: 'index-template.html',
+    }),
+];
 let devtool = false;
 
 if (DEVELOPMENT) {
@@ -42,7 +42,7 @@ if (DEVELOPMENT) {
     entry = [
         'webpack-dev-server/client?http://0.0.0.0:3000',
         'webpack/hot/only-dev-server',
-        './src/index.js'
+        './src/index.js',
     ];
     publicPath = '/dist/';
     filename = 'bundle.js';
@@ -53,41 +53,41 @@ if (DEVELOPMENT) {
             options: {
                 modules: true,
                 localIdentName: '[local]',
-                importLoaders: 1
-            }
+                importLoaders: 1,
+            },
         },
-        'stylus-loader'
+        'stylus-loader',
     ];
-    plugins = [ new webpack.HotModuleReplacementPlugin() ];
+    plugins = [new webpack.HotModuleReplacementPlugin()];
     devtool = 'inline-source-map';
 }
 
 module.exports = {
-    externals: externals,
-    devtool: devtool,
-    entry: entry,
+    externals,
+    devtool,
+    entry,
     output: {
         path: path.join(__dirname, 'dist'),
-        publicPath: publicPath,
-        filename: filename
+        publicPath,
+        filename,
     },
     module: {
         rules: [
             {
-                test: /\.js$/,
-                exclude: /node_modules/,
+                test: /\.jsx?$/,
+                exclude: '/node_modules/',
                 enforce: 'pre',
                 use: [{ loader: 'eslint-loader', options: { rules: { semi: 0 } } }],
             },
             {
                 test: /\.jsx?$/,
                 loader: 'babel-loader',
-                exclude: path.resolve(__dirname, 'node_modules')
+                exclude: path.resolve(__dirname, 'node_modules'),
             },
             {
                 test: /\.styl$/,
                 loader: stylLoader,
-                exclude: '/node_modules/'
+                exclude: '/node_modules/',
             },
             {
                 test: /\.svg$/,
@@ -97,15 +97,15 @@ module.exports = {
                         loader: 'react-svg-loader',
                         query: {
                             svgo: {
-                                plugins: [{removeTitle: false}],
-                                floatPrecision: 2
-                            }
-                        }
-                    }
+                                plugins: [{ removeTitle: false }],
+                                floatPrecision: 2,
+                            },
+                        },
+                    },
                 ],
-                exclude: '/node_modules/'
-            }
-        ]
+                exclude: '/node_modules/',
+            },
+        ],
     },
-    plugins: plugins
+    plugins,
 };

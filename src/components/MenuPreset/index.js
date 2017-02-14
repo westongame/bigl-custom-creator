@@ -3,7 +3,7 @@ import React from 'react';
 import css from '../../style/blocks/category-tree/index.styl';
 
 export default class MenuPreset extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.renderLinks = this.renderLinks.bind(this);
@@ -40,5 +40,5 @@ export default class MenuPreset extends React.Component {
 }
 
 MenuPreset.propTypes = {
-    menuProps: React.PropTypes.object
+    menuProps: React.PropTypes.object,
 };

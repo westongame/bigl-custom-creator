@@ -78,5 +78,11 @@ export default class App extends React.Component {
 }
 
 App.propTypes = {
-    content: React.PropTypes.array, // TODO more specific proptype needed
+    tanokStream: React.PropTypes.object.isRequired,
+    isPreviewMode: React.PropTypes.bool.isRequired,
+    isEditingPreset: React.PropTypes.bool.isRequired,
+    contentEditIndex: React.PropTypes.number.isRequired,
+    customTitle: React.PropTypes.string.isRequired,
+    menuPresets: React.PropTypes.object.isRequired,
+    content: React.PropTypes.array.isRequired, // TODO more specific proptype needed
 };

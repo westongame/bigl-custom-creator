@@ -8,7 +8,7 @@ export default class Model {
             structure: menuPresetTemplate,
             isEditing: false,
             editingIndex: 0,
-            editingLinksCount: 0
+            editingLinksCount: 0,
         };
         this.contentEditIndex = 0;
         this.isEditingPreset = false;

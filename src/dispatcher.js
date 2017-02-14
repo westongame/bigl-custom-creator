@@ -6,7 +6,7 @@ export default class AppDispatcher extends TanokDispatcher {
         state.isPreviewMode = payload;
         return [state];
     }
-    
+
     @on('onTitleEdit')
     onTitleEdit(payload, state) {
         state.customTitle = payload;
@@ -51,7 +51,7 @@ export default class AppDispatcher extends TanokDispatcher {
 
     @on('updateContentItem')
     updateContentItem(payload, state) {
-        state.content[state.contentEditIndex] = payload
+        state.content[state.contentEditIndex] = payload;
         return [state];
     }
 

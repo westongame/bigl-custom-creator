@@ -18,13 +18,13 @@ export default class BottomBar extends React.Component {
             menu: this.props.menuStructure,
             content: this.props.contentStructure,
         };
-        const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
+        const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         link.href = url;
-        link.download = this.props.customTitle + '.json';
+        link.download = `${this.props.customTitle}.json`;
     }
 
-    render () {
+    render() {
         return (
             <div className={css.editorBar}>
                 <div className={css.editorBar__btnsContainer}>
@@ -44,5 +44,7 @@ export default class BottomBar extends React.Component {
 }
 
 BottomBar.propTypes = {
-    customTitle: React.PropTypes.string
+    customTitle: React.PropTypes.string.isRequired,
+    menuStructure: React.PropTypes.array.isRequired,
+    contentStructure: React.PropTypes.array.isRequired, // TODO more specific proptype needed
 };

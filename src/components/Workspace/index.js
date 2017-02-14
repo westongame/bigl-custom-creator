@@ -24,17 +24,19 @@ export default class Workspace extends React.Component {
         this.send('onTitleEdit', e.currentTarget.value);
     }
 
-    render () {
+    render() {
         return (
-            <div className={classNames(
-                css.workspace,
-                { [css.workspace_type_preview]: this.props.isPreviewMode }
-            )}>
+            <div
+                className={classNames(
+                    css.workspace,
+                    { [css.workspace_type_preview]: this.props.isPreviewMode }
+                )}
+            >
                 <div className={css.workspace__wrapper}>
                     <input
                         className={css.workspace__titleInput}
-                        type="text"
-                        defaultValue="Untitled"
+                        type='text'
+                        defaultValue='Untitled'
                         disabled={this.props.isPreviewMode}
                         onFocus={this.onFocus}
                         onBlur={this.onBlur}
@@ -62,7 +64,8 @@ export default class Workspace extends React.Component {
 }
 
 Workspace.propTypes = {
-    isPreviewMode: React.PropTypes.bool,
-    content: React.PropTypes.array, // TODO more specific proptype needed
-    menuPresets: React.PropTypes.array
+    tanokStream: React.PropTypes.object.isRequired,
+    isPreviewMode: React.PropTypes.bool.isRequired,
+    content: React.PropTypes.array.isRequired, // TODO more specific proptype needed
+    menuPresets: React.PropTypes.array.isRequired,
 };

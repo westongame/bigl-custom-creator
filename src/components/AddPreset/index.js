@@ -16,7 +16,7 @@ export default class AddPreset extends React.Component {
     }
 
     onPresetClick(preset) {
-        const newItem = JSON.parse(JSON.stringify(preset))
+        const newItem = JSON.parse(JSON.stringify(preset));
         this.send('AddPreset', newItem);
     }
 
@@ -34,6 +34,6 @@ export default class AddPreset extends React.Component {
                     </div>
                 ))}
             </div>
-        )
+        );
     }
 }

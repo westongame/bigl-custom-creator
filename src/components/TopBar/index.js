@@ -17,7 +17,7 @@ export default class TopBar extends React.Component {
         this.send('previewMode', true);
     }
 
-    render () {
+    render() {
         return (
             <div className={css.editorBar}>
                 <div className={css.editorBar__btnsContainer}>
@@ -35,7 +35,3 @@ export default class TopBar extends React.Component {
         );
     }
 }
-
-TopBar.propTypes = {
-    isPreviewMode: React.PropTypes.bool
-};

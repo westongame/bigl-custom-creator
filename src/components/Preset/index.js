@@ -12,14 +12,14 @@ export default class Preset extends React.Component {
             <div key={key} className={cssGrid.grid__column}>
                 {this.generateMarkup(structure)}
             </div>
-        )
+        );
     }
 
     makeGridItem(content, key) {
         let image = <IcoPlaceholder className={cssImage.imageHolder__placeholder} />;
 
         if (content.imageSrc) {
-            image = <img className={cssImage.imageHolder__img} src={content.imageSrc} alt={content.title || ''} />
+            image = <img className={cssImage.imageHolder__img} src={content.imageSrc} alt={content.title || ''} />;
         }
 
         return (
@@ -29,39 +29,42 @@ export default class Preset extends React.Component {
                     href={content.link}
                     title={content.title}
                 >
-                    <div className={classNames(
-                        cssImage.imageHolder,
-                        { [cssImage.imageHolder_type_preview]: this.props.isPreviewMode }
-                    )}>
+                    <div
+                        className={classNames(
+                            cssImage.imageHolder,
+                            { [cssImage.imageHolder_type_preview]: this.props.isPreviewMode }
+                        )}
+                    >
                         {image}
                     </div>
                 </a>
             </div>
-        )
+        );
     }
 
     generateMarkup(structure) {
         if (structure.columns) {
             return (
                 <div className={cssGrid.grid__row}>
-                    {structure.columns.map((structure, key) => this.makeGridColumn(structure, key))}
+                    {structure.columns.map((item, key) => this.makeGridColumn(item, key))}
                 </div>
-            )
+            );
         } else if (structure.items) {
-            return structure.items.map((content, key) => this.makeGridItem(content, key))
+            return structure.items.map((content, key) => this.makeGridItem(content, key));
         }
+        return null;
     }
 
-    render () {
+    render() {
         return (
             <div className={cssGrid.grid}>
                 {this.generateMarkup(this.props.structure)}
             </div>
-        )
+        );
     }
 }
 
 Preset.propTypes = {
     isPreviewMode: React.PropTypes.bool,
-    structure: React.PropTypes.object, // TODO more specific proptype needed
+    structure: React.PropTypes.object.isRequired, // TODO more specific proptype needed
 };

@@ -4,76 +4,76 @@ export const presets = [
             {
                 columns: [
                     {
-                        items: [{}]
+                        items: [{}],
                     },
                     {
-                        items: [{}]
-                    }
-                ]
+                        items: [{}],
+                    },
+                ],
             },
             {
-                items: [{}]
-            }
-        ]
+                items: [{}],
+            },
+        ],
     },
     {
         columns: [
             {
-                items: [{}]
+                items: [{}],
             },
             {
                 columns: [
                     {
-                        items: [{}]
+                        items: [{}],
                     },
                     {
-                        items: [{}]
-                    }
-                ]
-            }
-        ]
+                        items: [{}],
+                    },
+                ],
+            },
+        ],
     },
     {
         columns: [
             {
-                items: [{}]
+                items: [{}],
             },
             {
-                items: [{}]
+                items: [{}],
             },
             {
-                items: [{}]
+                items: [{}],
             },
             {
-                items: [{}]
-            }
-        ]
+                items: [{}],
+            },
+        ],
     },
     {
         columns: [
             {
-                items: [{}]
+                items: [{}],
             },
             {
-                items: [{}]
-            }
-        ]
+                items: [{}],
+            },
+        ],
     },
     {
         columns: [
             {
                 columns: [
                     {
-                        items: [{},{}]
+                        items: [{}, {}],
                     },
                     {
-                        items: [{},{}]
-                    }
-                ]
+                        items: [{}, {}],
+                    },
+                ],
             },
             {
-                items: [{}]
-            }
-        ]
+                items: [{}],
+            },
+        ],
     },
 ];

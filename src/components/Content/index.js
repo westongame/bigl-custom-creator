@@ -2,7 +2,7 @@ import React from 'react';
 import { tanokComponent } from 'tanok';
 
 import PresetBar from '../PresetBar';
-import Preset from '../Preset'
+import Preset from '../Preset';
 
 import css from '../../style/blocks/content/index.styl';
 
@@ -26,7 +26,7 @@ export default class Content extends React.Component {
         this.send('onPresetEdit', false);
     }
 
-    render () {
+    render() {
         const { content } = this.props;
         let placeholder = (
             <div className={css.content__placeholder}>
@@ -34,19 +34,19 @@ export default class Content extends React.Component {
             </div>
         );
 
-        if(this.props.isPreviewMode) {
+        if (this.props.isPreviewMode) {
             placeholder = null;
         }
 
         return (
             <div className={css.content}>
-                { content.length
+                {content.length
                     ? content.map((item, index) => (
                         <div key={index} className={css.content__item}>
                             {
                                 !this.props.isPreviewMode ?
                                     <PresetBar
-                                        onEdit={() =>this.onEdit(index)}
+                                        onEdit={() => this.onEdit(index)}
                                         onDelete={() => this.onDelete(index)}
                                     />
                                 : null
@@ -65,6 +65,6 @@ export default class Content extends React.Component {
 }
 
 Content.propTypes = {
-    isPreviewMode: React.PropTypes.bool,
-    content: React.PropTypes.array, // TODO more specific proptype needed
+    isPreviewMode: React.PropTypes.bool.isRequired,
+    content: React.PropTypes.array.isRequired, // TODO more specific proptype needed
 };

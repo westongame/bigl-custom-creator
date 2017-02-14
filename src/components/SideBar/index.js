@@ -40,23 +40,23 @@ export default class Sidebar extends React.Component {
                 links: [
                     {
                         text: 'Link',
-                        href: '#'
+                        href: '#',
                     },
                     {
                         text: 'Link',
-                        href: '#'
+                        href: '#',
                     },
                     {
                         text: 'Link',
-                        href: '#'
-                    }
-                ]
+                        href: '#',
+                    },
+                ],
             }
         );
 
         this.send('updateMenuPresets', updatedMenuPresets);
     }
-    
+
     renderItems() {
         const items = [];
 
@@ -69,8 +69,8 @@ export default class Sidebar extends React.Component {
                     {
                         !this.props.isPreviewMode ?
                             <PresetBar
-                                onEdit={this.onEdit.bind(this, item, index)}
-                                onDelete={this.onDelete.bind(this, index)}
+                                onEdit={() => this.onEdit(item, index)}
+                                onDelete={() => this.onDelete(index)}
                             />
                         : null
                     }
@@ -82,7 +82,7 @@ export default class Sidebar extends React.Component {
         return items;
     }
 
-    render () {
+    render() {
         return (
             <div className={css.sidebar}>
                 {this.renderItems()}
@@ -104,6 +104,6 @@ export default class Sidebar extends React.Component {
 }
 
 Sidebar.propTypes = {
-    isPreviewMode: React.PropTypes.bool,
-    menuPresets: React.PropTypes.array
+    isPreviewMode: React.PropTypes.bool.isRequired,
+    menuPresets: React.PropTypes.array.isRequired,
 };
