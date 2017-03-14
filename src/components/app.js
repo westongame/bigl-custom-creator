@@ -38,6 +38,7 @@ export default class App extends React.Component {
                         isPreviewMode={this.props.isPreviewMode}
                         menuPresets={this.props.menuPresets.structure}
                         content={this.props.content}
+                        customTitle={this.props.customTitle}
                     />
                 </div>
                 <div className={css.editor__paneContainer}>

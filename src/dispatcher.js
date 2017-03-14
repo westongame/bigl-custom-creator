@@ -1,5 +1,18 @@
 import { TanokDispatcher, on } from 'tanok';
 
+function saveAppState(state) {
+    return function writeToStorage() {
+        try {
+            const persistedState = JSON.stringify(state);
+            if (localStorage.getItem('bccAppState') !== persistedState) {
+                localStorage.setItem('bccAppState', persistedState);
+            }
+        } catch (err) {
+            throw new Error(`Unable to save application state`);
+        }
+    };
+}
+
 export default class AppDispatcher extends TanokDispatcher {
     @on('previewMode')
     previewMode(payload, state) {
@@ -10,13 +23,13 @@ export default class AppDispatcher extends TanokDispatcher {
     @on('onTitleEdit')
     onTitleEdit(payload, state) {
         state.customTitle = payload;
-        return [state];
+        return [state, saveAppState(state)];
     }
 
     @on('updateMenuPresets')
     updateMenuPresets(payload, state) {
         state.menuPresets.structure = payload;
-        return [state];
+        return [state, saveAppState(state)];
     }
 
     @on('onMenuPresetEdit')
@@ -34,7 +47,7 @@ export default class AppDispatcher extends TanokDispatcher {
     @on('editingMenuPresetLinksCount')
     editingMenuPresetLinksCount(payload, state) {
         state.menuPresets.editingLinksCount = payload;
-        return [state];
+        return [state, saveAppState(state)];
     }
 
     @on('onPresetEdit')
@@ -52,18 +65,18 @@ export default class AppDispatcher extends TanokDispatcher {
     @on('updateContentItem')
     updateContentItem(payload, state) {
         state.content[state.contentEditIndex] = payload;
-        return [state];
+        return [state, saveAppState(state)];
     }
 
     @on('AddPreset')
     AddPreset(payload, state) {
         state.content.push(payload);
-        return [state];
+        return [state, saveAppState(state)];
     }
 
     @on('DeletePreset')
     DeletePreset(payload, state) {
         state.content.splice(payload, 1);
-        return [state];
+        return [state, saveAppState(state)];
     }
 }
