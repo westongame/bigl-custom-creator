@@ -13,14 +13,14 @@ export default class Workspace extends React.Component {
         super(props);
 
         this.onFocus = this.onFocus.bind(this);
-        this.onBlur = this.onBlur.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
     onFocus(e) {
         e.currentTarget.select();
     }
 
-    onBlur(e) {
+    onChange(e) {
         this.send('onTitleEdit', e.currentTarget.value);
     }
 
@@ -36,10 +36,10 @@ export default class Workspace extends React.Component {
                     <input
                         className={css.workspace__titleInput}
                         type='text'
-                        defaultValue='Untitled'
+                        value={this.props.customTitle}
                         disabled={this.props.isPreviewMode}
                         onFocus={this.onFocus}
-                        onBlur={this.onBlur}
+                        onChange={this.onChange}
                     />
                     <div className={css.workspace__contentContainer}>
                         <div className={css.workspace__sidebar}>
@@ -68,4 +68,5 @@ Workspace.propTypes = {
     isPreviewMode: React.PropTypes.bool.isRequired,
     content: React.PropTypes.array.isRequired, // TODO more specific proptype needed
     menuPresets: React.PropTypes.array.isRequired,
+    customTitle: React.PropTypes.string.isRequired,
 };
