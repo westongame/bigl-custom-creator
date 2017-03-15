@@ -5,6 +5,7 @@ import PresetBar from '../PresetBar';
 import MenuPreset from '../MenuPreset';
 
 import css from '../../style/blocks/sidebar/index.styl';
+import cssButton from '../../style/blocks/button/index.styl';
 
 @tanokComponent
 export default class Sidebar extends React.Component {
@@ -90,7 +91,7 @@ export default class Sidebar extends React.Component {
                     !this.props.isPreviewMode ?
                         <div className={css.sidebar__btnHolder}>
                             <div
-                                className={css.sidebar__plusBtn}
+                                className={[cssButton.button, cssButton.button_theme_green].join(' ')}
                                 onClick={this.onAdd}
                             >
                                 +

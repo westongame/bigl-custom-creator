@@ -6,6 +6,7 @@ import AddPreset from '../AddPreset';
 import EditPreset from '../EditPreset';
 
 import css from '../../style/blocks/pane/index.styl';
+import cssButton from '../../style/blocks/button/index.styl';
 
 @tanokComponent
 export default class Pane extends React.Component {
@@ -35,14 +36,14 @@ export default class Pane extends React.Component {
                     </div>
                     <div className={css.pane__btnHolder}>
                         <div
-                            className={css.pane__btn}
+                            className={cssButton.button}
                             onClick={this.onEditCancel}
                         >
                             Cancel
                         </div>
                     </div>
                     <div className={css.pane__btnHolder}>
-                        <div className={css.pane__btn}>
+                        <div className={cssButton.button}>
                             Save
                         </div>
                     </div>
@@ -62,14 +63,14 @@ export default class Pane extends React.Component {
                     </div>
                     <div className={css.pane__btnHolder}>
                         <div
-                            className={css.pane__btn}
+                            className={cssButton.button}
                             onClick={this.onEditCancel}
                         >
                             Cancel
                         </div>
                     </div>
                     <div className={css.pane__btnHolder}>
-                        <div className={css.pane__btn}>
+                        <div className={cssButton.button}>
                             Save
                         </div>
                     </div>

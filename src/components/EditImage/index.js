@@ -5,6 +5,7 @@ import IcoPlaceholder from './empty-image.svg';
 import css from '../../style/blocks/image-edit/index.styl';
 import cssPane from '../../style/blocks/pane/index.styl';
 import cssImage from '../../style/blocks/image-holder/index.styl';
+import cssButton from '../../style/blocks/button/index.styl';
 
 export default function EditImage(props) {
     let image = <IcoPlaceholder />;
@@ -24,7 +25,7 @@ export default function EditImage(props) {
             </div>
             <div className={css.imageEdit__textContainer}>
                 <label className={cssPane.pane__btnHolder}>
-                    <div className={cssPane.pane__btn}>
+                    <div className={cssButton.button}>
                         {props.imageName || 'Upload an image'}
                     </div>
                     <input
