@@ -1,10 +1,17 @@
+import { menuPresetTemplate } from './templates/menuPreset';
+
 export default class Model {
-    constructor(initialAppData) {
-        this.isPreviewMode = initialAppData.isPreviewMode;
-        this.content = initialAppData.content;
-        this.menuPresets = initialAppData.menuPresets;
-        this.contentEditIndex = initialAppData.contentEditIndex;
-        this.isEditingPreset = initialAppData.isEditingPreset;
-        this.customTitle = initialAppData.customTitle;
+    constructor() {
+        this.isPreviewMode = false;
+        this.content = [];
+        this.menuPresets = {
+            structure: menuPresetTemplate,
+            isEditing: false,
+            editingIndex: 0,
+            editingLinksCount: 0,
+        };
+        this.contentEditIndex = 0;
+        this.isEditingPreset = false;
+        this.customTitle = 'Untitled';
     }
 }

@@ -14,6 +14,22 @@ function saveAppState(state) {
 }
 
 export default class AppDispatcher extends TanokDispatcher {
+    @on('init')
+    init(payload, state) {
+        try {
+            const persistedState = localStorage.getItem('bccAppState');
+            if (persistedState) {
+                const stateProps = JSON.parse(persistedState);
+                Object.keys(stateProps).forEach((item) => {
+                    state[item] = stateProps[item];
+                });
+            }
+        } catch (err) {
+            throw new Error(`Unable to get saved application state`);
+        }
+        return [state];
+    }
+
     @on('previewMode')
     previewMode(payload, state) {
         state.isPreviewMode = payload;
