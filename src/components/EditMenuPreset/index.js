@@ -4,6 +4,10 @@ import { tanokComponent } from 'tanok';
 import css from '../../style/blocks/edit-menu/index.styl';
 import cssInput from '../../style/blocks/textbox/index.styl';
 
+import cssSidebar from '../../style/blocks/sidebar/index.styl';
+
+import IcoCross from './cross.svg';
+
 @tanokComponent
 export default class EditMenuPreset extends React.Component {
     constructor(props) {
@@ -11,9 +15,9 @@ export default class EditMenuPreset extends React.Component {
 
         this.updateMenuPresets = this.updateMenuPresets.bind(this);
         this.onFocus = this.onFocus.bind(this);
-        this.handleCountInputChange = this.handleCountInputChange.bind(this);
+        this.addMenuLink = this.addMenuLink.bind(this);
+        this.deleteMenuLink = this.deleteMenuLink.bind(this);
         this.handleTitleInputChange = this.handleTitleInputChange.bind(this);
-        this.changeLinksCount = this.changeLinksCount.bind(this);
         this.renderLinkItems = this.renderLinkItems.bind(this);
     }
 
@@ -25,27 +29,24 @@ export default class EditMenuPreset extends React.Component {
         this.send('updateMenuPresets', newMenuPresets);
     }
 
-    handleCountInputChange(event) {
-        this.send('editingMenuPresetLinksCount', Number(event.currentTarget.value));
+    addMenuLink() {
+        const updatedMenuPresets = this.props.menuPresets;
 
-        this.changeLinksCount(event);
+        updatedMenuPresets[this.props.indexOfEditingMenuPreset].links.push(
+            {
+                text: 'Link',
+                href: '#',
+            }
+        );
+
+        this.updateMenuPresets(updatedMenuPresets);
     }
 
-    changeLinksCount(event) {
+    deleteMenuLink(index) {
         const updatedMenuPresets = this.props.menuPresets;
-        const updatedLinks = [];
-        const value = event.currentTarget.value;
 
-        for (let i = 0; i < value; i++) {
-            updatedLinks.push(
-                {
-                    text: 'Link',
-                    href: '#',
-                }
-            );
-        }
+        updatedMenuPresets[this.props.indexOfEditingMenuPreset].links.splice(index, 1);
 
-        updatedMenuPresets[this.props.indexOfEditingMenuPreset].links = updatedLinks;
         this.updateMenuPresets(updatedMenuPresets);
     }
 
@@ -64,42 +65,42 @@ export default class EditMenuPreset extends React.Component {
     }
 
     renderLinkItems() {
-        const items = [];
-
-        this.props.menuPresets[this.props.indexOfEditingMenuPreset].links.forEach((item, index) => {
-            items.push(
-                <div
-                    className={css.editMenu__item}
-                    key={index}
-                >
-                    <div className={css.editMenu__title}>
-                        Link {index + 1}:
+        return this.props.menuPresets[this.props.indexOfEditingMenuPreset].links.map((item, index) =>
+            <div
+                className={css.editMenu__item}
+                key={index}
+            >
+                <div className={css.editMenu__title}>
+                    {index + 1}:
+                </div>
+                <div className={css.editMenu__inputHolder}>
+                    <div className={css.editMenu__inputWrapper}>
+                        <input
+                            className={cssInput.textbox}
+                            type='text'
+                            value={item.text}
+                            onChange={(e) => this.handleTextInputChange('text', index, e)}
+                            onFocus={this.onFocus}
+                        />
                     </div>
-                    <div className={css.editMenu__inputHolder}>
-                        <div className={css.editMenu__inputWrapper}>
-                            <input
-                                className={cssInput.textbox}
-                                type='text'
-                                value={item.text}
-                                onChange={(e) => this.handleTextInputChange('text', index, e)}
-                                onFocus={this.onFocus}
-                            />
-                        </div>
-                        <div className={css.editMenu__inputWrapper}>
-                            <input
-                                className={cssInput.textbox}
-                                type='text'
-                                value={item.href}
-                                onChange={(e) => this.handleTextInputChange('href', index, e)}
-                                onFocus={this.onFocus}
-                            />
-                        </div>
+                    <div className={css.editMenu__inputWrapper}>
+                        <input
+                            className={cssInput.textbox}
+                            type='text'
+                            value={item.href}
+                            onChange={(e) => this.handleTextInputChange('href', index, e)}
+                            onFocus={this.onFocus}
+                        />
                     </div>
                 </div>
-            );
-        });
-
-        return items;
+                <div
+                    className={css.editMenu__delBtnHolder}
+                    onClick={() => this.deleteMenuLink(index)}
+                >
+                    <IcoCross className={css.editMenu__delBtn} />
+                </div>
+            </div>
+        );
     }
 
     render() {
@@ -119,21 +120,17 @@ export default class EditMenuPreset extends React.Component {
                         />
                     </div>
                 </div>
+
+                {this.renderLinkItems()}
+
                 <div className={css.editMenu__item}>
-                    <div className={css.editMenu__title}>
-                        Links count:
-                    </div>
-                    <div className={css.editMenu__inputHolder}>
-                        <input
-                            className={[cssInput.textbox, cssInput.textbox_type_number].join(' ')}
-                            type='number'
-                            value={this.props.editingMenuPresetLinksCount}
-                            onChange={this.handleCountInputChange}
-                            onFocus={this.onFocus}
-                        />
+                    <div
+                        className={cssSidebar.sidebar__plusBtn}
+                        onClick={this.addMenuLink}
+                    >
+                        +
                     </div>
                 </div>
-                {this.renderLinkItems()}
             </div>
         );
     }
