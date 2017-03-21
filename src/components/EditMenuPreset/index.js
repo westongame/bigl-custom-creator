@@ -3,8 +3,7 @@ import { tanokComponent } from 'tanok';
 
 import css from '../../style/blocks/edit-menu/index.styl';
 import cssInput from '../../style/blocks/textbox/index.styl';
-
-import cssSidebar from '../../style/blocks/sidebar/index.styl';
+import cssButton from '../../style/blocks/button/index.styl';
 
 import IcoCross from './cross.svg';
 
@@ -125,7 +124,7 @@ export default class EditMenuPreset extends React.Component {
 
                 <div className={css.editMenu__item}>
                     <div
-                        className={cssSidebar.sidebar__plusBtn}
+                        className={[cssButton.button, cssButton.button_theme_green].join(' ')}
                         onClick={this.addMenuLink}
                     >
                         +
