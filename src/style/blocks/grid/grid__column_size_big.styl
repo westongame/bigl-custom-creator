@@ -1,11 +1,9 @@
-:local(.grid__item_type_big)
-    width: 100%
+:local(.grid__item_size_big)
+    flex-basis: 100%
 
     .grid__item + &
         order: 1
 
     @media only screen and (min-width: 768px)
-        width: 50%
-
         .grid__item + &
             order: initial

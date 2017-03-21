@@ -21,9 +21,9 @@ export default class EditPreset extends React.Component {
         event.currentTarget.select();
     }
 
-    onInputChange(id, prop, e) {
+    onInputChange(index, prop, e) {
         const value = e.target.value;
-        const updatedBlock = this.updateBlock(this.props.block, id, prop, value);
+        const updatedBlock = this.updateBlock(this.props.block, index, prop, value);
         this.send('updateContentItem', updatedBlock);
     }
 
@@ -38,69 +38,52 @@ export default class EditPreset extends React.Component {
         reader.readAsDataURL(file);
     }
 
-    getItems(structure, id = '0') {
-        if (structure.columns) {
-            return structure.columns.map((item, index) => this.getItems(item, id + index));
-        } else if (structure.items) {
-            return structure.items.map((content, index) => {
-                id = id + index;
-                return (
-                    <div key={id} className={css.pane__imageEditContainerItem}>
-                        <EditImage
-                            imageSrc={content.imageSrc}
-                            imageName={content.imageName}
-                            onChange={(e) => this.onImageUpload(id, e)}
-                        />
-                        <div className={cssEdit.editMenu__item}>
-                            <div className={cssEdit.editMenu__title}>
-                                Title:
-                            </div>
-                            <div className={cssEdit.editMenu__inputHolder}>
-                                <div className={cssEdit.editMenu__inputWrapper}>
-                                    <input
-                                        className={cssInput.textbox}
-                                        type='text'
-                                        value={content.title || ''}
-                                        onChange={(e) => this.onInputChange(id, 'title', e)}
-                                        onFocus={this.onFocus}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className={cssEdit.editMenu__item}>
-                            <div className={cssEdit.editMenu__title}>
-                                Link:
-                            </div>
-                            <div className={cssEdit.editMenu__inputHolder}>
-                                <div className={cssEdit.editMenu__inputWrapper}>
-                                    <input
-                                        className={cssInput.textbox}
-                                        type='text'
-                                        value={content.link || ''}
-                                        onChange={(e) => this.onInputChange(id, 'link', e)}
-                                        onFocus={this.onFocus}
-                                    />
-                                </div>
-                            </div>
+    getItems(structure) {
+        return structure.map((content, index) => (
+            <div key={index} className={css.pane__imageEditContainerItem}>
+                <EditImage
+                    imageSrc={content.imageSrc}
+                    imageName={content.imageName}
+                    onChange={(e) => this.onImageUpload(index, e)}
+                />
+                <div className={cssEdit.editMenu__item}>
+                    <div className={cssEdit.editMenu__title}>
+                        Title:
+                    </div>
+                    <div className={cssEdit.editMenu__inputHolder}>
+                        <div className={cssEdit.editMenu__inputWrapper}>
+                            <input
+                                className={cssInput.textbox}
+                                type='text'
+                                value={content.title || ''}
+                                onChange={(e) => this.onInputChange(index, 'title', e)}
+                                onFocus={this.onFocus}
+                            />
                         </div>
                     </div>
-                );
-            });
-        }
-        return null;
+                </div>
+                <div className={cssEdit.editMenu__item}>
+                    <div className={cssEdit.editMenu__title}>
+                        Link:
+                    </div>
+                    <div className={cssEdit.editMenu__inputHolder}>
+                        <div className={cssEdit.editMenu__inputWrapper}>
+                            <input
+                                className={cssInput.textbox}
+                                type='text'
+                                value={content.link || ''}
+                                onChange={(e) => this.onInputChange(index, 'link', e)}
+                                onFocus={this.onFocus}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ));
     }
 
-    updateBlock(block, id, prop, value, currentId = '0') {
-        if (block.columns) {
-            block.columns.map((item, index) => this.updateBlock(item, id, prop, value, currentId + index));
-        } else if (block.items) {
-            block.items.forEach((content, index) => {
-                currentId = currentId + index;
-                if (id === currentId) {
-                    content[prop] = value;
-                }
-            });
-        }
+    updateBlock(block, index, prop, value) {
+        block[index][prop] = value;
         return block;
     }
 
@@ -110,5 +93,5 @@ export default class EditPreset extends React.Component {
 }
 
 EditPreset.propTypes = {
-    block: React.PropTypes.object.isRequired, // TODO more specific proptype needed
+    block: React.PropTypes.array.isRequired, // TODO more specific proptype needed
 };

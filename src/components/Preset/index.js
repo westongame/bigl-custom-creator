@@ -7,15 +7,32 @@ import cssImage from '../../style/blocks/image-holder/index.styl';
 import IcoPlaceholder from './empty-image.svg';
 
 export default class Preset extends React.Component {
-    makeGridColumn(structure, key) {
+    makeGridColumn(column, id) {
         return (
-            <div key={key} className={cssGrid.grid__column}>
-                {this.generateMarkup(structure)}
+            <div
+                key={id}
+                className={classNames(
+                    cssGrid.grid__column,
+                    cssGrid.grid__column_size_big: column.size,
+                )}
+            >
+                {column.rows.map((item, key) => this.makeGridRow(item, key))}
             </div>
         );
     }
 
-    makeGridItem(content, key) {
+    makeGridRow(row, id) {
+        return (
+            <div
+                key={id}
+                className={cssGrid.grid__row}
+            >
+                {row.content.map((item, key) => this.makeGridItem(item, key))}
+            </div>
+        );
+    }
+
+    makeGridItem(content, id) {
         let image = <IcoPlaceholder className={cssImage.imageHolder__placeholder} />;
 
         if (content.imageSrc) {
@@ -23,36 +40,69 @@ export default class Preset extends React.Component {
         }
 
         return (
-            <div key={key} className={cssGrid.grid__row}>
-                <a
-                    className={cssGrid.grid__item}
-                    href={content.link}
-                    title={content.title}
+            <a
+                key={id}
+                className={cssGrid.grid__item}
+                href={content.link}
+                title={content.title}
+            >
+                <div
+                    className={classNames(
+                        cssImage.imageHolder,
+                        { [cssImage.imageHolder_type_preview]: this.props.isPreviewMode }
+                    )}
                 >
-                    <div
-                        className={classNames(
-                            cssImage.imageHolder,
-                            { [cssImage.imageHolder_type_preview]: this.props.isPreviewMode }
-                        )}
-                    >
-                        {image}
-                    </div>
-                </a>
-            </div>
+                    {image}
+                </div>
+            </a>
         );
     }
 
     generateMarkup(structure) {
-        if (structure.columns) {
-            return (
-                <div className={cssGrid.grid__row}>
-                    {structure.columns.map((item, key) => this.makeGridColumn(item, key))}
-                </div>
-            );
-        } else if (structure.items) {
-            return structure.items.map((content, key) => this.makeGridItem(content, key));
+        function contains(array, item) {
+            return Array.isArray(array) ? array.indexOf(item) !== -1 : undefined;
         }
-        return null;
+
+        function sameArray(array1, array2) {
+            return Array.isArray(array1) && Array.isArray(array2)
+                ? array1.every((item) => contains(array2, item))
+                : undefined;
+        }
+
+        const columns = structure.reduce((result, item) => {
+            if (
+                !structure.some((col) => contains(col.column, item.column))
+                && !result.some((col) => contains(col.column, item.column))
+            ) {
+                result.push({
+                    column: [].concat(item.column),
+                    size: item.column.length,
+                    rows: [],
+                });
+            }
+            return result;
+        }, []);
+
+        structure.forEach((item) => {
+            const currentColumn = columns.filter(
+                (col) => contains(col.column, item.column) || sameArray(col.column, item.column)
+            )[0];
+
+            const currentRow = currentColumn.rows.filter(
+                (row) => contains(row.row, item.row) || sameArray(row.row, item.row)
+            )[0];
+
+            if (currentRow) {
+                currentRow.content.push(item);
+            } else {
+                currentColumn.rows.push({
+                    row: [].concat(item.row),
+                    content: [item],
+                });
+            }
+        });
+
+        return columns.map((column, _key) => this.makeGridColumn(column, _key));
     }
 
     render() {
@@ -66,5 +116,5 @@ export default class Preset extends React.Component {
 
 Preset.propTypes = {
     isPreviewMode: React.PropTypes.bool,
-    structure: React.PropTypes.object.isRequired, // TODO more specific proptype needed
+    structure: React.PropTypes.array.isRequired, // TODO more specific proptype needed
 };

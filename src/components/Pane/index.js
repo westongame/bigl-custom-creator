@@ -50,7 +50,7 @@ export default class Pane extends React.Component {
             );
         }
 
-        if (this.props.isEditingPreset) {
+        if (this.props.isEditingPreset && this.props.content[this.props.contentEditIndex]) {
             return (
                 <div>
                     <div className={css.pane__title}>Edit preset</div>
