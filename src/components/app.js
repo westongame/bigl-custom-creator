@@ -36,27 +36,28 @@ export default class App extends React.Component {
                     <Workspace
                         tanokStream={this.props.tanokStream}
                         isPreviewMode={this.props.isPreviewMode}
-                        menuPresets={this.props.menuPresets.structure}
-                        content={this.props.content}
+                        editMode={this.props.editMode}
+                        editingIndex={this.props.editingIndex}
                         customTitle={this.props.customTitle}
+                        menuPresets={this.props.menuPresets}
+                        content={this.props.content}
                     />
                 </div>
                 <div className={css.editor__paneContainer}>
                     <Pane
                         tanokStream={this.props.tanokStream}
+                        editMode={this.props.editMode}
+                        editingIndex={this.props.editingIndex}
+                        menuPresets={this.props.menuPresets}
                         content={this.props.content}
                         contentEditIndex={this.props.contentEditIndex}
-                        menuPresets={this.props.menuPresets.structure}
-                        isEditingMenuPreset={this.props.menuPresets.isEditing}
-                        indexOfEditingMenuPreset={this.props.menuPresets.editingIndex}
-                        editingMenuPresetLinksCount={this.props.menuPresets.editingLinksCount}
-                        isEditingPreset={this.props.isEditingPreset}
                     />
                 </div>
                 <div className={[css.editor__barContainer, css.editor__barContainer_position_bottom].join(' ')}>
                     <BottomBar
+                        tanokStream={this.props.tanokStream}
                         customTitle={this.props.customTitle}
-                        menuStructure={this.props.menuPresets.structure}
+                        menuPresets={this.props.menuPresets}
                         contentStructure={this.props.content}
                     />
                 </div>
@@ -81,9 +82,10 @@ export default class App extends React.Component {
 App.propTypes = {
     tanokStream: React.PropTypes.object.isRequired,
     isPreviewMode: React.PropTypes.bool.isRequired,
-    isEditingPreset: React.PropTypes.bool.isRequired,
+    editMode: React.PropTypes.string.isRequired,
+    editingIndex: React.PropTypes.number,
     contentEditIndex: React.PropTypes.number.isRequired,
-    customTitle: React.PropTypes.string.isRequired,
+    customTitle: React.PropTypes.object.isRequired,
     menuPresets: React.PropTypes.object.isRequired,
     content: React.PropTypes.array.isRequired, // TODO more specific proptype needed
 };

@@ -17,21 +17,19 @@ export default class Pane extends React.Component {
     }
 
     onEditCancel() {
-        this.send('onPresetEdit', false);
-        this.send('onMenuPresetEdit', false);
+        this.send('updateEditMode', '');
     }
 
     renderActionsSection() {
-        if (this.props.isEditingMenuPreset) {
+        if (this.props.editMode === 'menu') {
             return (
                 <div>
                     <div className={css.pane__title}>Edit menu</div>
                     <div className={css.pane__menuEditContainer}>
                         <EditMenuPreset
                             tanokStream={this.props.tanokStream}
+                            editingIndex={this.props.editingIndex}
                             menuPresets={this.props.menuPresets}
-                            indexOfEditingMenuPreset={this.props.indexOfEditingMenuPreset}
-                            editingMenuPresetLinksCount={this.props.editingMenuPresetLinksCount}
                         />
                     </div>
                     <div className={css.pane__btnHolder}>
@@ -39,19 +37,12 @@ export default class Pane extends React.Component {
                             className={cssButton.button}
                             onClick={this.onEditCancel}
                         >
-                            Cancel
-                        </div>
-                    </div>
-                    <div className={css.pane__btnHolder}>
-                        <div className={cssButton.button}>
-                            Save
+                            Close
                         </div>
                     </div>
                 </div>
             );
-        }
-
-        if (this.props.isEditingPreset && this.props.content[this.props.contentEditIndex]) {
+        } else if (this.props.editMode === 'content') {
             return (
                 <div>
                     <div className={css.pane__title}>Edit preset</div>
@@ -66,12 +57,7 @@ export default class Pane extends React.Component {
                             className={cssButton.button}
                             onClick={this.onEditCancel}
                         >
-                            Cancel
-                        </div>
-                    </div>
-                    <div className={css.pane__btnHolder}>
-                        <div className={cssButton.button}>
-                            Save
+                            Close
                         </div>
                     </div>
                 </div>
@@ -94,11 +80,9 @@ export default class Pane extends React.Component {
 
 Pane.propTypes = {
     tanokStream: React.PropTypes.object.isRequired,
+    editMode: React.PropTypes.string.isRequired,
+    editingIndex: React.PropTypes.number,
+    menuPresets: React.PropTypes.object.isRequired,
     content: React.PropTypes.array.isRequired, // TODO more specific proptype needed
     contentEditIndex: React.PropTypes.number.isRequired,
-    menuPresets: React.PropTypes.array.isRequired,
-    isEditingMenuPreset: React.PropTypes.bool.isRequired,
-    indexOfEditingMenuPreset: React.PropTypes.number.isRequired,
-    editingMenuPresetLinksCount: React.PropTypes.number.isRequired,
-    isEditingPreset: React.PropTypes.bool.isRequired,
 };

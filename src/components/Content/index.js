@@ -13,17 +13,28 @@ export default class Content extends React.Component {
 
         this.onEdit = this.onEdit.bind(this);
         this.onDelete = this.onDelete.bind(this);
+        this.checkErrors = this.checkErrors.bind(this);
     }
 
     onEdit(index) {
-        this.send('onMenuPresetEdit', false);
-        this.send('onPresetEdit', true);
+        this.send('updateEditMode', 'content');
         this.send('setContentEditIndex', index);
+        this.send('updateEditingIndex', index);
+
+        const newContent = this.props.content;
+
+        newContent[index].error = false;
+
+        this.send('updateContentPresets', newContent);
     }
 
     onDelete(index) {
+        this.send('updateEditMode', '');
         this.send('DeletePreset', index);
-        this.send('onPresetEdit', false);
+    }
+
+    checkErrors(preset) {
+        return preset.some((item) => item.imageError || item.titleError || item.linkError);
     }
 
     render() {
@@ -46,6 +57,11 @@ export default class Content extends React.Component {
                             {
                                 !this.props.isPreviewMode ?
                                     <PresetBar
+                                        editMode={this.props.editMode}
+                                        editingIndex={this.props.editingIndex}
+                                        itemIndex={index}
+                                        itemMode='content'
+                                        itemError={this.checkErrors(item)}
                                         onEdit={() => this.onEdit(index)}
                                         onDelete={() => this.onDelete(index)}
                                     />
@@ -66,5 +82,7 @@ export default class Content extends React.Component {
 
 Content.propTypes = {
     isPreviewMode: React.PropTypes.bool.isRequired,
+    editMode: React.PropTypes.string,
+    editingIndex: React.PropTypes.number,
     content: React.PropTypes.array.isRequired, // TODO more specific proptype needed
 };

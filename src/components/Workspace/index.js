@@ -13,15 +13,35 @@ export default class Workspace extends React.Component {
         super(props);
 
         this.onFocus = this.onFocus.bind(this);
+        this.onBlur = this.onBlur.bind(this);
         this.onChange = this.onChange.bind(this);
     }
 
     onFocus(e) {
         e.currentTarget.select();
+
+        const customTitle = this.props.customTitle;
+
+        customTitle.isEditing = true;
+
+        this.send('updateCustomTitle', customTitle);
+    }
+
+    onBlur() {
+        const customTitle = this.props.customTitle;
+
+        customTitle.isEditing = false;
+
+        this.send('updateCustomTitle', customTitle);
     }
 
     onChange(e) {
-        this.send('onTitleEdit', e.currentTarget.value);
+        const customTitle = this.props.customTitle;
+
+        customTitle.text = e.currentTarget.value;
+        customTitle.error = false;
+
+        this.send('updateCustomTitle', customTitle);
     }
 
     render() {
@@ -33,19 +53,33 @@ export default class Workspace extends React.Component {
                 )}
             >
                 <div className={css.workspace__wrapper}>
-                    <input
-                        className={css.workspace__titleInput}
-                        type='text'
-                        value={this.props.customTitle}
-                        disabled={this.props.isPreviewMode}
-                        onFocus={this.onFocus}
-                        onChange={this.onChange}
-                    />
+                    <div
+                        className={classNames(
+                            css.workspace__titleInputHolder,
+                            {
+                                [css.workspace__titleInputHolder_state_error]: this.props.customTitle.error,
+                                [css.workspace__titleInputHolder_state_active]: this.props.customTitle.isEditing,
+                            }
+                        )}
+                    >
+                        <input
+                            className={css.workspace__titleInput}
+                            type='text'
+                            placeholder='Write some title here'
+                            value={this.props.customTitle.text ? this.props.customTitle.text : ''}
+                            disabled={this.props.isPreviewMode}
+                            onFocus={this.onFocus}
+                            onBlur={this.onBlur}
+                            onChange={this.onChange}
+                        />
+                    </div>
                     <div className={css.workspace__contentContainer}>
                         <div className={css.workspace__sidebar}>
                             <SideBar
                                 tanokStream={this.props.tanokStream}
                                 isPreviewMode={this.props.isPreviewMode}
+                                editMode={this.props.editMode}
+                                editingIndex={this.props.editingIndex}
                                 menuPresets={this.props.menuPresets}
                             />
                         </div>
@@ -53,6 +87,8 @@ export default class Workspace extends React.Component {
                             <Content
                                 tanokStream={this.props.tanokStream}
                                 isPreviewMode={this.props.isPreviewMode}
+                                editMode={this.props.editMode}
+                                editingIndex={this.props.editingIndex}
                                 content={this.props.content}
                             />
                         </div>
@@ -66,7 +102,9 @@ export default class Workspace extends React.Component {
 Workspace.propTypes = {
     tanokStream: React.PropTypes.object.isRequired,
     isPreviewMode: React.PropTypes.bool.isRequired,
+    editMode: React.PropTypes.string.isRequired,
+    editingIndex: React.PropTypes.number,
+    customTitle: React.PropTypes.object,
+    menuPresets: React.PropTypes.object.isRequired,
     content: React.PropTypes.array.isRequired, // TODO more specific proptype needed
-    menuPresets: React.PropTypes.array.isRequired,
-    customTitle: React.PropTypes.string.isRequired,
 };

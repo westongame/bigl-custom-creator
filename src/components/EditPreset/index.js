@@ -1,5 +1,6 @@
 import React from 'react';
 import { tanokComponent } from 'tanok';
+import classNames from 'classnames';
 
 import EditImage from '../EditImage';
 
@@ -23,18 +24,28 @@ export default class EditPreset extends React.Component {
 
     onInputChange(index, prop, e) {
         const value = e.target.value;
-        const updatedBlock = this.updateBlock(this.props.block, index, prop, value);
-        this.send('updateContentItem', updatedBlock);
+        const newBlock = this.props.block;
+
+        newBlock[index][prop] = value;
+        newBlock[index][`${prop}Error`] = false;
+
+        this.send('updateContentItem', newBlock);
     }
 
-    onImageUpload(id, event) {
-        const file = event.target.files[0];
+    onImageUpload(index, e) {
+        const file = e.target.files[0];
         const reader = new FileReader();
-        reader.onload = (e) => {
-            let updatedBlock = this.updateBlock(this.props.block, id, 'imageSrc', e.target.result);
-            updatedBlock = this.updateBlock(this.props.block, id, 'imageName', file.name);
-            this.send('updateContentItem', updatedBlock);
+
+        reader.onload = (event) => {
+            const newBlock = this.props.block;
+
+            newBlock[index].imageSrc = event.target.result;
+            newBlock[index].imageName = file.name;
+            newBlock[index].imageError = false;
+
+            this.send('updateContentItem', newBlock);
         };
+
         reader.readAsDataURL(file);
     }
 
@@ -53,7 +64,10 @@ export default class EditPreset extends React.Component {
                     <div className={cssEdit.editMenu__inputHolder}>
                         <div className={cssEdit.editMenu__inputWrapper}>
                             <input
-                                className={cssInput.textbox}
+                                className={classNames(
+                                    cssInput.textbox,
+                                    { [cssInput.textbox_state_error]: content.titleError }
+                                )}
                                 type='text'
                                 value={content.title || ''}
                                 onChange={(e) => this.onInputChange(index, 'title', e)}
@@ -69,7 +83,10 @@ export default class EditPreset extends React.Component {
                     <div className={cssEdit.editMenu__inputHolder}>
                         <div className={cssEdit.editMenu__inputWrapper}>
                             <input
-                                className={cssInput.textbox}
+                                className={classNames(
+                                    cssInput.textbox,
+                                    { [cssInput.textbox_state_error]: content.linkError }
+                                )}
                                 type='text'
                                 value={content.link || ''}
                                 onChange={(e) => this.onInputChange(index, 'link', e)}

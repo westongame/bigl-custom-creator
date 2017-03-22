@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import IcoMove from './move.svg';
 import IcoPencil from './pencil.svg';
@@ -8,7 +9,16 @@ import css from '../../style/blocks/preset-bar/index.styl';
 
 export default function PresetBar(props) {
     return (
-        <div className={css.presetBar}>
+        <div
+            className={classNames(
+                css.presetBar,
+                {
+                    [css.presetBar_state_active]:
+                        props.itemIndex === props.editingIndex && props.editMode === props.itemMode,
+                    [css.presetBar_state_error]: props.itemError,
+                }
+            )}
+        >
             <div className={css.presetBar__container}>
                 <div className={css.presetBar__item}>
                     <div
@@ -44,6 +54,11 @@ export default function PresetBar(props) {
 }
 
 PresetBar.propTypes = {
+    editMode: React.PropTypes.string,
+    editingIndex: React.PropTypes.number,
+    itemIndex: React.PropTypes.number,
+    itemMode: React.PropTypes.string,
+    itemError: React.PropTypes.bool,
     onEdit: React.PropTypes.func.isRequired,
     onDelete: React.PropTypes.func.isRequired,
 };

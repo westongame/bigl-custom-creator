@@ -1,5 +1,6 @@
 import React from 'react';
 import { tanokComponent } from 'tanok';
+import { menuPresetTemplate } from '../../templates/menuPreset';
 
 import PresetBar from '../PresetBar';
 import MenuPreset from '../MenuPreset';
@@ -12,56 +13,56 @@ export default class Sidebar extends React.Component {
     constructor(props) {
         super(props);
 
+        this.updateMenuPresets = this.updateMenuPresets.bind(this);
+        this.onEdit = this.onEdit.bind(this);
         this.onAdd = this.onAdd.bind(this);
+        this.onDelete = this.onDelete.bind(this);
         this.renderItems = this.renderItems.bind(this);
+        this.checkErrors = this.checkErrors.bind(this);
     }
 
     onEdit(item, index) {
-        this.send('onPresetEdit', false);
-        this.send('editingMenuPresetIndex', index);
-        this.send('editingMenuPresetLinksCount', item.links.length);
-        this.send('onMenuPresetEdit', true);
+        this.send('updateEditMode', 'menu');
+        this.send('updateEditingIndex', index);
+
+        const newMenuPresets = this.props.menuPresets;
+
+        newMenuPresets.editingLinksCount = item.links.length;
+
+        this.updateMenuPresets(newMenuPresets);
     }
 
     onDelete(index) {
-        const updatedMenuPresets = this.props.menuPresets;
+        this.send('updateEditMode', '');
 
-        delete updatedMenuPresets[index];
+        const newMenuPresets = this.props.menuPresets;
 
-        this.send('onMenuPresetEdit', false);
-        this.send('updateMenuPresets', updatedMenuPresets);
+        newMenuPresets.structure.splice(index, 1);
+
+        this.updateMenuPresets(newMenuPresets);
     }
 
     onAdd() {
-        const updatedMenuPresets = this.props.menuPresets;
+        const newMenuPresets = this.props.menuPresets;
+        const menuPreset = JSON.parse(JSON.stringify(menuPresetTemplate[0]));
 
-        updatedMenuPresets.push(
-            {
-                title: 'Menu title',
-                links: [
-                    {
-                        text: 'Link',
-                        href: '#',
-                    },
-                    {
-                        text: 'Link',
-                        href: '#',
-                    },
-                    {
-                        text: 'Link',
-                        href: '#',
-                    },
-                ],
-            }
-        );
+        newMenuPresets.structure.push(menuPreset);
 
-        this.send('updateMenuPresets', updatedMenuPresets);
+        this.updateMenuPresets(newMenuPresets);
+    }
+
+    checkErrors(item) {
+        return item.titleError || item.links.some((link) => link.textError || link.hrefError);
+    }
+
+    updateMenuPresets(newMenuPresets) {
+        this.send('updateMenuPresets', newMenuPresets);
     }
 
     renderItems() {
         const items = [];
 
-        this.props.menuPresets.forEach((item, index) => {
+        this.props.menuPresets.structure.forEach((item, index) => {
             items.push(
                 <div
                     className={css.sidebar__item}
@@ -70,10 +71,15 @@ export default class Sidebar extends React.Component {
                     {
                         !this.props.isPreviewMode ?
                             <PresetBar
+                                editMode={this.props.editMode}
+                                editingIndex={this.props.editingIndex}
+                                itemIndex={index}
+                                itemMode='menu'
+                                itemError={this.checkErrors(item)}
                                 onEdit={() => this.onEdit(item, index)}
                                 onDelete={() => this.onDelete(index)}
                             />
-                        : null
+                            : null
                     }
                     <MenuPreset menuProps={item} />
                 </div>
@@ -106,5 +112,7 @@ export default class Sidebar extends React.Component {
 
 Sidebar.propTypes = {
     isPreviewMode: React.PropTypes.bool.isRequired,
-    menuPresets: React.PropTypes.array.isRequired,
+    editMode: React.PropTypes.string.isRequired,
+    editingIndex: React.PropTypes.number,
+    menuPresets: React.PropTypes.object.isRequired,
 };

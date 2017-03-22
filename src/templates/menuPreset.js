@@ -1,18 +1,13 @@
 export const menuPresetTemplate = [
     {
-        title: 'Menu title',
+        title: '',
+        titleError: false,
         links: [
             {
-                text: 'Link',
-                href: '#',
-            },
-            {
-                text: 'Link',
-                href: '#',
-            },
-            {
-                text: 'Link',
-                href: '#',
+                text: '',
+                textError: false,
+                href: '',
+                hrefError: false,
             },
         ],
     },
