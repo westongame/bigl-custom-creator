@@ -39,6 +39,8 @@ export default class BottomBar extends React.Component {
             URL.revokeObjectURL(blob);
         } else {
             e.preventDefault();
+
+            this.send('errorPopup', true);
         }
     }
 

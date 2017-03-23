@@ -3,6 +3,7 @@ import { menuPresetTemplate } from './templates/menuPreset';
 export default class Model {
     constructor() {
         this.isPreviewMode = false;
+        this.showErrorPopup = false;
         this.editMode = '';
         this.editingIndex = null;
         this.customTitle = {

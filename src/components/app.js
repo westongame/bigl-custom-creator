@@ -10,13 +10,20 @@ import BottomBar from './BottomBar';
 import IcoCross from './cross.svg';
 
 import css from '../style/blocks/editor/index.styl';
+import cssPopup from '../style/blocks/popup/index.styl';
+import cssButton from '../style/blocks/button/index.styl';
 
 @tanokComponent
 export default class App extends React.Component {
     constructor(props) {
         super(props);
 
+        this.onErrorPopupClick = this.onErrorPopupClick.bind(this);
         this.exitPreviewMode = this.exitPreviewMode.bind(this);
+    }
+
+    onErrorPopupClick() {
+        this.send('errorPopup', false);
     }
 
     exitPreviewMode() {
@@ -74,6 +81,25 @@ export default class App extends React.Component {
                         </div>
                     : null
                 }
+                {
+                    this.props.showErrorPopup ?
+                        <div
+                            className={cssPopup.popup}
+                            onClick={this.onErrorPopupClick}
+                        >
+                            <div className={cssPopup.popup__body}>
+                                <div>Fix errors pls</div>
+                                <br />
+                                <div
+                                    className={cssButton.button}
+                                    onClick={this.onErrorPopupClick}
+                                >
+                                    Ok
+                                </div>
+                            </div>
+                        </div>
+                    : null
+                }
             </div>
         );
     }
@@ -82,6 +108,7 @@ export default class App extends React.Component {
 App.propTypes = {
     tanokStream: React.PropTypes.object.isRequired,
     isPreviewMode: React.PropTypes.bool.isRequired,
+    showErrorPopup: React.PropTypes.bool.isRequired,
     editMode: React.PropTypes.string.isRequired,
     editingIndex: React.PropTypes.number,
     contentEditIndex: React.PropTypes.number.isRequired,

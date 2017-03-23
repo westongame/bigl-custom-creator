@@ -36,6 +36,12 @@ export default class AppDispatcher extends TanokDispatcher {
         return [state];
     }
 
+    @on('errorPopup')
+    errorPopup(payload, state) {
+        state.showErrorPopup = payload;
+        return [state];
+    }
+
     @on('updateEditMode')
     updateEditMode(payload, state) {
         state.editMode = payload;
