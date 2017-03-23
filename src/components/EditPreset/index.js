@@ -13,9 +13,9 @@ export default class EditPreset extends React.Component {
     constructor(props) {
         super(props);
         this.onFocus = this.onFocus.bind(this);
-        this.getItems = this.getItems.bind(this);
-        this.updateBlock = this.updateBlock.bind(this);
+        this.onInputChange = this.onInputChange.bind(this);
         this.onImageUpload = this.onImageUpload.bind(this);
+        this.renderEditItem = this.renderEditItem.bind(this);
     }
 
     onFocus(event) {
@@ -49,8 +49,8 @@ export default class EditPreset extends React.Component {
         reader.readAsDataURL(file);
     }
 
-    getItems(structure) {
-        return structure.map((content, index) => (
+    renderEditItem(content, index) {
+        return (
             <div key={index} className={css.pane__imageEditContainerItem}>
                 <EditImage
                     imageSrc={content.imageSrc}
@@ -96,16 +96,17 @@ export default class EditPreset extends React.Component {
                     </div>
                 </div>
             </div>
-        ));
-    }
-
-    updateBlock(block, index, prop, value) {
-        block[index][prop] = value;
-        return block;
+        );
     }
 
     render() {
-        return <div>{this.getItems(this.props.block)}</div>;
+        return (
+            <div>
+                {this.props.block.map(
+                    (content, index) => this.renderEditItem(content, index)
+                )}
+            </div>
+        );
     }
 }
 

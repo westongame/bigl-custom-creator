@@ -1,100 +1,101 @@
-export const presetsNew = [
+const defaults = {
+    title: null,
+    link: null,
+    imageSrc: null,
+    imageName: null,
+};
+
+export const presets = [
     [
         {
+            ...defaults,
+            column: [1, 2, 3, 4],
+            row: 1,
+        },
+    ],
+    [
+        {
+            ...defaults,
             column: 1,
             row: 1,
         },
         {
+            ...defaults,
             column: 2,
             row: 1,
         },
         {
-            column: [1, 2],
-            row: 2,
+            ...defaults,
+            column: 3,
+            row: 1,
         },
         {
-            column: [3, 4],
-            row: [1, 2],
+            ...defaults,
+            column: 4,
+            row: 1,
         },
     ],
-];
-
-export const presets = [
-    {
-        columns: [
-            {
-                columns: [
-                    {
-                        items: [{}],
-                    },
-                    {
-                        items: [{}],
-                    },
-                ],
-            },
-            {
-                items: [{}],
-            },
-        ],
-    },
-    {
-        columns: [
-            {
-                items: [{}],
-            },
-            {
-                columns: [
-                    {
-                        items: [{}],
-                    },
-                    {
-                        items: [{}],
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        columns: [
-            {
-                items: [{}],
-            },
-            {
-                items: [{}],
-            },
-            {
-                items: [{}],
-            },
-            {
-                items: [{}],
-            },
-        ],
-    },
-    {
-        columns: [
-            {
-                items: [{}],
-            },
-            {
-                items: [{}],
-            },
-        ],
-    },
-    {
-        columns: [
-            {
-                columns: [
-                    {
-                        items: [{}, {}],
-                    },
-                    {
-                        items: [{}, {}],
-                    },
-                ],
-            },
-            {
-                items: [{}],
-            },
-        ],
-    },
+    [
+        {
+            ...defaults,
+            column: [1, 2],
+            row: 1,
+        },
+        {
+            ...defaults,
+            column: [3, 4],
+            row: 1,
+        },
+    ],
+    [
+        {
+            ...defaults,
+            column: 1,
+            row: 1,
+        },
+        {
+            ...defaults,
+            column: [2, 3],
+            row: 1,
+        },
+        {
+            ...defaults,
+            column: 4,
+            row: 1,
+        },
+    ],
+    [
+        {
+            ...defaults,
+            column: [1, 2],
+            row: 1,
+        },
+        {
+            ...defaults,
+            column: 3,
+            row: 1,
+        },
+        {
+            ...defaults,
+            column: 4,
+            row: 1,
+        },
+    ],
+    [
+        {
+            ...defaults,
+            column: 1,
+            row: 1,
+        },
+        {
+            ...defaults,
+            column: 2,
+            row: 1,
+        },
+        {
+            ...defaults,
+            column: [3, 4],
+            row: 1,
+        },
+    ],
 ];

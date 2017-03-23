@@ -3,7 +3,7 @@ import { tanokComponent } from 'tanok';
 
 import Preset from '../Preset';
 
-import { presetsNew } from '../../templates/presets';
+import { presets } from '../../templates/presets';
 
 import css from '../../style/blocks/pane/index.styl';
 
@@ -24,7 +24,7 @@ export default class AddPreset extends React.Component {
         return (
             <div>
                 <div className={css.pane__title}>Presets</div>
-                {presetsNew.map((item, index) => (
+                {presets.map((item, index) => (
                     <div
                         key={index}
                         className={css.pane__presetContainer}

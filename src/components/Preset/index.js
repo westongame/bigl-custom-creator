@@ -13,10 +13,13 @@ export default class Preset extends React.Component {
                 key={id}
                 className={classNames(
                     cssGrid.grid__column,
-                    cssGrid.grid__column_size_big: column.size,
+                    { [cssGrid.grid__column_size_big]: column.size >= 2 },
                 )}
             >
-                {column.rows.map((item, key) => this.makeGridRow(item, key))}
+                {column.rows.length > 1
+                    ? column.rows.map((item, key) => this.makeGridRow(item, key))
+                    : column.rows[0].content.map((item, key) => this.makeGridItem(item, key))
+                }
             </div>
         );
     }

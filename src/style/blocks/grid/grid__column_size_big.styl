@@ -1,9 +1,9 @@
-:local(.grid__item_size_big)
+:local(.grid__column_size_big)
     flex-basis: 100%
 
-    .grid__item + &
+    .grid__column + &
         order: 1
 
     @media only screen and (min-width: 768px)
-        .grid__item + &
+        .grid__column + &
             order: initial
