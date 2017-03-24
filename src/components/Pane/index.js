@@ -49,7 +49,7 @@ export default class Pane extends React.Component {
                     <div className={css.pane__imageEditContainer}>
                         <EditPreset
                             tanokStream={this.props.tanokStream}
-                            block={this.props.content[this.props.contentEditIndex]}
+                            block={this.props.content[this.props.editingIndex]}
                         />
                     </div>
                     <div className={css.pane__btnHolder}>
@@ -81,8 +81,7 @@ export default class Pane extends React.Component {
 Pane.propTypes = {
     tanokStream: React.PropTypes.object.isRequired,
     editMode: React.PropTypes.string.isRequired,
-    editingIndex: React.PropTypes.number,
-    menuPresets: React.PropTypes.object.isRequired,
+    menuPresets: React.PropTypes.array.isRequired,
     content: React.PropTypes.array.isRequired, // TODO more specific proptype needed
-    contentEditIndex: React.PropTypes.number.isRequired,
+    editingIndex: React.PropTypes.number,
 };

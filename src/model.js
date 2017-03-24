@@ -1,5 +1,3 @@
-import { menuPresetTemplate } from './templates/menuPreset';
-
 export default class Model {
     constructor() {
         this.isPreviewMode = false;
@@ -11,11 +9,7 @@ export default class Model {
             error: false,
             isEditing: false,
         };
-        this.menuPresets = {
-            structure: JSON.parse(JSON.stringify(menuPresetTemplate)),
-            editingLinksCount: null, // TODO i think it can be removed
-        };
+        this.menuPresets = [];
         this.content = [];
-        this.contentEditIndex = 0; // TODO replace this state with 'editingIndex'
     }
 }

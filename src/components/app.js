@@ -57,7 +57,7 @@ export default class App extends React.Component {
                         editingIndex={this.props.editingIndex}
                         menuPresets={this.props.menuPresets}
                         content={this.props.content}
-                        contentEditIndex={this.props.contentEditIndex}
+                        editingIndex={this.props.editingIndex}
                     />
                 </div>
                 <div className={[css.editor__barContainer, css.editor__barContainer_position_bottom].join(' ')}>
@@ -110,9 +110,8 @@ App.propTypes = {
     isPreviewMode: React.PropTypes.bool.isRequired,
     showErrorPopup: React.PropTypes.bool.isRequired,
     editMode: React.PropTypes.string.isRequired,
-    editingIndex: React.PropTypes.number,
-    contentEditIndex: React.PropTypes.number.isRequired,
     customTitle: React.PropTypes.object.isRequired,
-    menuPresets: React.PropTypes.object.isRequired,
+    menuPresets: React.PropTypes.array.isRequired,
     content: React.PropTypes.array.isRequired, // TODO more specific proptype needed
+    editingIndex: React.PropTypes.number,
 };

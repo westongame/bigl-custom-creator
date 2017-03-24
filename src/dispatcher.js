@@ -1,4 +1,5 @@
 import { TanokDispatcher, on } from 'tanok';
+import { menuPresetTemplate } from './templates/menuPreset';
 
 function saveAppState(state) {
     return function writeToStorage() {
@@ -23,6 +24,8 @@ export default class AppDispatcher extends TanokDispatcher {
                 Object.keys(stateProps).forEach((item) => {
                     state[item] = stateProps[item];
                 });
+            } else {
+                state.menuPresets = JSON.parse(JSON.stringify(menuPresetTemplate));
             }
         } catch (err) {
             throw new Error(`Unable to get saved application state`);
@@ -74,25 +77,32 @@ export default class AppDispatcher extends TanokDispatcher {
 
     @on('setContentEditIndex')
     setContentEditIndex(payload, state) {
-        state.contentEditIndex = payload;
+        state.editingIndex = payload;
         return [state];
     }
 
     @on('updateContentItem')
     updateContentItem(payload, state) {
-        state.content[state.contentEditIndex] = payload;
+        state.content[state.editingIndex] = payload;
         return [state, saveAppState(state)];
     }
 
-    @on('AddPreset')
-    AddPreset(payload, state) {
+    @on('addPreset')
+    addPreset(payload, state) {
         state.content.push(payload);
         return [state, saveAppState(state)];
     }
 
-    @on('DeletePreset')
-    DeletePreset(payload, state) {
+    @on('deletePreset')
+    deletePreset(payload, state) {
         state.content.splice(payload, 1);
+        return [state, saveAppState(state)];
+    }
+
+    @on('movePreset')
+    movePreset(payload, state) {
+        const presetItem = state[payload.array].splice(payload.index + payload.direction, 1)[0];
+        state[payload.array].splice(payload.index, 0, presetItem);
         return [state, saveAppState(state)];
     }
 }

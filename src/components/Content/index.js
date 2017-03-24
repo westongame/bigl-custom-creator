@@ -13,6 +13,7 @@ export default class Content extends React.Component {
 
         this.onEdit = this.onEdit.bind(this);
         this.onDelete = this.onDelete.bind(this);
+        this.onMove = this.onMove.bind(this);
         this.checkErrors = this.checkErrors.bind(this);
     }
 
@@ -30,7 +31,15 @@ export default class Content extends React.Component {
 
     onDelete(index) {
         this.send('updateEditMode', '');
-        this.send('DeletePreset', index);
+        this.send('deletePreset', index);
+    }
+
+    onMove(index, direction) {
+        this.send('movePreset', {
+            array: 'content',
+            index,
+            direction,
+        });
     }
 
     checkErrors(preset) {
@@ -64,6 +73,8 @@ export default class Content extends React.Component {
                                         itemError={this.checkErrors(item)}
                                         onEdit={() => this.onEdit(index)}
                                         onDelete={() => this.onDelete(index)}
+                                        onMove={(direction) => this.onMove(index, direction)}
+                                        contentLength={content.length}
                                     />
                                 : null
                             }

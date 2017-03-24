@@ -17,7 +17,7 @@ export default class AddPreset extends React.Component {
 
     onPresetClick(preset) {
         const newItem = JSON.parse(JSON.stringify(preset));
-        this.send('AddPreset', newItem);
+        this.send('addPreset', newItem);
     }
 
     render() {

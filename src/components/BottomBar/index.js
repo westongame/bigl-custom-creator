@@ -143,6 +143,6 @@ export default class BottomBar extends React.Component {
 
 BottomBar.propTypes = {
     customTitle: React.PropTypes.object.isRequired,
-    menuPresets: React.PropTypes.object.isRequired,
+    menuPresets: React.PropTypes.array.isRequired,
     contentStructure: React.PropTypes.array.isRequired, // TODO more specific proptype needed
 };

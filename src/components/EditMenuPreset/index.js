@@ -28,7 +28,7 @@ export default class EditMenuPreset extends React.Component {
     addMenuLink() {
         const newMenuPresets = this.props.menuPresets;
 
-        newMenuPresets.structure[this.props.editingIndex].links.push({});
+        newMenuPresets[this.props.editingIndex].links.push({});
 
         this.updateMenuPresets(newMenuPresets);
     }
@@ -36,7 +36,7 @@ export default class EditMenuPreset extends React.Component {
     deleteMenuLink(index) {
         const newMenuPresets = this.props.menuPresets;
 
-        newMenuPresets.structure[this.props.editingIndex].links.splice(index, 1);
+        newMenuPresets[this.props.editingIndex].links.splice(index, 1);
 
         this.updateMenuPresets(newMenuPresets);
     }
@@ -44,8 +44,8 @@ export default class EditMenuPreset extends React.Component {
     handleTextInputChange(target, index, event) {
         const newMenuPresets = this.props.menuPresets;
 
-        newMenuPresets.structure[this.props.editingIndex].links[index][target] = event.currentTarget.value;
-        newMenuPresets.structure[this.props.editingIndex].links[index][`${target}Error`] = false;
+        newMenuPresets[this.props.editingIndex].links[index][target] = event.currentTarget.value;
+        newMenuPresets[this.props.editingIndex].links[index][`${target}Error`] = false;
 
         this.updateMenuPresets(newMenuPresets);
     }
@@ -53,8 +53,8 @@ export default class EditMenuPreset extends React.Component {
     handleTitleInputChange(event) {
         const newMenuPresets = this.props.menuPresets;
 
-        newMenuPresets.structure[this.props.editingIndex].title = event.currentTarget.value;
-        newMenuPresets.structure[this.props.editingIndex].titleError = false;
+        newMenuPresets[this.props.editingIndex].title = event.currentTarget.value;
+        newMenuPresets[this.props.editingIndex].titleError = false;
 
         this.updateMenuPresets(newMenuPresets);
     }
@@ -64,7 +64,7 @@ export default class EditMenuPreset extends React.Component {
     }
 
     renderLinkItems() {
-        return this.props.menuPresets.structure[this.props.editingIndex].links.map((item, index) =>
+        return this.props.menuPresets[this.props.editingIndex].links.map((item, index) =>
             <div
                 className={css.editMenu__item}
                 key={index}
@@ -116,13 +116,13 @@ export default class EditMenuPreset extends React.Component {
                             cssInput.textbox,
                             {
                                 [cssInput.textbox_state_error]:
-                                    this.props.menuPresets.structure[this.props.editingIndex].titleError,
+                                    this.props.menuPresets[this.props.editingIndex].titleError,
                             }
                         )}
                         type='text'
                         value={
-                            this.props.menuPresets.structure[this.props.editingIndex].title ?
-                            this.props.menuPresets.structure[this.props.editingIndex].title :
+                            this.props.menuPresets[this.props.editingIndex].title ?
+                            this.props.menuPresets[this.props.editingIndex].title :
                             ''
                         }
                         placeholder='Menu title'
@@ -148,5 +148,5 @@ export default class EditMenuPreset extends React.Component {
 
 EditMenuPreset.propTypes = {
     editingIndex: React.PropTypes.number,
-    menuPresets: React.PropTypes.object.isRequired,
+    menuPresets: React.PropTypes.array.isRequired,
 };

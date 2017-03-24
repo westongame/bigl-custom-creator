@@ -105,6 +105,6 @@ Workspace.propTypes = {
     editMode: React.PropTypes.string.isRequired,
     editingIndex: React.PropTypes.number,
     customTitle: React.PropTypes.object,
-    menuPresets: React.PropTypes.object.isRequired,
+    menuPresets: React.PropTypes.array.isRequired,
     content: React.PropTypes.array.isRequired, // TODO more specific proptype needed
 };

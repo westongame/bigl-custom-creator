@@ -17,6 +17,7 @@ export default class Sidebar extends React.Component {
         this.onEdit = this.onEdit.bind(this);
         this.onAdd = this.onAdd.bind(this);
         this.onDelete = this.onDelete.bind(this);
+        this.onMove = this.onMove.bind(this);
         this.renderItems = this.renderItems.bind(this);
         this.checkErrors = this.checkErrors.bind(this);
     }
@@ -37,7 +38,7 @@ export default class Sidebar extends React.Component {
 
         const newMenuPresets = this.props.menuPresets;
 
-        newMenuPresets.structure.splice(index, 1);
+        newMenuPresets.splice(index, 1);
 
         this.updateMenuPresets(newMenuPresets);
     }
@@ -46,9 +47,17 @@ export default class Sidebar extends React.Component {
         const newMenuPresets = this.props.menuPresets;
         const menuPreset = JSON.parse(JSON.stringify(menuPresetTemplate[0]));
 
-        newMenuPresets.structure.push(menuPreset);
+        newMenuPresets.push(menuPreset);
 
         this.updateMenuPresets(newMenuPresets);
+    }
+
+    onMove(index, direction) {
+        this.send('movePreset', {
+            array: 'menuPresets',
+            index,
+            direction,
+        });
     }
 
     checkErrors(item) {
@@ -59,40 +68,36 @@ export default class Sidebar extends React.Component {
         this.send('updateMenuPresets', newMenuPresets);
     }
 
-    renderItems() {
-        const items = [];
-
-        this.props.menuPresets.structure.forEach((item, index) => {
-            items.push(
-                <div
-                    className={css.sidebar__item}
-                    key={index}
-                >
-                    {
-                        !this.props.isPreviewMode ?
-                            <PresetBar
-                                editMode={this.props.editMode}
-                                editingIndex={this.props.editingIndex}
-                                itemIndex={index}
-                                itemMode='menu'
-                                itemError={this.checkErrors(item)}
-                                onEdit={() => this.onEdit(item, index)}
-                                onDelete={() => this.onDelete(index)}
-                            />
-                            : null
-                    }
-                    <MenuPreset menuProps={item} />
-                </div>
-            );
-        });
-
-        return items;
+    renderItems(structure) {
+        return structure.map((item, index) => (
+            <div
+                className={css.sidebar__item}
+                key={index}
+            >
+                {
+                    !this.props.isPreviewMode ?
+                        <PresetBar
+                            editMode={this.props.editMode}
+                            editingIndex={this.props.editingIndex}
+                            itemIndex={index}
+                            itemMode='menu'
+                            itemError={this.checkErrors(item)}
+                            onEdit={() => this.onEdit(item, index)}
+                            onDelete={() => this.onDelete(index)}
+                            onMove={(direction) => this.onMove(index, direction)}
+                            contentLength={structure.length}
+                        />
+                        : null
+                }
+                <MenuPreset menuProps={item} />
+            </div>
+        ));
     }
 
     render() {
         return (
             <div className={css.sidebar}>
-                {this.renderItems()}
+                {this.renderItems(this.props.menuPresets)}
                 {
                     !this.props.isPreviewMode ?
                         <div className={css.sidebar__btnHolder}>
@@ -114,5 +119,5 @@ Sidebar.propTypes = {
     isPreviewMode: React.PropTypes.bool.isRequired,
     editMode: React.PropTypes.string.isRequired,
     editingIndex: React.PropTypes.number,
-    menuPresets: React.PropTypes.object.isRequired,
+    menuPresets: React.PropTypes.array.isRequired,
 };
