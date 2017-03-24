@@ -48,40 +48,29 @@ export default class Content extends React.Component {
 
     render() {
         const { content } = this.props;
-        let placeholder = (
+        const placeholder = (
             <div className={css.content__placeholder}>
                 Add some presets here
             </div>
         );
-
-        if (this.props.isPreviewMode) {
-            placeholder = null;
-        }
 
         return (
             <div className={css.content}>
                 {content.length
                     ? content.map((item, index) => (
                         <div key={index} className={css.content__item}>
-                            {
-                                !this.props.isPreviewMode ?
-                                    <PresetBar
-                                        editMode={this.props.editMode}
-                                        editingIndex={this.props.editingIndex}
-                                        itemIndex={index}
-                                        itemMode='content'
-                                        itemError={this.checkErrors(item)}
-                                        onEdit={() => this.onEdit(index)}
-                                        onDelete={() => this.onDelete(index)}
-                                        onMove={(direction) => this.onMove(index, direction)}
-                                        contentLength={content.length}
-                                    />
-                                : null
-                            }
-                            <Preset
-                                isPreviewMode={this.props.isPreviewMode}
-                                structure={item}
+                            <PresetBar
+                                editMode={this.props.editMode}
+                                editingIndex={this.props.editingIndex}
+                                itemIndex={index}
+                                itemMode='content'
+                                itemError={this.checkErrors(item)}
+                                onEdit={() => this.onEdit(index)}
+                                onDelete={() => this.onDelete(index)}
+                                onMove={(direction) => this.onMove(index, direction)}
+                                contentLength={content.length}
                             />
+                            <Preset structure={item} />
                         </div>
                     ))
                     : placeholder
@@ -92,7 +81,6 @@ export default class Content extends React.Component {
 }
 
 Content.propTypes = {
-    isPreviewMode: React.PropTypes.bool.isRequired,
     editMode: React.PropTypes.string,
     editingIndex: React.PropTypes.number,
     content: React.PropTypes.array.isRequired, // TODO more specific proptype needed

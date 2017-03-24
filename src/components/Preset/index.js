@@ -52,7 +52,7 @@ export default class Preset extends React.Component {
                 <div
                     className={classNames(
                         cssImage.imageHolder,
-                        { [cssImage.imageHolder_type_preview]: this.props.isPreviewMode }
+                        { [cssImage.imageHolder_type_bordered]: !this.props.isPreviewMode },
                     )}
                 >
                     {image}

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import css from '../../style/blocks/category-tree/index.styl';
 
@@ -21,7 +22,12 @@ export default class MenuPreset extends React.Component {
 
     render() {
         return (
-            <div className={[css.categoryTree, css.categoryTree_type_bordered].join(' ')}>
+            <div
+                className={classNames(
+                    css.categoryTree,
+                    { [css.categoryTree_type_bordered]: !this.props.isPreviewMode }
+                )}
+            >
                 <div className={css.categoryTree__title}>
                     {this.props.menuProps.title ? this.props.menuProps.title : 'New menu'}
                 </div>
@@ -34,5 +40,6 @@ export default class MenuPreset extends React.Component {
 }
 
 MenuPreset.propTypes = {
+    isPreviewMode: React.PropTypes.bool,
     menuProps: React.PropTypes.object,
 };

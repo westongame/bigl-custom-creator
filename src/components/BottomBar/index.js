@@ -29,7 +29,7 @@ export default class BottomBar extends React.Component {
             const link = e.currentTarget;
             const data = {
                 title: this.props.customTitle.text,
-                menu: this.props.menuPresets.structure,
+                menu: this.props.menuPresets,
                 content: this.props.contentStructure,
             };
             const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
@@ -62,21 +62,21 @@ export default class BottomBar extends React.Component {
         const newMenuPresets = this.props.menuPresets;
         let error = false;
 
-        newMenuPresets.structure.forEach((menu, index) => {
+        newMenuPresets.forEach((menu, index) => {
             if (!menu.title) {
                 error = true;
-                newMenuPresets.structure[index].titleError = true;
+                newMenuPresets[index].titleError = true;
             }
 
             menu.links.forEach((link, linkIndex) => {
                 if (!link.text) {
                     error = true;
-                    newMenuPresets.structure[index].links[linkIndex].textError = true;
+                    newMenuPresets[index].links[linkIndex].textError = true;
                 }
 
                 if (!link.href) {
                     error = true;
-                    newMenuPresets.structure[index].links[linkIndex].hrefError = true;
+                    newMenuPresets[index].links[linkIndex].hrefError = true;
                 }
             });
         });

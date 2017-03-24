@@ -74,21 +74,17 @@ export default class Sidebar extends React.Component {
                 className={css.sidebar__item}
                 key={index}
             >
-                {
-                    !this.props.isPreviewMode ?
-                        <PresetBar
-                            editMode={this.props.editMode}
-                            editingIndex={this.props.editingIndex}
-                            itemIndex={index}
-                            itemMode='menu'
-                            itemError={this.checkErrors(item)}
-                            onEdit={() => this.onEdit(item, index)}
-                            onDelete={() => this.onDelete(index)}
-                            onMove={(direction) => this.onMove(index, direction)}
-                            contentLength={structure.length}
-                        />
-                        : null
-                }
+                <PresetBar
+                    editMode={this.props.editMode}
+                    editingIndex={this.props.editingIndex}
+                    itemIndex={index}
+                    itemMode='menu'
+                    itemError={this.checkErrors(item)}
+                    onEdit={() => this.onEdit(item, index)}
+                    onDelete={() => this.onDelete(index)}
+                    onMove={(direction) => this.onMove(index, direction)}
+                    contentLength={structure.length}
+                />
                 <MenuPreset menuProps={item} />
             </div>
         ));
@@ -98,25 +94,20 @@ export default class Sidebar extends React.Component {
         return (
             <div className={css.sidebar}>
                 {this.renderItems(this.props.menuPresets)}
-                {
-                    !this.props.isPreviewMode ?
-                        <div className={css.sidebar__btnHolder}>
-                            <div
-                                className={[cssButton.button, cssButton.button_theme_green].join(' ')}
-                                onClick={this.onAdd}
-                            >
-                                +
-                            </div>
-                        </div>
-                    : null
-                }
+                <div className={css.sidebar__btnHolder}>
+                    <div
+                        className={[cssButton.button, cssButton.button_theme_green].join(' ')}
+                        onClick={this.onAdd}
+                    >
+                        +
+                    </div>
+                </div>
             </div>
         );
     }
 }
 
 Sidebar.propTypes = {
-    isPreviewMode: React.PropTypes.bool.isRequired,
     editMode: React.PropTypes.string.isRequired,
     editingIndex: React.PropTypes.number,
     menuPresets: React.PropTypes.array.isRequired,

@@ -1,13 +1,11 @@
 import React from 'react';
 import { tanokComponent } from 'tanok';
-import classNames from 'classnames';
 
+import Preview from './Preview';
 import Workspace from './Workspace';
 import Pane from './Pane';
 import TopBar from './TopBar';
 import BottomBar from './BottomBar';
-
-import IcoCross from './cross.svg';
 
 import css from '../style/blocks/editor/index.styl';
 import cssPopup from '../style/blocks/popup/index.styl';
@@ -19,86 +17,83 @@ export default class App extends React.Component {
         super(props);
 
         this.onErrorPopupClick = this.onErrorPopupClick.bind(this);
-        this.exitPreviewMode = this.exitPreviewMode.bind(this);
     }
 
     onErrorPopupClick() {
         this.send('errorPopup', false);
     }
 
-    exitPreviewMode() {
-        this.send('previewMode', false);
-    }
-
     render() {
         return (
-            <div className={classNames(css.editor, { [css.editor_type_preview]: this.props.isPreviewMode })}>
+            <div className={css.editor}>
                 <div className={css.editor__barContainer}>
                     <TopBar
                         tanokStream={this.props.tanokStream}
                         isPreviewMode={this.props.isPreviewMode}
                     />
                 </div>
-                <div className={css.editor__workspaceContainer}>
-                    <Workspace
-                        tanokStream={this.props.tanokStream}
+                {
+                    this.props.isPreviewMode
+                    ? <Preview
                         isPreviewMode={this.props.isPreviewMode}
-                        editMode={this.props.editMode}
-                        editingIndex={this.props.editingIndex}
-                        customTitle={this.props.customTitle}
-                        menuPresets={this.props.menuPresets}
-                        content={this.props.content}
-                    />
-                </div>
-                <div className={css.editor__paneContainer}>
-                    <Pane
-                        tanokStream={this.props.tanokStream}
-                        editMode={this.props.editMode}
-                        editingIndex={this.props.editingIndex}
-                        menuPresets={this.props.menuPresets}
-                        content={this.props.content}
-                        editingIndex={this.props.editingIndex}
-                    />
-                </div>
-                <div className={[css.editor__barContainer, css.editor__barContainer_position_bottom].join(' ')}>
-                    <BottomBar
-                        tanokStream={this.props.tanokStream}
                         customTitle={this.props.customTitle}
                         menuPresets={this.props.menuPresets}
                         contentStructure={this.props.content}
                     />
-                </div>
-                {
-                    this.props.isPreviewMode ?
-                        <div
-                            className={css.editor__previewExitBtn}
-                            onClick={this.exitPreviewMode}
-                        >
-                            <span className={css.editor__previewExitBtnText}>
-                                Exit preview mode
-                            </span>
-                            <IcoCross className={css.editor__previewExitBtnIco} />
+                    : <div>
+                        <div className={css.editor__workspaceContainer}>
+                            <Workspace
+                                tanokStream={this.props.tanokStream}
+                                editMode={this.props.editMode}
+                                editingIndex={this.props.editingIndex}
+                                customTitle={this.props.customTitle}
+                                menuPresets={this.props.menuPresets}
+                                content={this.props.content}
+                            />
                         </div>
-                    : null
-                }
-                {
-                    this.props.showErrorPopup ?
+                        <div className={css.editor__paneContainer}>
+                            <Pane
+                                tanokStream={this.props.tanokStream}
+                                editMode={this.props.editMode}
+                                editingIndex={this.props.editingIndex}
+                                menuPresets={this.props.menuPresets}
+                                content={this.props.content}
+                                editingIndex={this.props.editingIndex}
+                            />
+                        </div>
                         <div
-                            className={cssPopup.popup}
-                            onClick={this.onErrorPopupClick}
+                            className={[
+                                css.editor__barContainer,
+                                css.editor__barContainer_position_bottom,
+                            ].join(' ')}
                         >
-                            <div className={cssPopup.popup__body}>
-                                <div>Fix errors pls</div>
-                                <br />
+                            <BottomBar
+                                tanokStream={this.props.tanokStream}
+                                customTitle={this.props.customTitle}
+                                menuPresets={this.props.menuPresets}
+                                contentStructure={this.props.content}
+                            />
+                        </div>
+                        {
+                            this.props.showErrorPopup ?
                                 <div
-                                    className={cssButton.button}
+                                    className={cssPopup.popup}
                                     onClick={this.onErrorPopupClick}
                                 >
-                                    Ok
+                                    <div className={cssPopup.popup__body}>
+                                        <div>Fix errors pls</div>
+                                        <br />
+                                        <div
+                                            className={cssButton.button}
+                                            onClick={this.onErrorPopupClick}
+                                        >
+                                            Ok
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    : null
+                            : null
+                        }
+                    </div>
                 }
             </div>
         );

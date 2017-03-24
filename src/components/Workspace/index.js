@@ -46,12 +46,7 @@ export default class Workspace extends React.Component {
 
     render() {
         return (
-            <div
-                className={classNames(
-                    css.workspace,
-                    { [css.workspace_type_preview]: this.props.isPreviewMode }
-                )}
-            >
+            <div className={css.workspace}>
                 <div className={css.workspace__wrapper}>
                     <div
                         className={classNames(
@@ -67,7 +62,6 @@ export default class Workspace extends React.Component {
                             type='text'
                             placeholder='Write some title here'
                             value={this.props.customTitle.text ? this.props.customTitle.text : ''}
-                            disabled={this.props.isPreviewMode}
                             onFocus={this.onFocus}
                             onBlur={this.onBlur}
                             onChange={this.onChange}
@@ -77,7 +71,6 @@ export default class Workspace extends React.Component {
                         <div className={css.workspace__sidebar}>
                             <SideBar
                                 tanokStream={this.props.tanokStream}
-                                isPreviewMode={this.props.isPreviewMode}
                                 editMode={this.props.editMode}
                                 editingIndex={this.props.editingIndex}
                                 menuPresets={this.props.menuPresets}
@@ -86,7 +79,6 @@ export default class Workspace extends React.Component {
                         <div className={css.workspace__content}>
                             <Content
                                 tanokStream={this.props.tanokStream}
-                                isPreviewMode={this.props.isPreviewMode}
                                 editMode={this.props.editMode}
                                 editingIndex={this.props.editingIndex}
                                 content={this.props.content}
@@ -101,7 +93,6 @@ export default class Workspace extends React.Component {
 
 Workspace.propTypes = {
     tanokStream: React.PropTypes.object.isRequired,
-    isPreviewMode: React.PropTypes.bool.isRequired,
     editMode: React.PropTypes.string.isRequired,
     editingIndex: React.PropTypes.number,
     customTitle: React.PropTypes.object,

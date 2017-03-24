@@ -35,7 +35,7 @@ export default class AppDispatcher extends TanokDispatcher {
 
     @on('previewMode')
     previewMode(payload, state) {
-        state.isPreviewMode = payload;
+        state.isPreviewMode = !state.isPreviewMode;
         return [state];
     }
 
