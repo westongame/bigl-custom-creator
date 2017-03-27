@@ -13,6 +13,8 @@ export default function PresetBar(props) {
             className={classNames(
                 css.presetBar,
                 {
+                    [css.presetBar_type_content]:
+                        props.itemMode === 'content',
                     [css.presetBar_state_active]:
                         props.itemIndex === props.editingIndex && props.editMode === props.itemMode,
                     [css.presetBar_state_error]: props.itemError,

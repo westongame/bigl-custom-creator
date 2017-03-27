@@ -39,6 +39,12 @@ export default class AppDispatcher extends TanokDispatcher {
         return [state];
     }
 
+    @on('previewDevice')
+    previewDevice(payload, state) {
+        state.previewDevice = payload;
+        return [state];
+    }
+
     @on('errorPopup')
     errorPopup(payload, state) {
         state.showErrorPopup = payload;

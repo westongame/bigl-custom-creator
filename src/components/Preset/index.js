@@ -110,7 +110,15 @@ export default class Preset extends React.Component {
 
     render() {
         return (
-            <div className={cssGrid.grid}>
+            <div
+                className={classNames(
+                    cssGrid.grid,
+                    {
+                        [cssGrid.grid_type_smartphonePreview]:
+                            this.props.isPreviewMode && this.props.previewDevice === 'smartphone',
+                    },
+                )}
+            >
                 {this.generateMarkup(this.props.structure)}
             </div>
         );
@@ -119,5 +127,6 @@ export default class Preset extends React.Component {
 
 Preset.propTypes = {
     isPreviewMode: React.PropTypes.bool,
+    previewDevice: React.PropTypes.string,
     structure: React.PropTypes.array.isRequired, // TODO more specific proptype needed
 };

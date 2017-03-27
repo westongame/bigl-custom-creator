@@ -1,5 +1,6 @@
 import React from 'react';
 import { tanokComponent } from 'tanok';
+import classNames from 'classnames';
 
 import MenuPreset from '../MenuPreset';
 import Preset from '../Preset';
@@ -37,6 +38,7 @@ export default class Preview extends React.Component {
             >
                 <Preset
                     isPreviewMode={this.props.isPreviewMode}
+                    previewDevice={this.props.previewDevice}
                     structure={item}
                 />
             </div>
@@ -46,12 +48,25 @@ export default class Preview extends React.Component {
     render() {
         return (
             <div className={css.preview}>
-                <div className={css.preview__container}>
+                <div
+                    className={classNames(
+                        css.preview__container,
+                        {
+                            [css.preview__container_type_tablet]: this.props.previewDevice === 'tablet',
+                            [css.preview__container_type_smartphone]: this.props.previewDevice === 'smartphone',
+                        }
+                    )}
+                >
                     <div className={css.preview__title}>
                         {this.props.customTitle.text}
                     </div>
                     <div className={css.preview__contentContainer}>
-                        <div className={css.preview__sidebar}>
+                        <div
+                            className={classNames(
+                                css.preview__sidebar,
+                                { [css.preview__sidebar_type_visible]: this.props.previewDevice === 'desktop' }
+                            )}
+                        >
                             {this.renderMenu()}
                         </div>
                         <div className={css.preview__content}>
@@ -66,6 +81,7 @@ export default class Preview extends React.Component {
 
 Preview.propTypes = {
     isPreviewMode: React.PropTypes.bool,
+    previewDevice: React.PropTypes.string.isRequired,
     customTitle: React.PropTypes.object.isRequired,
     menuPresets: React.PropTypes.array.isRequired,
     contentStructure: React.PropTypes.array.isRequired, // TODO more specific proptype needed

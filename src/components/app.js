@@ -30,12 +30,14 @@ export default class App extends React.Component {
                     <TopBar
                         tanokStream={this.props.tanokStream}
                         isPreviewMode={this.props.isPreviewMode}
+                        previewDevice={this.props.previewDevice}
                     />
                 </div>
                 {
                     this.props.isPreviewMode
                     ? <Preview
                         isPreviewMode={this.props.isPreviewMode}
+                        previewDevice={this.props.previewDevice}
                         customTitle={this.props.customTitle}
                         menuPresets={this.props.menuPresets}
                         contentStructure={this.props.content}
@@ -103,6 +105,7 @@ export default class App extends React.Component {
 App.propTypes = {
     tanokStream: React.PropTypes.object.isRequired,
     isPreviewMode: React.PropTypes.bool.isRequired,
+    previewDevice: React.PropTypes.string.isRequired,
     showErrorPopup: React.PropTypes.bool.isRequired,
     editMode: React.PropTypes.string.isRequired,
     customTitle: React.PropTypes.object.isRequired,
