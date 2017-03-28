@@ -17,6 +17,17 @@ export default class App extends React.Component {
         super(props);
 
         this.onErrorPopupClick = this.onErrorPopupClick.bind(this);
+
+        document.body.addEventListener('keydown', (e) => {
+            if (e.keyCode === 90 && e.ctrlKey) {
+                e.preventDefault();
+                this.send('historyBack');
+            }
+            if (e.keyCode === 89 && e.ctrlKey) {
+                e.preventDefault();
+                this.send('historyForward');
+            }
+        });
     }
 
     onErrorPopupClick() {
