@@ -1,22 +1,25 @@
-:local
-    .editorBar__button
+:local(.editorBar__button)
+    display: inline-block
+    vertical-align: top
+    height: 100%
+    padding: 0 20px
+    cursor: pointer
+    color: #b7b7b7
+    font-size: 0
+    user-select: none
+
+    &:before
+        content: ''
         display: inline-block
-        vertical-align: top
+        vertical-align: middle
         height: 100%
-        padding: 0 20px
-        cursor: pointer
-        color: #b7b7b7
-        font-size: 0
 
-        &:before
-            content: ''
-            display: inline-block
-            vertical-align: middle
-            height: 100%
+    &:hover
+        background: #52bad5
+        color: #fff
 
-        &:hover
-            background: #52bad5
-            color: #fff
+        .editorBar__buttonIco
+            fill: #fff
 
-            .editorBar__buttonIco
-                fill: #fff
+    & + &
+        margin-left: 1px

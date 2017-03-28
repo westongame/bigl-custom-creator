@@ -5,7 +5,6 @@ import Preview from './Preview';
 import Workspace from './Workspace';
 import Pane from './Pane';
 import TopBar from './TopBar';
-import BottomBar from './BottomBar';
 
 import css from '../style/blocks/editor/index.styl';
 import cssPopup from '../style/blocks/popup/index.styl';
@@ -42,6 +41,9 @@ export default class App extends React.Component {
                         tanokStream={this.props.tanokStream}
                         isPreviewMode={this.props.isPreviewMode}
                         previewDevice={this.props.previewDevice}
+                        customTitle={this.props.customTitle}
+                        menuPresets={this.props.menuPresets}
+                        contentStructure={this.props.content}
                     />
                 </div>
                 {
@@ -72,19 +74,6 @@ export default class App extends React.Component {
                                 menuPresets={this.props.menuPresets}
                                 content={this.props.content}
                                 editingIndex={this.props.editingIndex}
-                            />
-                        </div>
-                        <div
-                            className={[
-                                css.editor__barContainer,
-                                css.editor__barContainer_position_bottom,
-                            ].join(' ')}
-                        >
-                            <BottomBar
-                                tanokStream={this.props.tanokStream}
-                                customTitle={this.props.customTitle}
-                                menuPresets={this.props.menuPresets}
-                                contentStructure={this.props.content}
                             />
                         </div>
                         {

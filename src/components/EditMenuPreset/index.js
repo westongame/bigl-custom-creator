@@ -6,7 +6,7 @@ import css from '../../style/blocks/edit-menu/index.styl';
 import cssInput from '../../style/blocks/textbox/index.styl';
 import cssButton from '../../style/blocks/button/index.styl';
 
-import IcoCross from './cross.svg';
+import IcoCrossCircle from './cross-circle.svg';
 
 @tanokComponent
 export default class EditMenuPreset extends React.Component {
@@ -101,7 +101,7 @@ export default class EditMenuPreset extends React.Component {
                     className={css.editMenu__delBtnHolder}
                     onClick={() => this.deleteMenuLink(index)}
                 >
-                    <IcoCross className={css.editMenu__delBtn} />
+                    <IcoCrossCircle className={css.editMenu__delBtn} />
                 </div>
             </div>
         );

@@ -3,9 +3,7 @@ import React from 'react';
 import IcoPlaceholder from './empty-image.svg';
 
 import css from '../../style/blocks/image-edit/index.styl';
-import cssPane from '../../style/blocks/pane/index.styl';
 import cssImage from '../../style/blocks/image-holder/index.styl';
-import cssButton from '../../style/blocks/button/index.styl';
 
 export default function EditImage(props) {
     let image = <IcoPlaceholder />;
@@ -20,19 +18,31 @@ export default function EditImage(props) {
 
     return (
         <div className={css.imageEdit}>
-            <div className={css.imageEdit__imgContainer}>
+            <input
+                id={`imageUpload-${props.itemId}`}
+                type='file'
+                onChange={props.onChange}
+                className={css.imageEdit__input}
+            />
+            <label
+                className={css.imageEdit__imgContainer}
+                htmlFor={`imageUpload-${props.itemId}`}
+            >
                 {image}
-            </div>
+            </label>
             <div className={css.imageEdit__textContainer}>
-                <label className={cssPane.pane__btnHolder}>
-                    <div className={cssButton.button}>
-                        {props.imageName || 'Upload an image'}
-                    </div>
-                    <input
-                        type='file'
-                        onChange={props.onChange}
-                        className={css.imageEdit__link}
-                    />
+                {
+                    props.imageName ?
+                        <div className={css.imageEdit__title}>
+                            {props.imageName}
+                        </div>
+                    : null
+                }
+                <label
+                    className={css.imageEdit__link}
+                    htmlFor={`imageUpload-${props.itemId}`}
+                >
+                    Upload an image
                 </label>
             </div>
         </div>
@@ -43,4 +53,5 @@ EditImage.propTypes = {
     imageSrc: React.PropTypes.string,
     imageName: React.PropTypes.string,
     onChange: React.PropTypes.func.isRequired,
+    itemId: React.PropTypes.number.isRequired,
 };

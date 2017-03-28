@@ -9,13 +9,6 @@ export const presets = [
     [
         {
             ...defaults,
-            column: [1, 2, 3, 4],
-            row: 1,
-        },
-    ],
-    [
-        {
-            ...defaults,
             column: 1,
             row: 1,
         },
@@ -43,7 +36,12 @@ export const presets = [
         },
         {
             ...defaults,
-            column: [3, 4],
+            column: 3,
+            row: 1,
+        },
+        {
+            ...defaults,
+            column: 4,
             row: 1,
         },
     ],
@@ -67,23 +65,6 @@ export const presets = [
     [
         {
             ...defaults,
-            column: [1, 2],
-            row: 1,
-        },
-        {
-            ...defaults,
-            column: 3,
-            row: 1,
-        },
-        {
-            ...defaults,
-            column: 4,
-            row: 1,
-        },
-    ],
-    [
-        {
-            ...defaults,
             column: 1,
             row: 1,
         },
@@ -95,6 +76,25 @@ export const presets = [
         {
             ...defaults,
             column: [3, 4],
+            row: 1,
+        },
+    ],
+    [
+        {
+            ...defaults,
+            column: [1, 2],
+            row: 1,
+        },
+        {
+            ...defaults,
+            column: [3, 4],
+            row: 1,
+        },
+    ],
+    [
+        {
+            ...defaults,
+            column: [1, 2, 3, 4],
             row: 1,
         },
     ],

@@ -5,6 +5,7 @@ import PresetBar from '../PresetBar';
 import Preset from '../Preset';
 
 import css from '../../style/blocks/content/index.styl';
+import cssButton from '../../style/blocks/button/index.styl';
 
 @tanokComponent
 export default class Content extends React.Component {
@@ -15,6 +16,8 @@ export default class Content extends React.Component {
         this.onDelete = this.onDelete.bind(this);
         this.onMove = this.onMove.bind(this);
         this.checkErrors = this.checkErrors.bind(this);
+        this.renderStartMessage = this.renderStartMessage.bind(this);
+        this.placeholderBtnClick = this.placeholderBtnClick.bind(this);
     }
 
     onEdit(index) {
@@ -35,6 +38,7 @@ export default class Content extends React.Component {
     }
 
     onMove(index, direction) {
+        this.send('updateEditMode', '');
         this.send('movePreset', {
             array: 'content',
             index,
@@ -46,13 +50,32 @@ export default class Content extends React.Component {
         return preset.some((item) => item.imageError || item.titleError || item.linkError);
     }
 
-    render() {
-        const { content } = this.props;
-        const placeholder = (
+    placeholderBtnClick() {
+        this.send('updateEditMode', '');
+    }
+
+    renderStartMessage() {
+        return (
             <div className={css.content__placeholder}>
-                Add some presets here
+                {
+                    this.props.editMode ?
+                        <div
+                            className={[cssButton.button, cssButton.button_theme_green].join(' ')}
+                            onClick={this.placeholderBtnClick}
+                        >
+                            +
+                        </div>
+                    :
+                        <div>
+                            Add some presets here
+                        </div>
+                }
             </div>
         );
+    }
+
+    render() {
+        const { content } = this.props;
 
         return (
             <div className={css.content}>
@@ -73,7 +96,7 @@ export default class Content extends React.Component {
                             <Preset structure={item} />
                         </div>
                     ))
-                    : placeholder
+                    : this.renderStartMessage()
                 }
             </div>
         );

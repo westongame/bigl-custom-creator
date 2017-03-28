@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import IcoUp from './chevron-up.svg';
 import IcoDown from './chevron-down.svg';
 import IcoTrash from './trash.svg';
+import IcoPencil from './pencil.svg';
 
 import css from '../../style/blocks/preset-bar/index.styl';
 
@@ -22,27 +23,42 @@ export default function PresetBar(props) {
             )}
         >
             <div className={css.presetBar__container}>
-                {props.itemIndex < props.contentLength - 1 ?
-                    <div
-                        className={css.presetBar__button}
-                        title='Move Down'
-                        onClick={() => props.onMove(1)}
-                    ><IcoDown className={css.presetBar__buttonIco} /></div>
+                {
+                    props.itemIndex < props.contentLength - 1 ?
+                        <div
+                            className={css.presetBar__button}
+                            title='Move Down'
+                            onClick={() => props.onMove(1)}
+                        >
+                            <IcoDown className={css.presetBar__buttonIco} />
+                        </div>
                     : null
                 }
-                {props.itemIndex > 0 ?
-                    <div
-                        className={css.presetBar__button}
-                        title='Move Up'
-                        onClick={() => props.onMove(-1)}
-                    ><IcoUp className={css.presetBar__buttonIco} /></div>
+                {
+                    props.itemIndex > 0 ?
+                        <div
+                            className={css.presetBar__button}
+                            title='Move Up'
+                            onClick={() => props.onMove(-1)}
+                        >
+                            <IcoUp className={css.presetBar__buttonIco} />
+                        </div>
                     : null
                 }
                 <div
                     className={[css.presetBar__button, css.presetBar__button_type_right].join(' ')}
+                    title='Edit'
+                    onClick={props.onEdit}
+                >
+                    <IcoPencil className={css.presetBar__buttonIco} />
+                </div>
+                <div
+                    className={[css.presetBar__button, css.presetBar__button_type_right].join(' ')}
                     title='Remove'
                     onClick={props.onDelete}
-                ><IcoTrash className={css.presetBar__buttonIco} /></div>
+                >
+                    <IcoTrash className={css.presetBar__buttonIco} />
+                </div>
             </div>
             <div
                 className={css.presetBar__clickableLayer}

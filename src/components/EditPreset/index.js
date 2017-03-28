@@ -56,11 +56,9 @@ export default class EditPreset extends React.Component {
                     imageSrc={content.imageSrc}
                     imageName={content.imageName}
                     onChange={(e) => this.onImageUpload(index, e)}
+                    itemId={index}
                 />
                 <div className={cssEdit.editMenu__item}>
-                    <div className={cssEdit.editMenu__title}>
-                        Title:
-                    </div>
                     <div className={cssEdit.editMenu__inputHolder}>
                         <div className={cssEdit.editMenu__inputWrapper}>
                             <input
@@ -70,17 +68,11 @@ export default class EditPreset extends React.Component {
                                 )}
                                 type='text'
                                 value={content.title || ''}
+                                placeholder='Title'
                                 onChange={(e) => this.onInputChange(index, 'title', e)}
                                 onFocus={this.onFocus}
                             />
                         </div>
-                    </div>
-                </div>
-                <div className={cssEdit.editMenu__item}>
-                    <div className={cssEdit.editMenu__title}>
-                        Link:
-                    </div>
-                    <div className={cssEdit.editMenu__inputHolder}>
                         <div className={cssEdit.editMenu__inputWrapper}>
                             <input
                                 className={classNames(
@@ -89,6 +81,7 @@ export default class EditPreset extends React.Component {
                                 )}
                                 type='text'
                                 value={content.link || ''}
+                                placeholder='URL'
                                 onChange={(e) => this.onInputChange(index, 'link', e)}
                                 onFocus={this.onFocus}
                             />
