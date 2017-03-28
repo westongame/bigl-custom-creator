@@ -46,7 +46,9 @@ export default class EditPreset extends React.Component {
             this.send('updateContentItem', newBlock);
         };
 
-        reader.readAsDataURL(file);
+        if (file) {
+            reader.readAsDataURL(file);
+        }
     }
 
     renderEditItem(content, index) {

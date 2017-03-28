@@ -110,7 +110,7 @@ export default class EditMenuPreset extends React.Component {
     render() {
         return (
             <div className={css.editMenu}>
-                <div className={css.editMenu__item}>
+                <div className={css.editMenu__titleContainer}>
                     <input
                         className={classNames(
                             cssInput.textbox,
