@@ -58,7 +58,12 @@ if (DEVELOPMENT) {
         },
         'stylus-loader',
     ];
-    plugins = [new webpack.HotModuleReplacementPlugin()];
+    plugins = [
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': '"development"',
+        }),
+    ];
     devtool = 'inline-source-map';
 }
 

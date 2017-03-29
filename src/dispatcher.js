@@ -40,9 +40,9 @@ export default class AppDispatcher extends TanokDispatcher {
 
         state.menuPresets = JSON.parse(JSON.stringify(menuPresetTemplate));
 
-        //
-        localStorage.clear();
-        //
+        if (process.env.NODE_ENV === 'development') {
+            localStorage.clear();
+        }
 
         try {
             const historyRaw = localStorage.getItem('bccAppState-history');
