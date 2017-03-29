@@ -3,6 +3,7 @@ import { tanokComponent } from 'tanok';
 import classNames from 'classnames';
 
 import EditImage from '../EditImage';
+import TextInput from '../TextInput';
 
 import css from '../../style/blocks/pane/index.styl';
 import cssEdit from '../../style/blocks/edit-menu/index.styl';
@@ -12,24 +13,9 @@ import cssInput from '../../style/blocks/textbox/index.styl';
 export default class EditPreset extends React.Component {
     constructor(props) {
         super(props);
-        this.onFocus = this.onFocus.bind(this);
-        this.onInputChange = this.onInputChange.bind(this);
         this.onImageUpload = this.onImageUpload.bind(this);
+        this.updateInputValue = this.updateInputValue.bind(this);
         this.renderEditItem = this.renderEditItem.bind(this);
-    }
-
-    onFocus(event) {
-        event.currentTarget.select();
-    }
-
-    onInputChange(index, prop, e) {
-        const value = e.target.value;
-        const newBlock = this.props.block;
-
-        newBlock[index][prop] = value;
-        newBlock[index][`${prop}Error`] = false;
-
-        this.send('updateContentItem', newBlock);
     }
 
     onImageUpload(index, e) {
@@ -51,6 +37,15 @@ export default class EditPreset extends React.Component {
         }
     }
 
+    updateInputValue(index, prop, value) {
+        const newBlock = this.props.block;
+
+        newBlock[index][prop] = value;
+        newBlock[index][`${prop}Error`] = false;
+
+        this.send('updateContentItem', newBlock);
+    }
+
     renderEditItem(content, index) {
         return (
             <div key={index} className={css.pane__imageEditContainerItem}>
@@ -63,29 +58,25 @@ export default class EditPreset extends React.Component {
                 <div className={cssEdit.editMenu__item}>
                     <div className={cssEdit.editMenu__inputHolder}>
                         <div className={cssEdit.editMenu__inputWrapper}>
-                            <input
+                            <TextInput
                                 className={classNames(
                                     cssInput.textbox,
                                     { [cssInput.textbox_state_error]: content.titleError }
                                 )}
-                                type='text'
-                                value={content.title || ''}
+                                value={content.title}
                                 placeholder='Title'
-                                onChange={(e) => this.onInputChange(index, 'title', e)}
-                                onFocus={this.onFocus}
+                                update={(value) => this.updateInputValue(index, 'title', value)}
                             />
                         </div>
                         <div className={cssEdit.editMenu__inputWrapper}>
-                            <input
+                            <TextInput
                                 className={classNames(
                                     cssInput.textbox,
                                     { [cssInput.textbox_state_error]: content.linkError }
                                 )}
-                                type='text'
-                                value={content.link || ''}
+                                value={content.link}
                                 placeholder='URL'
-                                onChange={(e) => this.onInputChange(index, 'link', e)}
-                                onFocus={this.onFocus}
+                                update={(value) => this.updateInputValue(index, 'link', value)}
                             />
                         </div>
                     </div>

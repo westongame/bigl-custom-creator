@@ -2,6 +2,8 @@ import React from 'react';
 import { tanokComponent } from 'tanok';
 import classNames from 'classnames';
 
+import TextInput from '../TextInput';
+
 import css from '../../style/blocks/edit-menu/index.styl';
 import cssInput from '../../style/blocks/textbox/index.styl';
 import cssButton from '../../style/blocks/button/index.styl';
@@ -13,16 +15,11 @@ export default class EditMenuPreset extends React.Component {
     constructor(props) {
         super(props);
 
-        this.updateMenuPresets = this.updateMenuPresets.bind(this);
-        this.onFocus = this.onFocus.bind(this);
         this.addMenuLink = this.addMenuLink.bind(this);
         this.deleteMenuLink = this.deleteMenuLink.bind(this);
-        this.handleTitleInputChange = this.handleTitleInputChange.bind(this);
-        this.renderLinkItems = this.renderLinkItems.bind(this);
-    }
-
-    onFocus(event) {
-        event.currentTarget.select();
+        this.updateTextInput = this.updateTextInput.bind(this);
+        this.updateTitleInput = this.updateTitleInput.bind(this);
+        this.renderLinkItem = this.renderLinkItem.bind(this);
     }
 
     addMenuLink() {
@@ -30,7 +27,7 @@ export default class EditMenuPreset extends React.Component {
 
         newMenuPresets[this.props.editingIndex].links.push({});
 
-        this.updateMenuPresets(newMenuPresets);
+        this.send('updateMenuPresets', newMenuPresets);
     }
 
     deleteMenuLink(index) {
@@ -38,62 +35,54 @@ export default class EditMenuPreset extends React.Component {
 
         newMenuPresets[this.props.editingIndex].links.splice(index, 1);
 
-        this.updateMenuPresets(newMenuPresets);
-    }
-
-    handleTextInputChange(target, index, event) {
-        const newMenuPresets = this.props.menuPresets;
-
-        newMenuPresets[this.props.editingIndex].links[index][target] = event.currentTarget.value;
-        newMenuPresets[this.props.editingIndex].links[index][`${target}Error`] = false;
-
-        this.updateMenuPresets(newMenuPresets);
-    }
-
-    handleTitleInputChange(event) {
-        const newMenuPresets = this.props.menuPresets;
-
-        newMenuPresets[this.props.editingIndex].title = event.currentTarget.value;
-        newMenuPresets[this.props.editingIndex].titleError = false;
-
-        this.updateMenuPresets(newMenuPresets);
-    }
-
-    updateMenuPresets(newMenuPresets) {
         this.send('updateMenuPresets', newMenuPresets);
     }
 
-    renderLinkItems() {
-        return this.props.menuPresets[this.props.editingIndex].links.map((item, index) =>
+    updateTextInput(target, index, value) {
+        const newMenuPresets = this.props.menuPresets;
+
+        newMenuPresets[this.props.editingIndex].links[index][target] = value;
+        newMenuPresets[this.props.editingIndex].links[index][`${target}Error`] = false;
+
+        this.send('updateMenuPresets', newMenuPresets);
+    }
+
+    updateTitleInput(value) {
+        const newMenuPresets = this.props.menuPresets;
+
+        newMenuPresets[this.props.editingIndex].title = value;
+        newMenuPresets[this.props.editingIndex].titleError = false;
+
+        this.send('updateMenuPresets', newMenuPresets);
+    }
+
+    renderLinkItem(item, index) {
+        return (
             <div
                 className={css.editMenu__item}
                 key={index}
             >
                 <div className={css.editMenu__inputHolder}>
                     <div className={css.editMenu__inputWrapper}>
-                        <input
+                        <TextInput
                             className={classNames(
                                 cssInput.textbox,
                                 { [cssInput.textbox_state_error]: item.textError }
                             )}
-                            type='text'
-                            value={item.text ? item.text : ''}
+                            value={item.text}
                             placeholder='Link text'
-                            onChange={(e) => this.handleTextInputChange('text', index, e)}
-                            onFocus={this.onFocus}
+                            update={(value) => this.updateTextInput('text', index, value)}
                         />
                     </div>
                     <div className={css.editMenu__inputWrapper}>
-                        <input
+                        <TextInput
                             className={classNames(
                                 cssInput.textbox,
                                 { [cssInput.textbox_state_error]: item.hrefError }
                             )}
-                            type='text'
-                            value={item.href ? item.href : ''}
+                            value={item.href}
                             placeholder='URL'
-                            onChange={(e) => this.handleTextInputChange('href', index, e)}
-                            onFocus={this.onFocus}
+                            update={(value) => this.updateTextInput('href', index, value)}
                         />
                     </div>
                 </div>
@@ -108,30 +97,23 @@ export default class EditMenuPreset extends React.Component {
     }
 
     render() {
+        const currentMenuPreset = this.props.menuPresets[this.props.editingIndex];
+
         return (
             <div className={css.editMenu}>
                 <div className={css.editMenu__titleContainer}>
-                    <input
+                    <TextInput
                         className={classNames(
                             cssInput.textbox,
-                            {
-                                [cssInput.textbox_state_error]:
-                                    this.props.menuPresets[this.props.editingIndex].titleError,
-                            }
+                            { [cssInput.textbox_state_error]: currentMenuPreset.titleError }
                         )}
-                        type='text'
-                        value={
-                            this.props.menuPresets[this.props.editingIndex].title ?
-                            this.props.menuPresets[this.props.editingIndex].title :
-                            ''
-                        }
+                        value={currentMenuPreset.title}
                         placeholder='Menu title'
-                        onChange={this.handleTitleInputChange}
-                        onFocus={this.onFocus}
+                        update={this.updateTitleInput}
                     />
                 </div>
 
-                {this.renderLinkItems()}
+                {currentMenuPreset.links.map((item, index) => this.renderLinkItem(item, index))}
 
                 <div className={css.editMenu__item}>
                     <div

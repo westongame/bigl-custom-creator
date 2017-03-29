@@ -4,7 +4,7 @@ export default class TextInput extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: this.props.value,
+            value: this.props.value || '',
             editing: false,
         };
         this.onChange = this.onChange.bind(this);
@@ -44,7 +44,7 @@ export default class TextInput extends React.Component {
         }
 
         this.setState({
-            value: this.props.value,
+            value: this.props.value || '',
             editing: true,
         });
     }
@@ -55,7 +55,7 @@ export default class TextInput extends React.Component {
                 className={this.props.className}
                 type='text'
                 placeholder={this.props.placeholder}
-                value={this.state.editing ? this.state.value : this.props.value}
+                value={this.state.editing ? this.state.value : this.props.value || ''}
                 onChange={this.onChange}
                 onFocus={this.onFocus}
                 onBlur={this.onBlur}
