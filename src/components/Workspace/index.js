@@ -28,12 +28,10 @@ export default class Workspace extends React.Component {
     }
 
     updateTitle(value) {
-        const customTitle = this.props.customTitle;
-
-        if (customTitle.text !== value) {
-            customTitle.text = value;
-            this.send('updateCustomTitle', customTitle);
-        }
+        this.send('updateCustomTitle', {
+            text: value,
+            error: false,
+        });
     }
 
     render() {
