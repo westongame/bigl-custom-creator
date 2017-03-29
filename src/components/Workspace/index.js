@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import SideBar from '../SideBar';
 import Content from '../Content';
+import TextInput from '../TextInput';
 
 import css from '../../style/blocks/workspace/index.styl';
 
@@ -12,36 +13,27 @@ export default class Workspace extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = { editingTitle: false };
         this.onFocus = this.onFocus.bind(this);
         this.onBlur = this.onBlur.bind(this);
-        this.onChange = this.onChange.bind(this);
+        this.updateTitle = this.updateTitle.bind(this);
     }
 
-    onFocus(e) {
-        e.currentTarget.select();
-
-        const customTitle = this.props.customTitle;
-
-        customTitle.isEditing = true;
-
-        this.send('updateCustomTitle', customTitle);
+    onFocus() {
+        this.setState({ editingTitle: true });
     }
 
     onBlur() {
-        const customTitle = this.props.customTitle;
-
-        customTitle.isEditing = false;
-
-        this.send('updateCustomTitle', customTitle);
+        this.setState({ editingTitle: false });
     }
 
-    onChange(e) {
+    updateTitle(value) {
         const customTitle = this.props.customTitle;
 
-        customTitle.text = e.currentTarget.value;
-        customTitle.error = false;
-
-        this.send('updateCustomTitle', customTitle);
+        if (customTitle.text !== value) {
+            customTitle.text = value;
+            this.send('updateCustomTitle', customTitle);
+        }
     }
 
     render() {
@@ -53,18 +45,18 @@ export default class Workspace extends React.Component {
                             css.workspace__titleInputHolder,
                             {
                                 [css.workspace__titleInputHolder_state_error]: this.props.customTitle.error,
-                                [css.workspace__titleInputHolder_state_active]: this.props.customTitle.isEditing,
+                                [css.workspace__titleInputHolder_state_active]: this.state.editingTitle,
                             }
                         )}
                     >
-                        <input
+                        <TextInput
                             className={css.workspace__titleInput}
                             type='text'
                             placeholder='Write some title here'
-                            value={this.props.customTitle.text ? this.props.customTitle.text : ''}
+                            value={this.props.customTitle.text}
                             onFocus={this.onFocus}
                             onBlur={this.onBlur}
-                            onChange={this.onChange}
+                            update={this.updateTitle}
                         />
                     </div>
                     <div className={css.workspace__contentContainer}>

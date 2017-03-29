@@ -8,7 +8,6 @@ export default class Model {
         this.customTitle = {
             text: '',
             error: false,
-            isEditing: false,
         };
         this.menuPresets = [];
         this.content = [];
