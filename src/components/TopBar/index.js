@@ -177,7 +177,7 @@ export default class TopBar extends React.Component {
                         onClick={this.togglePreviewMode}
                     >
                         <IcoCross className={css.editorBar__buttonIco} />
-                        < span className={css.editorBar__buttonText}>
+                        <span className={css.editorBar__buttonText}>
                             Exit Preview
                         </span>
                     </div>
@@ -209,7 +209,7 @@ export default class TopBar extends React.Component {
                                     onClick={this.togglePreviewMode}
                                 >
                                     <IcoEye className={css.editorBar__buttonIco} />
-                                    < span className={css.editorBar__buttonText}>
+                                    <span className={css.editorBar__buttonText}>
                                         Preview
                                     </span>
                                 </div>

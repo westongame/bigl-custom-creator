@@ -73,7 +73,6 @@ export default class App extends React.Component {
                                 editingIndex={this.props.editingIndex}
                                 menuPresets={this.props.menuPresets}
                                 content={this.props.content}
-                                editingIndex={this.props.editingIndex}
                             />
                         </div>
                         {
