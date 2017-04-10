@@ -11,7 +11,7 @@ let externals = {
     react: 'React',
     'react-dom': 'ReactDOM',
 };
-let entry = ['./src/index.js'];
+let entry = ['./src/index.jsx'];
 let publicPath = './';
 let filename = 'bundle.[hash:10].min.js';
 let stylLoader = ExtractTextPlugin.extract({
@@ -42,7 +42,7 @@ if (DEVELOPMENT) {
     entry = [
         'webpack-dev-server/client?http://0.0.0.0:3000',
         'webpack/hot/only-dev-server',
-        './src/index.js',
+        './src/index.jsx',
     ];
     publicPath = '/dist/';
     filename = 'bundle.js';
@@ -111,6 +111,9 @@ module.exports = {
                 exclude: '/node_modules/',
             },
         ],
+    },
+    resolve: {
+        extensions: ['.js', '.jsx'],
     },
     plugins,
 };
