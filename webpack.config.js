@@ -15,8 +15,8 @@ let entry = ['./src/index.js'];
 let publicPath = './';
 let filename = 'bundle.[hash:10].min.js';
 let stylLoader = ExtractTextPlugin.extract({
-    fallbackLoader: 'style-loader',
-    loader: [
+    fallback: 'style-loader',
+    use: [
         'css-loader?localIdentName=[hash:base64:6]',
         'stylus-loader',
     ],
