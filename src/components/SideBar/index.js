@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 import { menuPresetTemplate } from '../../templates/menuPreset';
 
@@ -108,7 +109,7 @@ export default class Sidebar extends React.Component {
 }
 
 Sidebar.propTypes = {
-    editMode: React.PropTypes.string.isRequired,
-    editingIndex: React.PropTypes.number,
-    menuPresets: React.PropTypes.array.isRequired,
+    editMode: PropTypes.string.isRequired,
+    editingIndex: PropTypes.number,
+    menuPresets: PropTypes.array.isRequired,
 };

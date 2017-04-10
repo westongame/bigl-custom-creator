@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import IcoUp from './chevron-up.svg';
@@ -69,13 +70,13 @@ export default function PresetBar(props) {
 }
 
 PresetBar.propTypes = {
-    editMode: React.PropTypes.string,
-    editingIndex: React.PropTypes.number,
-    itemIndex: React.PropTypes.number,
-    itemMode: React.PropTypes.string,
-    itemError: React.PropTypes.bool,
-    onEdit: React.PropTypes.func.isRequired,
-    onDelete: React.PropTypes.func.isRequired,
-    onMove: React.PropTypes.func.isRequired,
-    contentLength: React.PropTypes.number,
+    editMode: PropTypes.string,
+    editingIndex: PropTypes.number,
+    itemIndex: PropTypes.number,
+    itemMode: PropTypes.string,
+    itemError: PropTypes.bool,
+    onEdit: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onMove: PropTypes.func.isRequired,
+    contentLength: PropTypes.number,
 };

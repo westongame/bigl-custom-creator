@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import IcoPlaceholder from './empty-image.svg';
 
 import css from '../../style/blocks/image-edit/index.styl';
@@ -50,8 +52,8 @@ export default function EditImage(props) {
 }
 
 EditImage.propTypes = {
-    imageSrc: React.PropTypes.string,
-    imageName: React.PropTypes.string,
-    onChange: React.PropTypes.func.isRequired,
-    itemId: React.PropTypes.number.isRequired,
+    imageSrc: PropTypes.string,
+    imageName: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    itemId: PropTypes.number.isRequired,
 };

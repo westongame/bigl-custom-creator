@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 import classNames from 'classnames';
 
@@ -222,9 +223,9 @@ export default class TopBar extends React.Component {
 }
 
 TopBar.propTypes = {
-    isPreviewMode: React.PropTypes.bool.isRequired,
-    previewDevice: React.PropTypes.string.isRequired,
-    customTitle: React.PropTypes.object.isRequired,
-    menuPresets: React.PropTypes.array.isRequired,
-    contentStructure: React.PropTypes.array.isRequired, // TODO more specific proptype needed
+    isPreviewMode: PropTypes.bool.isRequired,
+    previewDevice: PropTypes.string.isRequired,
+    customTitle: PropTypes.object.isRequired,
+    menuPresets: PropTypes.array.isRequired,
+    contentStructure: PropTypes.array.isRequired, // TODO more specific proptype needed
 };

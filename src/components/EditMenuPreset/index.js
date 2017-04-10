@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 import classNames from 'classnames';
 
@@ -129,6 +130,6 @@ export default class EditMenuPreset extends React.Component {
 }
 
 EditMenuPreset.propTypes = {
-    editingIndex: React.PropTypes.number,
-    menuPresets: React.PropTypes.array.isRequired,
+    editingIndex: PropTypes.number,
+    menuPresets: PropTypes.array.isRequired,
 };

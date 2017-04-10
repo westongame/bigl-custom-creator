@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 import classNames from 'classnames';
 
@@ -82,10 +83,10 @@ export default class Workspace extends React.Component {
 }
 
 Workspace.propTypes = {
-    tanokStream: React.PropTypes.object.isRequired,
-    editMode: React.PropTypes.string.isRequired,
-    editingIndex: React.PropTypes.number,
-    customTitle: React.PropTypes.object,
-    menuPresets: React.PropTypes.array.isRequired,
-    content: React.PropTypes.array.isRequired, // TODO more specific proptype needed
+    tanokStream: PropTypes.object.isRequired,
+    editMode: PropTypes.string.isRequired,
+    editingIndex: PropTypes.number,
+    customTitle: PropTypes.object,
+    menuPresets: PropTypes.array.isRequired,
+    content: PropTypes.array.isRequired, // TODO more specific proptype needed
 };

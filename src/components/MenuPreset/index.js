@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import css from '../../style/blocks/category-tree/index.styl';
@@ -96,6 +97,6 @@ export default class MenuPreset extends React.Component {
 }
 
 MenuPreset.propTypes = {
-    isPreviewMode: React.PropTypes.bool,
-    menuProps: React.PropTypes.object,
+    isPreviewMode: PropTypes.bool,
+    menuProps: PropTypes.object,
 };

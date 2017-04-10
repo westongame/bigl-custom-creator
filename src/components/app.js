@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 
 import Preview from './Preview';
@@ -102,13 +103,13 @@ export default class App extends React.Component {
 }
 
 App.propTypes = {
-    tanokStream: React.PropTypes.object.isRequired,
-    isPreviewMode: React.PropTypes.bool.isRequired,
-    previewDevice: React.PropTypes.string.isRequired,
-    showErrorPopup: React.PropTypes.bool.isRequired,
-    editMode: React.PropTypes.string.isRequired,
-    customTitle: React.PropTypes.object.isRequired,
-    menuPresets: React.PropTypes.array.isRequired,
-    content: React.PropTypes.array.isRequired, // TODO more specific proptype needed
-    editingIndex: React.PropTypes.number,
+    tanokStream: PropTypes.object.isRequired,
+    isPreviewMode: PropTypes.bool.isRequired,
+    previewDevice: PropTypes.string.isRequired,
+    showErrorPopup: PropTypes.bool.isRequired,
+    editMode: PropTypes.string.isRequired,
+    customTitle: PropTypes.object.isRequired,
+    menuPresets: PropTypes.array.isRequired,
+    content: PropTypes.array.isRequired, // TODO more specific proptype needed
+    editingIndex: PropTypes.number,
 };

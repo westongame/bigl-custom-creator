@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import cssGrid from '../../style/blocks/grid/index.styl';
@@ -126,7 +127,7 @@ export default class Preset extends React.Component {
 }
 
 Preset.propTypes = {
-    isPreviewMode: React.PropTypes.bool,
-    previewDevice: React.PropTypes.string,
-    structure: React.PropTypes.array.isRequired, // TODO more specific proptype needed
+    isPreviewMode: PropTypes.bool,
+    previewDevice: PropTypes.string,
+    structure: PropTypes.array.isRequired, // TODO more specific proptype needed
 };
