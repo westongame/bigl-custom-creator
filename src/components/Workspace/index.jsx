@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 import classNames from 'classnames';
 
+import CustomPropTypes from '../../customPropTypes';
 import SideBar from '../SideBar';
 import Content from '../Content';
 import TextInput from '../TextInput';
@@ -87,6 +88,6 @@ Workspace.propTypes = {
     editMode: PropTypes.string.isRequired,
     editingIndex: PropTypes.number,
     customTitle: PropTypes.object,
-    menuPresets: PropTypes.array.isRequired,
-    content: PropTypes.array.isRequired, // TODO more specific proptype needed
+    menuPresets: PropTypes.arrayOf(CustomPropTypes.menuPreset).isRequired,
+    content: PropTypes.arrayOf(CustomPropTypes.preset).isRequired,
 };

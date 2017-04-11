@@ -1,5 +1,5 @@
 import { TanokDispatcher, on } from 'tanok';
-import { menuPresetTemplate } from './templates/menuPreset';
+import { menuPresetTemplate } from './templates';
 
 const HISTORY_LIMIT = 20;
 
@@ -38,7 +38,7 @@ export default class AppDispatcher extends TanokDispatcher {
             idMap: [0],
         };
 
-        state.menuPresets = JSON.parse(JSON.stringify(menuPresetTemplate));
+        state.menuPresets = JSON.parse(JSON.stringify([menuPresetTemplate]));
 
         if (process.env.NODE_ENV === 'development') {
             localStorage.clear();

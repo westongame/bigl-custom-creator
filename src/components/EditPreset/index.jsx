@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 import classNames from 'classnames';
 
+import CustomPropTypes from '../../customPropTypes';
 import EditImage from '../EditImage';
 import TextInput from '../TextInput';
 
@@ -98,5 +98,5 @@ export default class EditPreset extends React.Component {
 }
 
 EditPreset.propTypes = {
-    block: PropTypes.array.isRequired, // TODO more specific proptype needed
+    block: CustomPropTypes.preset.isRequired,
 };

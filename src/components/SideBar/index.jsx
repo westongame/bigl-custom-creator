@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
-import { menuPresetTemplate } from '../../templates/menuPreset';
 
+import CustomPropTypes from '../../customPropTypes';
+import { menuPresetTemplate } from '../../templates';
 import PresetBar from '../PresetBar';
 import MenuPreset from '../MenuPreset';
 
@@ -46,7 +47,7 @@ export default class Sidebar extends React.Component {
 
     onAdd() {
         const newMenuPresets = this.props.menuPresets;
-        const menuPreset = JSON.parse(JSON.stringify(menuPresetTemplate[0]));
+        const menuPreset = JSON.parse(JSON.stringify(menuPresetTemplate));
 
         newMenuPresets.push(menuPreset);
 
@@ -111,5 +112,5 @@ export default class Sidebar extends React.Component {
 Sidebar.propTypes = {
     editMode: PropTypes.string.isRequired,
     editingIndex: PropTypes.number,
-    menuPresets: PropTypes.array.isRequired,
+    menuPresets: PropTypes.arrayOf(CustomPropTypes.menuPreset).isRequired,
 };

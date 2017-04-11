@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 
+import CustomPropTypes from '../../customPropTypes';
 import EditMenuPreset from '../EditMenuPreset';
 import AddPreset from '../AddPreset';
 import EditPreset from '../EditPreset';
@@ -82,7 +83,7 @@ export default class Pane extends React.Component {
 Pane.propTypes = {
     tanokStream: PropTypes.object.isRequired,
     editMode: PropTypes.string.isRequired,
-    menuPresets: PropTypes.array.isRequired,
-    content: PropTypes.array.isRequired, // TODO more specific proptype needed
+    menuPresets: PropTypes.arrayOf(CustomPropTypes.menuPreset).isRequired,
+    content: PropTypes.arrayOf(CustomPropTypes.preset).isRequired,
     editingIndex: PropTypes.number,
 };

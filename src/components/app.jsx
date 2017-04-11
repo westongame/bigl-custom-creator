@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 
+import CustomPropTypes from '../customPropTypes';
 import Preview from './Preview';
 import Workspace from './Workspace';
 import Pane from './Pane';
@@ -109,7 +110,7 @@ App.propTypes = {
     showErrorPopup: PropTypes.bool.isRequired,
     editMode: PropTypes.string.isRequired,
     customTitle: PropTypes.object.isRequired,
-    menuPresets: PropTypes.array.isRequired,
-    content: PropTypes.array.isRequired, // TODO more specific proptype needed
+    menuPresets: PropTypes.arrayOf(CustomPropTypes.menuPreset).isRequired,
+    content: PropTypes.arrayOf(CustomPropTypes.preset).isRequired,
     editingIndex: PropTypes.number,
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 
+import CustomPropTypes from '../../customPropTypes';
 import PresetBar from '../PresetBar';
 import Preset from '../Preset';
 
@@ -107,5 +108,5 @@ export default class Content extends React.Component {
 Content.propTypes = {
     editMode: PropTypes.string,
     editingIndex: PropTypes.number,
-    content: PropTypes.array.isRequired, // TODO more specific proptype needed
+    content: PropTypes.arrayOf(CustomPropTypes.preset).isRequired,
 };

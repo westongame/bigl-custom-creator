@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 import classNames from 'classnames';
 
+import CustomPropTypes from '../../customPropTypes';
+
 import css from '../../style/blocks/editor-bar/index.styl';
 
 import IcoEye from './eye.svg';
@@ -226,6 +228,6 @@ TopBar.propTypes = {
     isPreviewMode: PropTypes.bool.isRequired,
     previewDevice: PropTypes.string.isRequired,
     customTitle: PropTypes.object.isRequired,
-    menuPresets: PropTypes.array.isRequired,
-    contentStructure: PropTypes.array.isRequired, // TODO more specific proptype needed
+    menuPresets: PropTypes.arrayOf(CustomPropTypes.menuPreset).isRequired,
+    contentStructure: PropTypes.arrayOf(CustomPropTypes.preset).isRequired,
 };

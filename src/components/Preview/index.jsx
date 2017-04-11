@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 import classNames from 'classnames';
 
+import CustomPropTypes from '../../customPropTypes';
 import MenuPreset from '../MenuPreset';
 import Preset from '../Preset';
 
@@ -84,6 +85,6 @@ Preview.propTypes = {
     isPreviewMode: PropTypes.bool,
     previewDevice: PropTypes.string.isRequired,
     customTitle: PropTypes.object.isRequired,
-    menuPresets: PropTypes.array.isRequired,
-    contentStructure: PropTypes.array.isRequired, // TODO more specific proptype needed
+    menuPresets: PropTypes.arrayOf(CustomPropTypes.menuPreset).isRequired,
+    contentStructure: CustomPropTypes.preset.isRequired,
 };
