@@ -11,7 +11,7 @@ let externals = {
     react: 'React',
     'react-dom': 'ReactDOM',
 };
-let entry = ['./src/index.jsx'];
+let entry = ['./src/index.js'];
 let publicPath = './';
 let filename = 'bundle.[hash:10].min.js';
 let stylLoader = ExtractTextPlugin.extract({
@@ -41,8 +41,7 @@ if (DEVELOPMENT) {
     externals = {};
     entry = [
         'webpack-dev-server/client?http://0.0.0.0:3000',
-        'webpack/hot/only-dev-server',
-        './src/index.jsx',
+        './src/index.js',
     ];
     publicPath = '/dist/';
     filename = 'bundle.js';
@@ -59,7 +58,6 @@ if (DEVELOPMENT) {
         'stylus-loader',
     ];
     plugins = [
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"development"',
         }),

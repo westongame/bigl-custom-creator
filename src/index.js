@@ -1,4 +1,3 @@
-import React from 'react';
 import { tanok } from 'tanok';
 
 import AppDispatcher from './dispatcher';
@@ -13,6 +12,6 @@ const node = document.getElementById('app');
 tanok(
     new Model(),
     (new AppDispatcher()).collect(),
-    <App />,
+    App,
     { container: node },
 );
