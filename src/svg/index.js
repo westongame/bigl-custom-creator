@@ -10,6 +10,8 @@ import IcoSmartphone from './smartphone.svg';
 import IcoTablet from './tablet.svg';
 import IcoScreen from './screen.svg';
 import IcoCross from './cross.svg';
+import IcoUndo from './undo.svg';
+import IcoRedo from './redo.svg';
 
 export {
     ImgPlaceholder,
@@ -24,4 +26,6 @@ export {
     IcoTablet,
     IcoScreen,
     IcoCross,
+    IcoUndo,
+    IcoRedo,
 };

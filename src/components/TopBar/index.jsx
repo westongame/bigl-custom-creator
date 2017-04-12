@@ -4,7 +4,7 @@ import { tanokComponent } from 'tanok';
 import classNames from 'classnames';
 
 import CustomPropTypes from '../../customPropTypes';
-import { IcoEye, IcoDownload, IcoSmartphone, IcoTablet, IcoScreen, IcoCross } from '../../svg';
+import { IcoEye, IcoDownload, IcoSmartphone, IcoTablet, IcoScreen, IcoCross, IcoUndo, IcoRedo } from '../../svg';
 
 import css from '../../style/blocks/editor-bar/index.styl';
 
@@ -13,6 +13,8 @@ export default class TopBar extends React.Component {
     constructor(props) {
         super(props);
 
+        this.onUndo = this.onUndo.bind(this);
+        this.onRedo = this.onRedo.bind(this);
         this.onDownload = this.onDownload.bind(this);
         this.titleValidation = this.titleValidation.bind(this);
         this.menuValidation = this.menuValidation.bind(this);
@@ -20,6 +22,14 @@ export default class TopBar extends React.Component {
         this.togglePreviewMode = this.togglePreviewMode.bind(this);
         this.togglePreviewDevice = this.togglePreviewDevice.bind(this);
         this.renderPreviewBar = this.renderPreviewBar.bind(this);
+    }
+
+    onUndo() {
+        this.send('historyBack');
+    }
+
+    onRedo() {
+        this.send('historyForward');
     }
 
     onDownload(e) {
@@ -191,6 +201,28 @@ export default class TopBar extends React.Component {
                         this.renderPreviewBar()
                     :
                         <div className={css.editorBar__container}>
+                            <div className={css.editorBar__btnsContainer}>
+                                <a
+                                    className={css.editorBar__button}
+                                    onClick={this.onUndo}
+                                    title='Ctrl+Z'
+                                >
+                                    <IcoUndo className={css.editorBar__buttonIco} />
+                                    <span className={css.editorBar__buttonText}>
+                                        Undo
+                                    </span>
+                                </a>
+                                <div
+                                    className={css.editorBar__button}
+                                    onClick={this.onRedo}
+                                    title='Ctrl+Y'
+                                >
+                                    <IcoRedo className={css.editorBar__buttonIco} />
+                                    <span className={css.editorBar__buttonText}>
+                                        Redo
+                                    </span>
+                                </div>
+                            </div>
                             <div className={css.editorBar__btnsContainer}>
                                 <a
                                     className={css.editorBar__button}

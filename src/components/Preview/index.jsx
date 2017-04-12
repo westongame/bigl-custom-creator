@@ -86,5 +86,5 @@ Preview.propTypes = {
     previewDevice: PropTypes.string.isRequired,
     customTitle: PropTypes.object.isRequired,
     menuPresets: PropTypes.arrayOf(CustomPropTypes.menuPreset).isRequired,
-    contentStructure: CustomPropTypes.preset.isRequired,
+    contentStructure: PropTypes.arrayOf(CustomPropTypes.preset).isRequired,
 };
