@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import IcoUp from './chevron-up.svg';
-import IcoDown from './chevron-down.svg';
-import IcoTrash from './trash.svg';
-import IcoPencil from './pencil.svg';
+import { IcoChevronUp, IcoChevronDown, IcoTrash, IcoPencil } from '../../svg';
 
 import css from '../../style/blocks/preset-bar/index.styl';
 
@@ -31,7 +28,7 @@ export default function PresetBar(props) {
                             title='Move Down'
                             onClick={() => props.onMove(1)}
                         >
-                            <IcoDown className={css.presetBar__buttonIco} />
+                            <IcoChevronDown className={css.presetBar__buttonIco} />
                         </div>
                     : null
                 }
@@ -42,7 +39,7 @@ export default function PresetBar(props) {
                             title='Move Up'
                             onClick={() => props.onMove(-1)}
                         >
-                            <IcoUp className={css.presetBar__buttonIco} />
+                            <IcoChevronUp className={css.presetBar__buttonIco} />
                         </div>
                     : null
                 }

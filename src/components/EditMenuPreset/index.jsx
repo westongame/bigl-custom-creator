@@ -5,12 +5,11 @@ import classNames from 'classnames';
 
 import CustomPropTypes from '../../customPropTypes';
 import TextInput from '../TextInput';
+import { IcoCrossCircle } from '../../svg';
 
 import css from '../../style/blocks/edit-menu/index.styl';
 import cssInput from '../../style/blocks/textbox/index.styl';
 import cssButton from '../../style/blocks/button/index.styl';
-
-import IcoCrossCircle from './cross-circle.svg';
 
 @tanokComponent
 export default class EditMenuPreset extends React.Component {

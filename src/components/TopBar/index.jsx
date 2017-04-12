@@ -4,15 +4,9 @@ import { tanokComponent } from 'tanok';
 import classNames from 'classnames';
 
 import CustomPropTypes from '../../customPropTypes';
+import { IcoEye, IcoDownload, IcoSmartphone, IcoTablet, IcoScreen, IcoCross } from '../../svg';
 
 import css from '../../style/blocks/editor-bar/index.styl';
-
-import IcoEye from './eye.svg';
-import IcoDownload from './download.svg';
-import IcoSmartphone from './smartphone.svg';
-import IcoTablet from './tablet.svg';
-import IcoScreen from './screen.svg';
-import IcoCross from './cross.svg';
 
 @tanokComponent
 export default class TopBar extends React.Component {

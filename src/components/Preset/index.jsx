@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import CustomPropTypes from '../../customPropTypes';
+import { ImgPlaceholder } from '../../svg';
+
 import cssGrid from '../../style/blocks/grid/index.styl';
 import cssImage from '../../style/blocks/image-holder/index.styl';
-
-import IcoPlaceholder from './empty-image.svg';
 
 export default class Preset extends React.Component {
     makeGridColumn(column, id) {
@@ -38,7 +38,7 @@ export default class Preset extends React.Component {
     }
 
     makeGridItem(content, id) {
-        let image = <IcoPlaceholder className={cssImage.imageHolder__placeholder} />;
+        let image = <ImgPlaceholder className={cssImage.imageHolder__placeholder} />;
 
         if (content.imageSrc) {
             image = <img className={cssImage.imageHolder__img} src={content.imageSrc} alt={content.title || ''} />;

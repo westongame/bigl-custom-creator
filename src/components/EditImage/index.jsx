@@ -1,14 +1,13 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
 
-import IcoPlaceholder from './empty-image.svg';
+import { ImgPlaceholder } from '../../svg';
 
 import css from '../../style/blocks/image-edit/index.styl';
 import cssImage from '../../style/blocks/image-holder/index.styl';
 
 export default function EditImage(props) {
-    let image = <IcoPlaceholder />;
+    let image = <ImgPlaceholder />;
 
     if (props.imageSrc) {
         image = (
