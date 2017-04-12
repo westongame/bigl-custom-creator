@@ -8,11 +8,11 @@ export default {
         imageName: PropTypes.string,
         column: PropTypes.oneOfType([
             PropTypes.number,
-            PropTypes.array,
+            PropTypes.arrayOf(PropTypes.number),
         ]).isRequired,
         row: PropTypes.oneOfType([
             PropTypes.number,
-            PropTypes.array,
+            PropTypes.arrayOf(PropTypes.number),
         ]).isRequired,
     })),
     menuPreset: PropTypes.shape({
@@ -23,6 +23,6 @@ export default {
             textError: PropTypes.bool,
             href: PropTypes.string,
             hrefError: PropTypes.bool,
-        })),
+        })).isRequired,
     }),
 };
