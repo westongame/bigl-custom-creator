@@ -22,11 +22,11 @@ export default class App extends React.Component {
         document.body.addEventListener('keydown', (e) => {
             if (e.keyCode === 90 && e.ctrlKey) {
                 e.preventDefault();
-                this.send('historyBack');
+                this.send('Undo');
             }
             if (e.keyCode === 89 && e.ctrlKey) {
                 e.preventDefault();
-                this.send('historyForward');
+                this.send('Redo');
             }
         });
     }

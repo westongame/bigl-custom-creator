@@ -25,11 +25,11 @@ export default class TopBar extends React.Component {
     }
 
     onUndo() {
-        this.send('historyBack');
+        this.send('Undo');
     }
 
     onRedo() {
-        this.send('historyForward');
+        this.send('Redo');
     }
 
     onDownload(e) {
