@@ -17,18 +17,32 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
 
+        this.onKeyDown = this.onKeyDown.bind(this);
         this.onErrorPopupClick = this.onErrorPopupClick.bind(this);
+    }
 
-        document.body.addEventListener('keydown', (e) => {
-            if (e.keyCode === 90 && e.ctrlKey) {
+    componentDidMount() {
+        document.body.addEventListener('keydown', this.onKeyDown);
+    }
+
+    componentWillUnmount() {
+        document.body.removeEventListener('keydown', this.onKeyDown);
+    }
+
+    onKeyDown(e) {
+        const yKey = e.keyCode === 89;
+        const zKey = e.keyCode === 90;
+
+        if (e.ctrlKey) {
+            if (zKey) {
                 e.preventDefault();
-                this.send('Undo');
+                this.send(e.shiftKey ? 'Redo' : 'Undo');
             }
-            if (e.keyCode === 89 && e.ctrlKey) {
+            if (yKey) {
                 e.preventDefault();
-                this.send('Redo');
+                this.send(e.shiftKey ? 'Undo' : 'Redo');
             }
-        });
+        }
     }
 
     onErrorPopupClick() {
