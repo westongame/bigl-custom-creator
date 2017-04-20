@@ -1,6 +1,6 @@
 import { TanokDispatcher, on } from 'tanok';
 
-import { menuPresetTemplate } from './templates';
+import { Preset, MenuPreset } from './utils/entities';
 import { isHistoryInitialized, initHistory, saveHistory, historyBack, historyForward } from './utils/history';
 
 function effect(fn, state) {
@@ -14,7 +14,7 @@ export default class AppDispatcher extends TanokDispatcher {
             localStorage.clear();
         }
         if (!isHistoryInitialized()) {
-            state.menuPresets = JSON.parse(JSON.stringify([menuPresetTemplate]));
+            state.menuPresets = [new MenuPreset()];
         }
         return [initHistory(state)];
     }
@@ -65,6 +65,12 @@ export default class AppDispatcher extends TanokDispatcher {
         return [state, effect(saveHistory, state)];
     }
 
+    @on('addMenuPreset')
+    addMenuPreset(payload, state) {
+        state.menuPresets.push(new MenuPreset(payload));
+        return [state, effect(saveHistory, state)];
+    }
+
     @on('updateMenuPresets')
     updateMenuPresets(payload, state) {
         state.menuPresets = payload;
@@ -77,12 +83,6 @@ export default class AppDispatcher extends TanokDispatcher {
         return [state, effect(saveHistory, state)];
     }
 
-    @on('setContentEditIndex')
-    setContentEditIndex(payload, state) {
-        state.editingIndex = payload;
-        return [state];
-    }
-
     @on('updateContentItem')
     updateContentItem(payload, state) {
         state.content[state.editingIndex] = payload;
@@ -91,7 +91,7 @@ export default class AppDispatcher extends TanokDispatcher {
 
     @on('addPreset')
     addPreset(payload, state) {
-        state.content.push(payload);
+        state.content.push(new Preset(payload));
         return [state, effect(saveHistory, state)];
     }
 

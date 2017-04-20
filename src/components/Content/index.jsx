@@ -24,7 +24,6 @@ export default class Content extends React.Component {
 
     onEdit(index) {
         this.send('updateEditMode', 'content');
-        this.send('setContentEditIndex', index);
         this.send('updateEditingIndex', index);
 
         const newContent = this.props.content;

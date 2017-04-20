@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 
 import CustomPropTypes from '../../customPropTypes';
-import { menuPresetTemplate } from '../../templates';
 import PresetBar from '../PresetBar';
 import MenuPreset from '../MenuPreset';
 
@@ -46,12 +45,7 @@ export default class Sidebar extends React.Component {
     }
 
     onAdd() {
-        const newMenuPresets = this.props.menuPresets;
-        const menuPreset = JSON.parse(JSON.stringify(menuPresetTemplate));
-
-        newMenuPresets.push(menuPreset);
-
-        this.updateMenuPresets(newMenuPresets);
+        this.send('addMenuPreset');
     }
 
     onMove(index, direction) {
