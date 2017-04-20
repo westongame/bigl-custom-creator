@@ -41,9 +41,9 @@ export default class AppDispatcher extends TanokDispatcher {
         return [state];
     }
 
-    @on('errorPopup')
-    errorPopup(payload, state) {
-        state.showErrorPopup = payload;
+    @on('toggleErrorPopup')
+    toggleErrorPopup(payload, state) {
+        state.showErrorPopup = !state.showErrorPopup;
         return [state];
     }
 

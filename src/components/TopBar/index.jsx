@@ -22,6 +22,7 @@ export default class TopBar extends React.Component {
         this.togglePreviewMode = this.togglePreviewMode.bind(this);
         this.togglePreviewDevice = this.togglePreviewDevice.bind(this);
         this.renderPreviewBar = this.renderPreviewBar.bind(this);
+        this.renderBar = this.renderBar.bind(this);
     }
 
     onUndo() {
@@ -56,7 +57,7 @@ export default class TopBar extends React.Component {
         } else {
             e.preventDefault();
 
-            this.send('errorPopup', true);
+            this.send('toggleErrorPopup');
         }
     }
 
@@ -193,58 +194,59 @@ export default class TopBar extends React.Component {
         );
     }
 
+    renderBar() {
+        return (
+            <div className={css.editorBar__container}>
+                <div className={css.editorBar__btnsContainer}>
+                    <a
+                        className={css.editorBar__button}
+                        onClick={this.onUndo}
+                        title='Ctrl+Z'
+                    >
+                        <IcoUndo className={css.editorBar__buttonIco} />
+                        <span className={css.editorBar__buttonText}>
+                            Undo
+                        </span>
+                    </a>
+                    <div
+                        className={css.editorBar__button}
+                        onClick={this.onRedo}
+                        title='Ctrl+Y'
+                    >
+                        <IcoRedo className={css.editorBar__buttonIco} />
+                        <span className={css.editorBar__buttonText}>
+                            Redo
+                        </span>
+                    </div>
+                </div>
+                <div className={css.editorBar__btnsContainer}>
+                    <a
+                        className={css.editorBar__button}
+                        onClick={this.onDownload}
+                    >
+                        <IcoDownload className={css.editorBar__buttonIco} />
+                        <span className={css.editorBar__buttonText}>
+                            Download JSON
+                        </span>
+                    </a>
+                    <div
+                        className={css.editorBar__button}
+                        onClick={this.togglePreviewMode}
+                    >
+                        <IcoEye className={css.editorBar__buttonIco} />
+                        <span className={css.editorBar__buttonText}>
+                            Preview
+                        </span>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     render() {
         return (
             <div className={css.editorBar}>
-                {
-                    this.props.isPreviewMode ?
-                        this.renderPreviewBar()
-                    :
-                        <div className={css.editorBar__container}>
-                            <div className={css.editorBar__btnsContainer}>
-                                <a
-                                    className={css.editorBar__button}
-                                    onClick={this.onUndo}
-                                    title='Ctrl+Z'
-                                >
-                                    <IcoUndo className={css.editorBar__buttonIco} />
-                                    <span className={css.editorBar__buttonText}>
-                                        Undo
-                                    </span>
-                                </a>
-                                <div
-                                    className={css.editorBar__button}
-                                    onClick={this.onRedo}
-                                    title='Ctrl+Y'
-                                >
-                                    <IcoRedo className={css.editorBar__buttonIco} />
-                                    <span className={css.editorBar__buttonText}>
-                                        Redo
-                                    </span>
-                                </div>
-                            </div>
-                            <div className={css.editorBar__btnsContainer}>
-                                <a
-                                    className={css.editorBar__button}
-                                    onClick={this.onDownload}
-                                >
-                                    <IcoDownload className={css.editorBar__buttonIco} />
-                                    <span className={css.editorBar__buttonText}>
-                                        Download JSON
-                                    </span>
-                                </a>
-                                <div
-                                    className={css.editorBar__button}
-                                    onClick={this.togglePreviewMode}
-                                >
-                                    <IcoEye className={css.editorBar__buttonIco} />
-                                    <span className={css.editorBar__buttonText}>
-                                        Preview
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                }
+                { this.props.isPreviewMode ? this.renderPreviewBar() : this.renderBar() }
             </div>
         );
     }

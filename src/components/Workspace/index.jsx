@@ -15,18 +15,7 @@ export default class Workspace extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { editingTitle: false };
-        this.onFocus = this.onFocus.bind(this);
-        this.onBlur = this.onBlur.bind(this);
         this.updateTitle = this.updateTitle.bind(this);
-    }
-
-    onFocus() {
-        this.setState({ editingTitle: true });
-    }
-
-    onBlur() {
-        this.setState({ editingTitle: false });
     }
 
     updateTitle(value) {
@@ -43,10 +32,7 @@ export default class Workspace extends React.Component {
                     <div
                         className={classNames(
                             css.workspace__titleInputHolder,
-                            {
-                                [css.workspace__titleInputHolder_state_error]: this.props.customTitle.error,
-                                [css.workspace__titleInputHolder_state_active]: this.state.editingTitle,
-                            }
+                            { [css.workspace__titleInputHolder_state_error]: this.props.customTitle.error }
                         )}
                     >
                         <TextInput
@@ -54,10 +40,9 @@ export default class Workspace extends React.Component {
                             type='text'
                             placeholder='Write some title here'
                             value={this.props.customTitle.text}
-                            onFocus={this.onFocus}
-                            onBlur={this.onBlur}
                             update={this.updateTitle}
                         />
+                        <div className={css.workspace__titleInputHighlighter}></div>
                     </div>
                     <div className={css.workspace__contentContainer}>
                         <div className={css.workspace__sidebar}>

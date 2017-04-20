@@ -19,6 +19,7 @@ export default class App extends React.Component {
 
         this.onKeyDown = this.onKeyDown.bind(this);
         this.onErrorPopupClick = this.onErrorPopupClick.bind(this);
+        this.renderErrorPopup = this.renderErrorPopup.bind(this);
     }
 
     componentDidMount() {
@@ -46,7 +47,24 @@ export default class App extends React.Component {
     }
 
     onErrorPopupClick() {
-        this.send('errorPopup', false);
+        this.send('toggleErrorPopup');
+    }
+
+    renderErrorPopup() {
+        return (
+            <div className={cssPopup.popup}>
+                <div className={cssPopup.popup__body}>
+                    <div>Fix errors pls</div>
+                    <br />
+                    <div
+                        className={cssButton.button}
+                        onClick={this.onErrorPopupClick}
+                    >
+                        Ok
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     render() {
@@ -93,21 +111,7 @@ export default class App extends React.Component {
                         </div>
                         {
                             this.props.showErrorPopup ?
-                                <div
-                                    className={cssPopup.popup}
-                                    onClick={this.onErrorPopupClick}
-                                >
-                                    <div className={cssPopup.popup__body}>
-                                        <div>Fix errors pls</div>
-                                        <br />
-                                        <div
-                                            className={cssButton.button}
-                                            onClick={this.onErrorPopupClick}
-                                        >
-                                            Ok
-                                        </div>
-                                    </div>
-                                </div>
+                                this.renderErrorPopup()
                             : null
                         }
                     </div>

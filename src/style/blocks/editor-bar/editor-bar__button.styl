@@ -1,25 +1,26 @@
-:local(.editorBar__button)
-    display: inline-block
-    vertical-align: top
-    height: 100%
-    padding: 0 20px
-    cursor: pointer
-    color: #b7b7b7
-    font-size: 0
-    user-select: none
-
-    &:before
-        content: ''
+:local
+    .editorBar__button
         display: inline-block
-        vertical-align: middle
+        vertical-align: top
         height: 100%
+        padding: 0 20px
+        cursor: pointer
+        color: #b7b7b7
+        font-size: 0
+        user-select: none
 
-    &:hover
-        background: #52bad5
-        color: #fff
+        &:before
+            content: ''
+            display: inline-block
+            vertical-align: middle
+            height: 100%
 
-        .editorBar__buttonIco
-            fill: #fff
+        &:not(:first-child)
+            margin-left: 1px
 
-    & + &
-        margin-left: 1px
+        &:hover
+            background: #52bad5
+            color: #fff
+
+            .editorBar__buttonIco
+                fill: #fff
