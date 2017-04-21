@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 import classNames from 'classnames';
 
+import { MenuLink } from '../../utils/entities';
 import CustomPropTypes from '../../customPropTypes';
 import TextInput from '../TextInput';
 import { IcoCrossCircle } from '../../svg';
@@ -26,7 +27,7 @@ export default class EditMenuPreset extends React.Component {
     addMenuLink() {
         const newMenuPresets = this.props.menuPresets;
 
-        newMenuPresets[this.props.editingIndex].links.push({});
+        newMenuPresets[this.props.editingIndex].links.push(new MenuLink());
 
         this.send('updateMenuPresets', newMenuPresets);
     }

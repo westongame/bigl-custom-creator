@@ -75,9 +75,6 @@ export default class App extends React.Component {
                         tanokStream={this.props.tanokStream}
                         isPreviewMode={this.props.isPreviewMode}
                         previewDevice={this.props.previewDevice}
-                        customTitle={this.props.customTitle}
-                        menuPresets={this.props.menuPresets}
-                        contentStructure={this.props.content}
                     />
                 </div>
                 {

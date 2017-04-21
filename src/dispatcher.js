@@ -3,9 +3,12 @@ import { TanokDispatcher, on } from 'tanok';
 import { Preset, MenuPreset } from './utils/entities';
 import { isHistoryInitialized, initHistory, saveHistory, historyBack, historyForward } from './utils/history';
 
-function effect(fn, state) {
-    return fn.bind(null, state);
-}
+const effect = (fn, state) => fn.bind(null, state);
+
+const restoreEntities = (state) => {
+    state.content = state.content.map((config) => new Preset(config.children));
+    state.menuPresets = state.menuPresets.map((config) => new MenuPreset(config));
+};
 
 export default class AppDispatcher extends TanokDispatcher {
     @on('init')
@@ -16,17 +19,17 @@ export default class AppDispatcher extends TanokDispatcher {
         if (!isHistoryInitialized()) {
             state.menuPresets = [new MenuPreset()];
         }
-        return [initHistory(state)];
+        return [initHistory(state), effect(restoreEntities, state)];
     }
 
     @on('Undo')
     Undo(payload, state) {
-        return [historyBack(state)];
+        return [historyBack(state), effect(restoreEntities, state)];
     }
 
     @on('Redo')
     Redo(payload, state) {
-        return [historyForward(state)];
+        return [historyForward(state), effect(restoreEntities, state)];
     }
 
     @on('previewMode')
@@ -44,6 +47,35 @@ export default class AppDispatcher extends TanokDispatcher {
     @on('toggleErrorPopup')
     toggleErrorPopup(payload, state) {
         state.showErrorPopup = !state.showErrorPopup;
+        return [state];
+    }
+
+    @on('downloadJSON')
+    downloadJSON(payload, state) {
+        const validate = (array) => array.filter((item) => !item.validate()).length === 0;
+        const isValidMenuPresets = validate(state.menuPresets);
+        const isValidContent = validate(state.content);
+        const isValidTitle = !!state.customTitle.text;
+
+        state.customTitle.error = !isValidTitle;
+
+        if (isValidMenuPresets && isValidContent && isValidTitle) {
+            const link = payload.currentTarget;
+            const data = {
+                title: state.customTitle.text,
+                menu: state.menuPresets,
+                content: state.contentStructure,
+            };
+            const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+
+            link.href = URL.createObjectURL(blob);
+            link.download = `${state.customTitle.text}.json`;
+            URL.revokeObjectURL(blob);
+        } else {
+            payload.preventDefault();
+            state.editMode = '';
+            state.showErrorPopup = true;
+        }
         return [state];
     }
 
@@ -85,7 +117,7 @@ export default class AppDispatcher extends TanokDispatcher {
 
     @on('updateContentItem')
     updateContentItem(payload, state) {
-        state.content[state.editingIndex] = payload;
+        state.content[state.editingIndex] = new Preset(payload);
         return [state, effect(saveHistory, state)];
     }
 

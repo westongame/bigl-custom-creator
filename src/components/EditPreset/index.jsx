@@ -24,7 +24,7 @@ export default class EditPreset extends React.Component {
         const reader = new FileReader();
 
         reader.onload = (event) => {
-            const newBlock = this.props.block;
+            const newBlock = this.props.block.children;
 
             newBlock[index].imageSrc = event.target.result;
             newBlock[index].imageName = file.name;
@@ -39,7 +39,7 @@ export default class EditPreset extends React.Component {
     }
 
     updateInputValue(index, prop, value) {
-        const newBlock = this.props.block;
+        const newBlock = this.props.block.children;
 
         newBlock[index][prop] = value;
         newBlock[index][`${prop}Error`] = false;
@@ -89,7 +89,7 @@ export default class EditPreset extends React.Component {
     render() {
         return (
             <div>
-                {this.props.block.map(
+                {this.props.block.children.map(
                     (content, index) => this.renderEditItem(content, index)
                 )}
             </div>

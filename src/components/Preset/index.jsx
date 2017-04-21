@@ -121,7 +121,7 @@ export default class Preset extends React.Component {
                     },
                 )}
             >
-                {this.generateMarkup(this.props.structure)}
+                {this.generateMarkup(this.props.structure.children)}
             </div>
         );
     }

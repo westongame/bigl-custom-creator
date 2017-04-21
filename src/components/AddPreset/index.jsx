@@ -28,7 +28,7 @@ export default class AddPreset extends React.Component {
                         className={css.pane__presetContainer}
                         onClick={() => this.onPresetClick(item)}
                     >
-                        <Preset structure={item} />
+                        <Preset structure={{ children: item }} />
                     </div>
                 ))}
             </div>

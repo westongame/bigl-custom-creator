@@ -48,7 +48,7 @@ export default class Content extends React.Component {
     }
 
     checkErrors(preset) {
-        return preset.some((item) => item.imageError || item.titleError || item.linkError);
+        return preset.children.some((item) => item.imageError || item.titleError || item.linkError);
     }
 
     placeholderBtnClick() {
