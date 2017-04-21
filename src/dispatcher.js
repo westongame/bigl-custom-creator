@@ -27,12 +27,16 @@ export default class AppDispatcher extends TanokDispatcher {
 
     @on('Undo')
     Undo(payload, state) {
-        return [historyBack(state), effect(restoreEntities, state)];
+        state = historyBack(state);
+        restoreEntities(state);
+        return [state];
     }
 
     @on('Redo')
     Redo(payload, state) {
-        return [historyForward(state), effect(restoreEntities, state)];
+        state = historyForward(state);
+        restoreEntities(state);
+        return [state];
     }
 
     @on('previewMode')
