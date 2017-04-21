@@ -104,6 +104,7 @@ export default class App extends React.Component {
                                 editingIndex={this.props.editingIndex}
                                 menuPresets={this.props.menuPresets}
                                 content={this.props.content}
+                                presetTemplates={this.props.presetTemplates}
                             />
                         </div>
                         {
@@ -127,5 +128,6 @@ App.propTypes = {
     customTitle: PropTypes.object.isRequired,
     menuPresets: PropTypes.arrayOf(CustomPropTypes.menuPreset).isRequired,
     content: PropTypes.arrayOf(CustomPropTypes.preset).isRequired,
+    presetTemplates: PropTypes.arrayOf(CustomPropTypes.preset).isRequired,
     editingIndex: PropTypes.number,
 };

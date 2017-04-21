@@ -66,7 +66,7 @@ export default class Pane extends React.Component {
             );
         }
 
-        return <AddPreset tanokStream={this.props.tanokStream} />;
+        return <AddPreset tanokStream={this.props.tanokStream} presetTemplates={this.props.presetTemplates} />;
     }
 
     render() {
@@ -85,5 +85,6 @@ Pane.propTypes = {
     editMode: PropTypes.string.isRequired,
     menuPresets: PropTypes.arrayOf(CustomPropTypes.menuPreset).isRequired,
     content: PropTypes.arrayOf(CustomPropTypes.preset).isRequired,
+    presetTemplates: PropTypes.arrayOf(CustomPropTypes.preset).isRequired,
     editingIndex: PropTypes.number,
 };

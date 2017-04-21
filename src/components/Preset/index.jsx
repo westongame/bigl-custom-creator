@@ -9,6 +9,14 @@ import cssGrid from '../../style/blocks/grid/index.styl';
 import cssImage from '../../style/blocks/image-holder/index.styl';
 
 export default class Preset extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.makeGridColumn = this.makeGridColumn.bind(this);
+        this.makeGridRow = this.makeGridRow.bind(this);
+        this.makeGridItem = this.makeGridItem.bind(this);
+    }
+
     makeGridColumn(column, id) {
         return (
             <div
@@ -19,8 +27,8 @@ export default class Preset extends React.Component {
                 )}
             >
                 {column.rows.length > 1
-                    ? column.rows.map((item, key) => this.makeGridRow(item, key))
-                    : column.rows[0].content.map((item, key) => this.makeGridItem(item, key))
+                    ? column.rows.map(this.makeGridRow)
+                    : column.rows[0].content.map(this.makeGridItem)
                 }
             </div>
         );
@@ -28,29 +36,27 @@ export default class Preset extends React.Component {
 
     makeGridRow(row, id) {
         return (
-            <div
-                key={id}
-                className={cssGrid.grid__row}
-            >
-                {row.content.map((item, key) => this.makeGridItem(item, key))}
+            <div key={id} className={cssGrid.grid__row}>
+                {row.content.map(this.makeGridItem)}
             </div>
         );
     }
 
     makeGridItem(content, id) {
+        const linkAttrs = {};
         let image = <ImgPlaceholder className={cssImage.imageHolder__placeholder} />;
 
         if (content.imageSrc) {
             image = <img className={cssImage.imageHolder__img} src={content.imageSrc} alt={content.title || ''} />;
         }
 
+        if (this.props.isPreviewMode) {
+            linkAttrs.href = content.link;
+            linkAttrs.title = content.title;
+        }
+
         return (
-            <a
-                key={id}
-                className={cssGrid.grid__item}
-                href={content.link}
-                title={content.title}
-            >
+            <a key={id} className={cssGrid.grid__item} {...linkAttrs}>
                 <div
                     className={classNames(
                         cssImage.imageHolder,
@@ -63,65 +69,17 @@ export default class Preset extends React.Component {
         );
     }
 
-    generateMarkup(structure) {
-        function contains(array, item) {
-            return Array.isArray(array) ? array.indexOf(item) !== -1 : undefined;
-        }
-
-        function sameArray(array1, array2) {
-            return Array.isArray(array1) && Array.isArray(array2)
-                ? array1.every((item) => contains(array2, item))
-                : undefined;
-        }
-
-        const columns = structure.reduce((result, item) => {
-            if (
-                !structure.some((col) => contains(col.column, item.column))
-                && !result.some((col) => contains(col.column, item.column))
-            ) {
-                result.push({
-                    column: [].concat(item.column),
-                    size: item.column.length,
-                    rows: [],
-                });
-            }
-            return result;
-        }, []);
-
-        structure.forEach((item) => {
-            const currentColumn = columns.filter(
-                (col) => contains(col.column, item.column) || sameArray(col.column, item.column)
-            )[0];
-
-            const currentRow = currentColumn.rows.filter(
-                (row) => contains(row.row, item.row) || sameArray(row.row, item.row)
-            )[0];
-
-            if (currentRow) {
-                currentRow.content.push(item);
-            } else {
-                currentColumn.rows.push({
-                    row: [].concat(item.row),
-                    content: [item],
-                });
-            }
-        });
-
-        return columns.map((column, _key) => this.makeGridColumn(column, _key));
-    }
-
     render() {
+        const { isPreviewMode, previewDevice, structure } = this.props;
+
         return (
             <div
                 className={classNames(
                     cssGrid.grid,
-                    {
-                        [cssGrid.grid_type_smartphonePreview]:
-                            this.props.isPreviewMode && this.props.previewDevice === 'smartphone',
-                    },
+                    { [cssGrid.grid_type_smartphonePreview]: isPreviewMode && previewDevice === 'smartphone' },
                 )}
             >
-                {this.generateMarkup(this.props.structure.children)}
+                {structure.map(this.makeGridColumn)}
             </div>
         );
     }
@@ -130,5 +88,5 @@ export default class Preset extends React.Component {
 Preset.propTypes = {
     isPreviewMode: PropTypes.bool,
     previewDevice: PropTypes.string,
-    structure: CustomPropTypes.preset.isRequired,
+    structure: CustomPropTypes.presetMarkupData.isRequired,
 };

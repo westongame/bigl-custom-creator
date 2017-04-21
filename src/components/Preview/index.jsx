@@ -41,7 +41,7 @@ export default class Preview extends React.Component {
                 <Preset
                     isPreviewMode={this.props.isPreviewMode}
                     previewDevice={this.props.previewDevice}
-                    structure={item}
+                    structure={item.generateMarkupData()}
                 />
             </div>
         );

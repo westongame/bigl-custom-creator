@@ -94,7 +94,7 @@ export default class Content extends React.Component {
                                 onMove={(direction) => this.onMove(index, direction)}
                                 contentLength={content.length}
                             />
-                            <Preset structure={item} />
+                            <Preset structure={item.generateMarkupData()} />
                         </div>
                     ))
                     : this.renderStartMessage()

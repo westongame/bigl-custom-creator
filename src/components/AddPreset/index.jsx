@@ -1,37 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 
-import { presetTemplates } from '../../templates';
+import CustomPropTypes from '../../customPropTypes';
+
 import Preset from '../Preset';
 
 import css from '../../style/blocks/pane/index.styl';
 
 @tanokComponent
 export default class AddPreset extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.onPresetClick = this.onPresetClick.bind(this);
-    }
-
-    onPresetClick(config) {
-        this.send('addPreset', config);
-    }
-
     render() {
         return (
             <div>
                 <div className={css.pane__title}>Presets</div>
-                {presetTemplates.map((item, index) => (
+                {this.props.presetTemplates.map((item, index) => (
                     <div
                         key={index}
                         className={css.pane__presetContainer}
-                        onClick={() => this.onPresetClick(item)}
+                        onClick={() => this.send('addPreset', item.children)}
                     >
-                        <Preset structure={{ children: item }} />
+                        <Preset structure={item.generateMarkupData()} />
                     </div>
                 ))}
             </div>
         );
     }
 }
+
+AddPreset.propTypes = {
+    presetTemplates: PropTypes.arrayOf(CustomPropTypes.preset).isRequired,
+};

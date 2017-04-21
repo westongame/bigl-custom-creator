@@ -11,5 +11,6 @@ export default class Model {
         };
         this.menuPresets = [];
         this.content = [];
+        this.presetTemplates = [];
     }
 }
