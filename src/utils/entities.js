@@ -9,6 +9,9 @@ export class PresetItem {
         this.imageError = config.imageError || false;
         this.titleError = config.titleError || false;
         this.linkError = config.linkError || false;
+
+        this.validate = this.validate.bind(this);
+        this.update = this.update.bind(this);
     }
 
     validate() {
@@ -19,15 +22,29 @@ export class PresetItem {
         //
         return !!this.imageSrc && !!this.link && !!this.title;
     }
+
+    update(updates) {
+        Object.keys(updates).forEach((prop) => {
+            this[prop] = updates[prop];
+        });
+    }
 }
 
 export class Preset {
     constructor(config) {
         this.children = config.map((itemConfig) => new PresetItem(itemConfig));
+
+        this.validate = this.validate.bind(this);
+        this.updateChild = this.updateChild.bind(this);
+        this.generateMarkupData = this.generateMarkupData.bind(this);
     }
 
     validate() {
         return this.children.filter((presetItem) => !presetItem.validate()).length === 0;
+    }
+
+    updateChild(index, updates) {
+        this.children[index].update(updates);
     }
 
     generateMarkupData() {
@@ -83,10 +100,13 @@ export class MenuLink {
         if (config === undefined) {
             config = {};
         }
+
         this.text = config.text || '';
         this.textError = config.textError || false;
         this.href = config.href || '';
         this.hrefError = config.hrefError || false;
+
+        this.validate = this.validate.bind(this);
     }
 
     validate() {
@@ -106,9 +126,12 @@ export class MenuPreset {
         if (config.links === undefined) {
             config.links = [{}];
         }
+
         this.title = config.title || '';
         this.titleError = config.titleError || false;
         this.links = config.links.map((linkConfig) => new MenuLink(linkConfig));
+
+        this.validate = this.validate.bind(this);
     }
 
     validate() {

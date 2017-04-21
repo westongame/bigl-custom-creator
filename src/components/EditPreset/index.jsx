@@ -20,31 +20,14 @@ export default class EditPreset extends React.Component {
     }
 
     onImageUpload(index, e) {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-
-        reader.onload = (event) => {
-            const newBlock = this.props.block.children;
-
-            newBlock[index].imageSrc = event.target.result;
-            newBlock[index].imageName = file.name;
-            newBlock[index].imageError = false;
-
-            this.send('updateContentItem', newBlock);
-        };
-
-        if (file) {
-            reader.readAsDataURL(file);
-        }
+        this.send('uploadImage', [e, index]);
     }
 
     updateInputValue(index, prop, value) {
-        const newBlock = this.props.block.children;
-
-        newBlock[index][prop] = value;
-        newBlock[index][`${prop}Error`] = false;
-
-        this.send('updateContentItem', newBlock);
+        this.send('updateContentItem', [index, {
+            [prop]: value,
+            [`${prop}Error`]: false,
+        }]);
     }
 
     renderEditItem(content, index) {
@@ -87,13 +70,7 @@ export default class EditPreset extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                {this.props.block.children.map(
-                    (content, index) => this.renderEditItem(content, index)
-                )}
-            </div>
-        );
+        return <div>{this.props.block.children.map(this.renderEditItem)}</div>;
     }
 }
 

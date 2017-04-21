@@ -4,8 +4,6 @@ import { presetTemplates } from './templates';
 import { Preset, MenuPreset } from './utils/entities';
 import { isHistoryInitialized, initHistory, saveHistory, historyBack, historyForward } from './utils/history';
 
-const effect = (fn, state) => fn.bind(null, state);
-
 const restoreEntities = (state) => {
     state.content = state.content.map((config) => new Preset(config.children));
     state.menuPresets = state.menuPresets.map((config) => new MenuPreset(config));
@@ -22,7 +20,9 @@ export default class AppDispatcher extends TanokDispatcher {
             state.menuPresets = [new MenuPreset()];
             state.presetTemplates = presetTemplates.map((config) => new Preset(config));
         }
-        return [initHistory(state), effect(restoreEntities, state)];
+        state = initHistory(state);
+        restoreEntities(state);
+        return [state];
     }
 
     @on('Undo')
@@ -101,49 +101,82 @@ export default class AppDispatcher extends TanokDispatcher {
     @on('updateCustomTitle')
     updateCustomTitle(payload, state) {
         state.customTitle = payload;
-        return [state, effect(saveHistory, state)];
+        saveHistory(state);
+        return [state];
     }
 
     @on('addMenuPreset')
     addMenuPreset(payload, state) {
         state.menuPresets.push(new MenuPreset(payload));
-        return [state, effect(saveHistory, state)];
+        saveHistory(state);
+        return [state];
     }
 
     @on('updateMenuPresets')
     updateMenuPresets(payload, state) {
         state.menuPresets = payload;
-        return [state, effect(saveHistory, state)];
+        saveHistory(state);
+        return [state];
     }
 
     @on('updateContentPresets')
     updateContentPresets(payload, state) {
         state.content = payload;
-        return [state, effect(saveHistory, state)];
+        saveHistory(state);
+        return [state];
+    }
+
+    @on('uploadImage')
+    uploadImage(payload, state) {
+        const [e, index] = payload;
+        const file = e.target.files[0];
+        const reader = new FileReader();
+
+        const updateImage = () => {
+            return (stream) => {
+                reader.onload = (event) => {
+                    stream.send('updateContentItem', [index, {
+                        imageSrc: event.target.result,
+                        imageName: file.name,
+                        imageError: false,
+                    }]);
+                };
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            };
+        };
+
+        return [state, updateImage()];
     }
 
     @on('updateContentItem')
     updateContentItem(payload, state) {
-        state.content[state.editingIndex] = new Preset(payload);
-        return [state, effect(saveHistory, state)];
+        state.content[state.editingIndex].updateChild(...payload);
+        saveHistory(state);
+        return [state];
     }
 
     @on('addPreset')
     addPreset(payload, state) {
         state.content.push(new Preset(payload));
-        return [state, effect(saveHistory, state)];
+        saveHistory(state);
+        return [state];
     }
 
     @on('deletePreset')
     deletePreset(payload, state) {
         state.content.splice(payload, 1);
-        return [state, effect(saveHistory, state)];
+        saveHistory(state);
+        return [state];
     }
 
     @on('movePreset')
     movePreset(payload, state) {
         const presetItem = state[payload.array].splice(payload.index + payload.direction, 1)[0];
         state[payload.array].splice(payload.index, 0, presetItem);
-        return [state, effect(saveHistory, state)];
+        saveHistory(state);
+        return [state];
     }
 }
