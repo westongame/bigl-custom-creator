@@ -3,9 +3,9 @@ import { tanok } from 'tanok';
 import AppDispatcher from './dispatcher';
 import Model from './model';
 
-import App from './components/app';
+import App from './components/Editor/index';
 
-import css from './style/index.styl'; // eslint-disable-line no-unused-vars
+import css from './main.styl'; // eslint-disable-line no-unused-vars
 
 const node = document.getElementById('app');
 

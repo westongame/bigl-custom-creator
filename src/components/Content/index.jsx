@@ -5,9 +5,9 @@ import { tanokComponent } from 'tanok';
 import CustomPropTypes from '../../customPropTypes';
 import PresetBar from '../PresetBar';
 import Preset from '../Preset';
+import Button from '../Button';
 
-import css from '../../style/blocks/content/index.styl';
-import cssButton from '../../style/blocks/button/index.styl';
+import css from './content.styl';
 
 @tanokComponent
 export default class Content extends React.Component {
@@ -57,15 +57,15 @@ export default class Content extends React.Component {
 
     renderStartMessage() {
         return (
-            <div className={css.content__placeholder}>
+            <div className={css.placeholder}>
                 {
                     this.props.editMode ?
-                        <div
-                            className={[cssButton.button, cssButton.button_theme_green].join(' ')}
+                        <Button
+                            theme={'green'}
                             onClick={this.placeholderBtnClick}
                         >
                             +
-                        </div>
+                        </Button>
                     :
                         <div>
                             Add some presets here
@@ -79,10 +79,10 @@ export default class Content extends React.Component {
         const { content } = this.props;
 
         return (
-            <div className={css.content}>
+            <div className={css.root}>
                 {content.length
                     ? content.map((item, index) => (
-                        <div key={index} className={css.content__item}>
+                        <div key={index} className={css.item}>
                             <PresetBar
                                 editMode={this.props.editMode}
                                 editingIndex={this.props.editingIndex}

@@ -1,0 +1,89 @@
+_bar-height = 36px
+
+.root
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+
+    &:before
+        position: absolute
+        top: 0
+        left: 0
+        bottom: 0
+        right: 0
+        border: 2px solid #373737
+        opacity: .6
+        pointer-events: none
+
+    &:hover
+        &:before
+            content: ''
+
+        .container
+            opacity: .9
+
+// elements
+.container
+    display: flex
+    position: absolute
+    height: _bar-height
+    padding: 0 5px
+    left: 0
+    top: 0
+    right: 0
+    background: #373737
+    opacity: 0
+
+.clickableLayer
+    position: absolute
+    top: _bar-height
+    right: 0
+    bottom: 0
+    left: 0
+    cursor: pointer
+
+.button
+    display: flex
+    height: _bar-height
+    width: _bar-height
+    cursor: pointer
+
+    &:hover
+        .buttonIco
+            opacity: .9
+
+.buttonIco
+    fill: #eee
+    height: 20px
+    width: 20px
+    margin: auto
+
+// modifiers
+.root_type_content
+    top: 5px
+    bottom: 5px
+
+.root_state_active
+    &:before
+        content: ''
+        border-color: #373737
+        box-shadow: none
+
+.root_state_error
+    &:before
+        content: ''
+        border-color: red
+        box-shadow: 0 0 2px 0 rgba(255, 0, 0, .8) inset
+
+    &:hover
+        &:before
+            border-color: #373737
+            box-shadow: none
+
+.button_type_right
+    margin-left: auto
+
+    & + &
+        margin-left: initial

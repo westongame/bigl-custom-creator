@@ -1,0 +1,63 @@
+.root
+    height: 100%
+    width: 100%
+    overflow: auto
+
+// elements
+.wrapper
+    background: #fff
+    width: 94%
+    max-width: 1240px
+    margin: 20px auto 0
+    box-sizing: border-box
+    padding: 20px
+
+.contentContainer
+    display: table
+    width: 100%
+    table-layout: fixed
+
+.sidebar
+    display: table-cell
+    vertical-align: top
+    width: 270px
+    padding-right: 20px
+
+.content
+    display: table-cell
+    vertical-align: top
+
+.titleInputHolder
+    position: relative
+    margin-bottom: 30px
+
+.titleInput
+    border: 1px dashed #ccc
+    padding: 15px 20px
+    font-size: 24px
+    width: 100%
+    outline: none
+    box-sizing: border-box
+    background: none
+    color: #333
+
+    &:focus + .titleInputHighlighter
+        opacity: .6
+        border-color: #373737
+        box-shadow: none
+
+.titleInputHighlighter
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    border: 2px solid
+    pointer-events: none
+    opacity: 0
+
+// modifiers
+.titleInputHighlighter_state_error
+    opacity: .6
+    border-color: red
+    box-shadow: 0 0 2px 0 rgba(255, 0, 0, .8) inset

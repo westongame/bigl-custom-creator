@@ -1,0 +1,62 @@
+.root
+    height: 100%
+    background: #373737
+
+// elements
+.container
+    display: flex
+    height: 100%
+
+.btnsContainer
+    width: 50%
+
+    &:last-child
+        text-align: right
+        flex-grow: 1
+
+.button
+    display: inline-block
+    vertical-align: top
+    height: 100%
+    padding: 0 20px
+    cursor: pointer
+    color: #b7b7b7
+    font-size: 0
+    user-select: none
+
+    &:before
+        content: ''
+        display: inline-block
+        vertical-align: middle
+        height: 100%
+
+    &:not(:first-child)
+        margin-left: 1px
+
+    &:hover
+        background: #52bad5
+        color: #fff
+
+        .buttonIco
+            fill: #fff
+
+.buttonIco
+    display: inline-block
+    vertical-align: middle
+    height: 20px
+    width: auto
+    fill: #b7b7b7
+
+.buttonText
+    display: inline-block
+    vertical-align: middle
+    font-size: 13px
+    margin-left: 8px
+
+// modifiers
+.button_state_active
+    background: #52bad5
+    color: #fff
+
+    .buttonIco
+        fill: #fff

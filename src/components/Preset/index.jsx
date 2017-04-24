@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import CustomPropTypes from '../../customPropTypes';
-import { ImgPlaceholder } from '../../svg';
 
-import cssGrid from '../../style/blocks/grid/index.styl';
-import cssImage from '../../style/blocks/image-holder/index.styl';
+import ImageHolder from '../ImageHolder';
+
+import css from './preset.styl';
 
 export default class Preset extends React.Component {
     constructor(props) {
@@ -22,8 +22,8 @@ export default class Preset extends React.Component {
             <div
                 key={id}
                 className={classNames(
-                    cssGrid.grid__column,
-                    { [cssGrid.grid__column_size_big]: column.size >= 2 },
+                    css.column,
+                    { [css.column_size_big]: column.size >= 2 },
                 )}
             >
                 {column.rows.length > 1
@@ -36,7 +36,7 @@ export default class Preset extends React.Component {
 
     makeGridRow(row, id) {
         return (
-            <div key={id} className={cssGrid.grid__row}>
+            <div className={css.row} key={id}>
                 {row.content.map(this.makeGridItem)}
             </div>
         );
@@ -44,11 +44,6 @@ export default class Preset extends React.Component {
 
     makeGridItem(content, id) {
         const linkAttrs = {};
-        let image = <ImgPlaceholder className={cssImage.imageHolder__placeholder} />;
-
-        if (content.imageSrc) {
-            image = <img className={cssImage.imageHolder__img} src={content.imageSrc} alt={content.title || ''} />;
-        }
 
         if (this.props.isPreviewMode) {
             linkAttrs.href = content.link;
@@ -56,15 +51,16 @@ export default class Preset extends React.Component {
         }
 
         return (
-            <a key={id} className={cssGrid.grid__item} {...linkAttrs}>
-                <div
-                    className={classNames(
-                        cssImage.imageHolder,
-                        { [cssImage.imageHolder_type_bordered]: !this.props.isPreviewMode },
-                    )}
-                >
-                    {image}
-                </div>
+            <a
+                className={css.item}
+                key={id}
+                {...linkAttrs}
+            >
+                <ImageHolder
+                    typeBordered={!this.props.isPreviewMode}
+                    imgSrc={content.imageSrc}
+                    imgAlt={content.title}
+                />
             </a>
         );
     }
@@ -75,8 +71,8 @@ export default class Preset extends React.Component {
         return (
             <div
                 className={classNames(
-                    cssGrid.grid,
-                    { [cssGrid.grid_type_smartphonePreview]: isPreviewMode && previewDevice === 'smartphone' },
+                    css.root,
+                    { [css.root_type_smartphonePreview]: isPreviewMode && previewDevice === 'smartphone' },
                 )}
             >
                 {structure.map(this.makeGridColumn)}

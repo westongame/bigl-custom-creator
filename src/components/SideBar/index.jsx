@@ -5,9 +5,9 @@ import { tanokComponent } from 'tanok';
 import CustomPropTypes from '../../customPropTypes';
 import PresetBar from '../PresetBar';
 import MenuPreset from '../MenuPreset';
+import Button from '../Button';
 
-import css from '../../style/blocks/sidebar/index.styl';
-import cssButton from '../../style/blocks/button/index.styl';
+import css from './sideBar.styl';
 
 @tanokComponent
 export default class Sidebar extends React.Component {
@@ -67,7 +67,7 @@ export default class Sidebar extends React.Component {
     renderItems(structure) {
         return structure.map((item, index) => (
             <div
-                className={css.sidebar__item}
+                className={css.item}
                 key={index}
             >
                 <PresetBar
@@ -88,15 +88,15 @@ export default class Sidebar extends React.Component {
 
     render() {
         return (
-            <div className={css.sidebar}>
+            <div className={css.root}>
                 {this.renderItems(this.props.menuPresets)}
-                <div className={css.sidebar__btnHolder}>
-                    <div
-                        className={[cssButton.button, cssButton.button_theme_green].join(' ')}
+                <div className={css.btnHolder}>
+                    <Button
+                        theme={'green'}
                         onClick={this.onAdd}
                     >
                         +
-                    </div>
+                    </Button>
                 </div>
             </div>
         );

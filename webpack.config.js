@@ -51,7 +51,7 @@ if (DEVELOPMENT) {
             loader: 'css-loader',
             options: {
                 modules: true,
-                localIdentName: '[local]',
+                localIdentName: '[name]__[local]',
                 importLoaders: 1,
             },
         },

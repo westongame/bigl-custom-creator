@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
-import classNames from 'classnames';
 
 import { MenuLink } from '../../utils/entities';
 import CustomPropTypes from '../../customPropTypes';
-import TextInput from '../TextInput';
+
+import Textbox from '../Textbox';
+import Button from '../Button';
+
 import { IcoCrossCircle } from '../../svg';
 
-import css from '../../style/blocks/edit-menu/index.styl';
-import cssInput from '../../style/blocks/textbox/index.styl';
-import cssButton from '../../style/blocks/button/index.styl';
+import css from './editMenuPreset.styl';
 
 @tanokComponent
 export default class EditMenuPreset extends React.Component {
@@ -61,38 +61,32 @@ export default class EditMenuPreset extends React.Component {
     renderLinkItem(item, index) {
         return (
             <div
-                className={css.editMenu__item}
+                className={css.item}
                 key={index}
             >
-                <div className={css.editMenu__inputHolder}>
-                    <div className={css.editMenu__inputWrapper}>
-                        <TextInput
-                            className={classNames(
-                                cssInput.textbox,
-                                { [cssInput.textbox_state_error]: item.textError }
-                            )}
+                <div className={css.inputHolder}>
+                    <div className={css.inputWrapper}>
+                        <Textbox
                             value={item.text}
                             placeholder='Link text'
+                            isError={item.textError}
                             update={(value) => this.updateTextInput('text', index, value)}
                         />
                     </div>
-                    <div className={css.editMenu__inputWrapper}>
-                        <TextInput
-                            className={classNames(
-                                cssInput.textbox,
-                                { [cssInput.textbox_state_error]: item.hrefError }
-                            )}
+                    <div className={css.inputWrapper}>
+                        <Textbox
                             value={item.href}
                             placeholder='URL'
+                            isError={item.hrefError}
                             update={(value) => this.updateTextInput('href', index, value)}
                         />
                     </div>
                 </div>
                 <div
-                    className={css.editMenu__delBtnHolder}
+                    className={css.delBtnHolder}
                     onClick={() => this.deleteMenuLink(index)}
                 >
-                    <IcoCrossCircle className={css.editMenu__delBtn} />
+                    <IcoCrossCircle className={css.delBtn} />
                 </div>
             </div>
         );
@@ -102,28 +96,25 @@ export default class EditMenuPreset extends React.Component {
         const currentMenuPreset = this.props.menuPresets[this.props.editingIndex];
 
         return (
-            <div className={css.editMenu}>
-                <div className={css.editMenu__titleContainer}>
-                    <TextInput
-                        className={classNames(
-                            cssInput.textbox,
-                            { [cssInput.textbox_state_error]: currentMenuPreset.titleError }
-                        )}
+            <div className={css.root}>
+                <div className={css.titleContainer}>
+                    <Textbox
                         value={currentMenuPreset.title}
                         placeholder='Menu title'
+                        isError={currentMenuPreset.titleError}
                         update={this.updateTitleInput}
                     />
                 </div>
 
                 {currentMenuPreset.links.map((item, index) => this.renderLinkItem(item, index))}
 
-                <div className={css.editMenu__item}>
-                    <div
-                        className={[cssButton.button, cssButton.button_theme_green].join(' ')}
+                <div className={css.item}>
+                    <Button
+                        theme={'green'}
                         onClick={this.addMenuLink}
                     >
                         +
-                    </div>
+                    </Button>
                 </div>
             </div>
         );

@@ -4,62 +4,62 @@ import classNames from 'classnames';
 
 import { IcoChevronUp, IcoChevronDown, IcoTrash, IcoPencil } from '../../svg';
 
-import css from '../../style/blocks/preset-bar/index.styl';
+import css from './presetBar.styl';
 
 export default function PresetBar(props) {
     return (
         <div
             className={classNames(
-                css.presetBar,
+                css.root,
                 {
-                    [css.presetBar_type_content]:
+                    [css.root_type_content]:
                         props.itemMode === 'content',
-                    [css.presetBar_state_active]:
+                    [css.root_state_active]:
                         props.itemIndex === props.editingIndex && props.editMode === props.itemMode,
-                    [css.presetBar_state_error]: props.itemError,
+                    [css.root_state_error]: props.itemError,
                 }
             )}
         >
-            <div className={css.presetBar__container}>
+            <div className={css.container}>
                 {
                     props.itemIndex < props.contentLength - 1 ?
                         <div
-                            className={css.presetBar__button}
+                            className={css.button}
                             title='Move Down'
                             onClick={() => props.onMove(1)}
                         >
-                            <IcoChevronDown className={css.presetBar__buttonIco} />
+                            <IcoChevronDown className={css.buttonIco} />
                         </div>
                     : null
                 }
                 {
                     props.itemIndex > 0 ?
                         <div
-                            className={css.presetBar__button}
+                            className={css.button}
                             title='Move Up'
                             onClick={() => props.onMove(-1)}
                         >
-                            <IcoChevronUp className={css.presetBar__buttonIco} />
+                            <IcoChevronUp className={css.buttonIco} />
                         </div>
                     : null
                 }
                 <div
-                    className={[css.presetBar__button, css.presetBar__button_type_right].join(' ')}
+                    className={[css.button, css.button_type_right].join(' ')}
                     title='Edit'
                     onClick={props.onEdit}
                 >
-                    <IcoPencil className={css.presetBar__buttonIco} />
+                    <IcoPencil className={css.buttonIco} />
                 </div>
                 <div
-                    className={[css.presetBar__button, css.presetBar__button_type_right].join(' ')}
+                    className={[css.button, css.button_type_right].join(' ')}
                     title='Remove'
                     onClick={props.onDelete}
                 >
-                    <IcoTrash className={css.presetBar__buttonIco} />
+                    <IcoTrash className={css.buttonIco} />
                 </div>
             </div>
             <div
-                className={css.presetBar__clickableLayer}
+                className={css.clickableLayer}
                 onClick={props.onEdit}
             ></div>
         </div>

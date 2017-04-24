@@ -7,7 +7,7 @@ import CustomPropTypes from '../../customPropTypes';
 import MenuPreset from '../MenuPreset';
 import Preset from '../Preset';
 
-import css from '../../style/blocks/preview/index.styl';
+import css from './preview.styl';
 
 @tanokComponent
 export default class Preview extends React.Component {
@@ -21,7 +21,7 @@ export default class Preview extends React.Component {
     renderMenu() {
         return this.props.menuPresets.map((item, index) =>
             <div
-                className={css.preview__menuContainer}
+                className={css.menuContainer}
                 key={index}
             >
                 <MenuPreset
@@ -35,7 +35,7 @@ export default class Preview extends React.Component {
     renderContent() {
         return this.props.contentStructure.map((item, index) =>
             <div
-                className={css.preview__gridContainer}
+                className={css.gridContainer}
                 key={index}
             >
                 <Preset
@@ -49,29 +49,29 @@ export default class Preview extends React.Component {
 
     render() {
         return (
-            <div className={css.preview}>
+            <div className={css.root}>
                 <div
                     className={classNames(
-                        css.preview__container,
+                        css.container,
                         {
-                            [css.preview__container_type_tablet]: this.props.previewDevice === 'tablet',
-                            [css.preview__container_type_smartphone]: this.props.previewDevice === 'smartphone',
+                            [css.container_type_tablet]: this.props.previewDevice === 'tablet',
+                            [css.container_type_smartphone]: this.props.previewDevice === 'smartphone',
                         }
                     )}
                 >
-                    <div className={css.preview__title}>
+                    <div className={css.title}>
                         {this.props.customTitle.text}
                     </div>
-                    <div className={css.preview__contentContainer}>
+                    <div className={css.contentContainer}>
                         <div
                             className={classNames(
-                                css.preview__sidebar,
-                                { [css.preview__sidebar_type_visible]: this.props.previewDevice === 'desktop' }
+                                css.sidebar,
+                                { [css.sidebar_type_visible]: this.props.previewDevice === 'desktop' }
                             )}
                         >
                             {this.renderMenu()}
                         </div>
-                        <div className={css.preview__content}>
+                        <div className={css.content}>
                             {this.renderContent()}
                         </div>
                     </div>

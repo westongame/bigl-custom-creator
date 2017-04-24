@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import css from '../../style/blocks/category-tree/index.styl';
+import css from './menuPreset.styl';
 
 export default class MenuPreset extends React.Component {
     constructor(props) {
@@ -34,8 +34,8 @@ export default class MenuPreset extends React.Component {
 
         this.props.menuProps.links.forEach((item, index) => {
             links.push(
-                <div className={css.categoryTree__item} key={index}>
-                    <a className={css.categoryTree__link} href={item.href ? item.href : '#'}>
+                <div className={css.item} key={index}>
+                    <a className={css.link} href={item.href ? item.href : '#'}>
                         {item.text ? item.text : 'New link'}
                     </a>
                 </div>
@@ -48,9 +48,9 @@ export default class MenuPreset extends React.Component {
             links.splice(3, hiddenItemsCount);
 
             links.push(
-                <div className={css.categoryTree__item} key='showMore'>
+                <div className={css.item} key='showMore'>
                     <a
-                        className={css.categoryTree__expandLink}
+                        className={css.expandLink}
                         onClick={this.showBtnClick}
                     >
                         {`Show ${hiddenItemsCount} more`}
@@ -63,9 +63,9 @@ export default class MenuPreset extends React.Component {
 
         if (this.props.isPreviewMode && this.props.menuProps.links.length > 3 && !this.state.collapse) {
             links.push(
-                <div className={css.categoryTree__item} key='hide'>
+                <div className={css.item} key='hide'>
                     <a
-                        className={css.categoryTree__expandLink}
+                        className={css.expandLink}
                         onClick={this.hideBtnClick}
                     >
                         {`Hide items`}
@@ -81,14 +81,14 @@ export default class MenuPreset extends React.Component {
         return (
             <div
                 className={classNames(
-                    css.categoryTree,
-                    { [css.categoryTree_type_bordered]: !this.props.isPreviewMode }
+                    css.root,
+                    { [css.root_type_bordered]: !this.props.isPreviewMode }
                 )}
             >
-                <div className={css.categoryTree__title}>
+                <div className={css.title}>
                     {this.props.menuProps.title ? this.props.menuProps.title : 'New menu'}
                 </div>
-                <div className={css.categoryTree__container}>
+                <div className={css.container}>
                     {this.renderLinks()}
                 </div>
             </div>

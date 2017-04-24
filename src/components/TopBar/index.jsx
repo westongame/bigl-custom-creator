@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import { IcoEye, IcoDownload, IcoSmartphone, IcoTablet, IcoScreen, IcoCross, IcoUndo, IcoRedo } from '../../svg';
 
-import css from '../../style/blocks/editor-bar/index.styl';
+import css from './topBar.styl';
 
 @tanokComponent
 export default class TopBar extends React.Component {
@@ -43,43 +43,43 @@ export default class TopBar extends React.Component {
 
     renderPreviewBar() {
         return (
-            <div className={css.editorBar__container}>
-                <div className={css.editorBar__btnsContainer}>
+            <div className={css.container}>
+                <div className={css.btnsContainer}>
                     <div
                         className={classNames(
-                            css.editorBar__button,
-                            { [css.editorBar__button_state_active]: this.props.previewDevice === 'smartphone' }
+                            css.button,
+                            { [css.button_state_active]: this.props.previewDevice === 'smartphone' }
                         )}
                         onClick={() => this.togglePreviewDevice('smartphone')}
                     >
-                        <IcoSmartphone className={css.editorBar__buttonIco} />
+                        <IcoSmartphone className={css.buttonIco} />
                     </div>
                     <div
                         className={classNames(
-                            css.editorBar__button,
-                            { [css.editorBar__button_state_active]: this.props.previewDevice === 'tablet' }
+                            css.button,
+                            { [css.button_state_active]: this.props.previewDevice === 'tablet' }
                         )}
                         onClick={() => this.togglePreviewDevice('tablet')}
                     >
-                        <IcoTablet className={css.editorBar__buttonIco} />
+                        <IcoTablet className={css.buttonIco} />
                     </div>
                     <div
                         className={classNames(
-                            css.editorBar__button,
-                            { [css.editorBar__button_state_active]: this.props.previewDevice === 'desktop' }
+                            css.button,
+                            { [css.button_state_active]: this.props.previewDevice === 'desktop' }
                         )}
                         onClick={() => this.togglePreviewDevice('desktop')}
                     >
-                        <IcoScreen className={css.editorBar__buttonIco} />
+                        <IcoScreen className={css.buttonIco} />
                     </div>
                 </div>
-                <div className={css.editorBar__btnsContainer}>
+                <div className={css.btnsContainer}>
                     <div
-                        className={css.editorBar__button}
+                        className={css.button}
                         onClick={this.togglePreviewMode}
                     >
-                        <IcoCross className={css.editorBar__buttonIco} />
-                        <span className={css.editorBar__buttonText}>
+                        <IcoCross className={css.buttonIco} />
+                        <span className={css.buttonText}>
                             Exit Preview
                         </span>
                     </div>
@@ -90,45 +90,45 @@ export default class TopBar extends React.Component {
 
     renderBar() {
         return (
-            <div className={css.editorBar__container}>
-                <div className={css.editorBar__btnsContainer}>
+            <div className={css.container}>
+                <div className={css.btnsContainer}>
                     <a
-                        className={css.editorBar__button}
+                        className={css.button}
                         onClick={this.onUndo}
                         title='Ctrl+Z'
                     >
-                        <IcoUndo className={css.editorBar__buttonIco} />
-                        <span className={css.editorBar__buttonText}>
+                        <IcoUndo className={css.buttonIco} />
+                        <span className={css.buttonText}>
                             Undo
                         </span>
                     </a>
                     <div
-                        className={css.editorBar__button}
+                        className={css.button}
                         onClick={this.onRedo}
                         title='Ctrl+Y'
                     >
-                        <IcoRedo className={css.editorBar__buttonIco} />
-                        <span className={css.editorBar__buttonText}>
+                        <IcoRedo className={css.buttonIco} />
+                        <span className={css.buttonText}>
                             Redo
                         </span>
                     </div>
                 </div>
-                <div className={css.editorBar__btnsContainer}>
+                <div className={css.btnsContainer}>
                     <a
-                        className={css.editorBar__button}
+                        className={css.button}
                         onClick={this.onDownload}
                     >
-                        <IcoDownload className={css.editorBar__buttonIco} />
-                        <span className={css.editorBar__buttonText}>
+                        <IcoDownload className={css.buttonIco} />
+                        <span className={css.buttonText}>
                             Download JSON
                         </span>
                     </a>
                     <div
-                        className={css.editorBar__button}
+                        className={css.button}
                         onClick={this.togglePreviewMode}
                     >
-                        <IcoEye className={css.editorBar__buttonIco} />
-                        <span className={css.editorBar__buttonText}>
+                        <IcoEye className={css.buttonIco} />
+                        <span className={css.buttonText}>
                             Preview
                         </span>
                     </div>
@@ -139,7 +139,7 @@ export default class TopBar extends React.Component {
 
     render() {
         return (
-            <div className={css.editorBar}>
+            <div className={css.root}>
                 { this.props.isPreviewMode ? this.renderPreviewBar() : this.renderBar() }
             </div>
         );

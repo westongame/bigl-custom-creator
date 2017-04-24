@@ -3,19 +3,26 @@ import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 
 import CustomPropTypes from '../../customPropTypes';
-import EditMenuPreset from '../EditMenuPreset';
-import AddPreset from '../AddPreset';
-import EditPreset from '../EditPreset';
 
-import css from '../../style/blocks/pane/index.styl';
-import cssButton from '../../style/blocks/button/index.styl';
+import EditMenuPreset from '../EditMenuPreset';
+import EditPreset from '../EditPreset';
+import Preset from '../Preset';
+import Button from '../Button';
+
+import css from './pane.styl';
 
 @tanokComponent
 export default class Pane extends React.Component {
     constructor(props) {
         super(props);
+
         this.renderActionsSection = this.renderActionsSection.bind(this);
+        this.onPresetClick = this.onPresetClick.bind(this);
         this.onEditCancel = this.onEditCancel.bind(this);
+    }
+
+    onPresetClick(config) {
+        this.send('addPreset', config);
     }
 
     onEditCancel() {
@@ -25,56 +32,63 @@ export default class Pane extends React.Component {
     renderActionsSection() {
         if (this.props.editMode === 'menu') {
             return (
-                <div>
-                    <div className={css.pane__title}>Edit menu</div>
-                    <div className={css.pane__menuEditContainer}>
+                <div className={css.layer}>
+                    <div className={css.title}>Edit menu</div>
+                    <div className={css.menuEditContainer}>
                         <EditMenuPreset
                             tanokStream={this.props.tanokStream}
                             editingIndex={this.props.editingIndex}
                             menuPresets={this.props.menuPresets}
                         />
                     </div>
-                    <div className={css.pane__btnHolder}>
-                        <div
-                            className={cssButton.button}
-                            onClick={this.onEditCancel}
-                        >
-                            Close
-                        </div>
-                    </div>
+                    <Button
+                        onClick={this.onEditCancel}
+                    >
+                        Close
+                    </Button>
                 </div>
             );
         } else if (this.props.editMode === 'content') {
             return (
-                <div>
-                    <div className={css.pane__title}>Edit preset</div>
-                    <div className={css.pane__imageEditContainer}>
+                <div className={css.layer}>
+                    <div className={css.title}>Edit preset</div>
+                    <div className={css.imageEditContainer}>
                         <EditPreset
                             tanokStream={this.props.tanokStream}
                             block={this.props.content[this.props.editingIndex]}
                         />
                     </div>
-                    <div className={css.pane__btnHolder}>
-                        <div
-                            className={cssButton.button}
-                            onClick={this.onEditCancel}
-                        >
-                            Close
-                        </div>
-                    </div>
+                    <Button
+                        onClick={this.onEditCancel}
+                    >
+                        Close
+                    </Button>
                 </div>
             );
         }
 
-        return <AddPreset tanokStream={this.props.tanokStream} presetTemplates={this.props.presetTemplates} />;
+        return (
+            <div className={css.layer}>
+                <div className={css.title}>Presets</div>
+                {
+                    this.props.presetTemplates.map((item, index) => (
+                        <div
+                            className={css.presetContainer}
+                            key={index}
+                            onClick={() => this.onPresetClick(item.children)}
+                        >
+                            <Preset structure={item.generateMarkupData()} />
+                        </div>
+                    ))
+                }
+            </div>
+        );
     }
 
     render() {
         return (
-            <div className={css.pane}>
-                <div className={css.pane__layer}>
-                    {this.renderActionsSection()}
-                </div>
+            <div className={css.root}>
+                {this.renderActionsSection()}
             </div>
         );
     }

@@ -1,46 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ImageHolder from '../ImageHolder';
+
 import { ImgPlaceholder } from '../../svg';
 
-import css from '../../style/blocks/image-edit/index.styl';
-import cssImage from '../../style/blocks/image-holder/index.styl';
+import css from './editImage.styl';
 
 export default function EditImage(props) {
-    let image = <ImgPlaceholder />;
-
-    if (props.imageSrc) {
-        image = (
-            <div className={cssImage.imageHolder}>
-                <img src={props.imageSrc} className={cssImage.imageHolder__img} alt={props.imageName || ''} />
-            </div>
-        );
-    }
-
     return (
-        <div className={css.imageEdit}>
+        <div className={css.root}>
             <input
                 id={`imageUpload-${props.itemId}`}
+                className={css.input}
                 type='file'
                 onChange={props.onChange}
-                className={css.imageEdit__input}
             />
             <label
-                className={css.imageEdit__imgContainer}
+                className={css.imgContainer}
                 htmlFor={`imageUpload-${props.itemId}`}
             >
-                {image}
+                {
+                    props.imageSrc ?
+                        <ImageHolder
+                            imgSrc={props.imageSrc}
+                            imgAlt={props.imageName}
+                        />
+                    : <ImgPlaceholder />
+                }
             </label>
-            <div className={css.imageEdit__textContainer}>
+            <div className={css.textContainer}>
                 {
                     props.imageName ?
-                        <div className={css.imageEdit__title}>
+                        <div className={css.title}>
                             {props.imageName}
                         </div>
                     : null
                 }
                 <label
-                    className={css.imageEdit__link}
+                    className={css.link}
                     htmlFor={`imageUpload-${props.itemId}`}
                 >
                     Upload an image
