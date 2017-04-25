@@ -25,9 +25,7 @@ export default class TextInput extends React.Component {
     }
 
     onBlur(e) {
-        if (this.props.value !== this.state.value) {
-            this.props.update(this.state.value);
-        }
+        this.props.update(this.state.value);
 
         if (this.props.onBlur) {
             this.props.onBlur(e);

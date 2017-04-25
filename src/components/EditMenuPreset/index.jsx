@@ -2,12 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 
-import { MenuLink } from '../../utils/entities';
 import CustomPropTypes from '../../customPropTypes';
 
 import Textbox from '../Textbox';
 import Button from '../Button';
-
 import { IcoCrossCircle } from '../../svg';
 
 import css from './editMenuPreset.styl';
@@ -19,43 +17,28 @@ export default class EditMenuPreset extends React.Component {
 
         this.addMenuLink = this.addMenuLink.bind(this);
         this.deleteMenuLink = this.deleteMenuLink.bind(this);
+        this.syncMenuText = this.syncMenuText.bind(this);
         this.updateTextInput = this.updateTextInput.bind(this);
-        this.updateTitleInput = this.updateTitleInput.bind(this);
         this.renderLinkItem = this.renderLinkItem.bind(this);
     }
 
     addMenuLink() {
-        const newMenuPresets = this.props.menuPresets;
-
-        newMenuPresets[this.props.editingIndex].links.push(new MenuLink());
-
-        this.send('updateMenuPresets', newMenuPresets);
+        this.send('addMenuLink');
     }
 
     deleteMenuLink(index) {
-        const newMenuPresets = this.props.menuPresets;
-
-        newMenuPresets[this.props.editingIndex].links.splice(index, 1);
-
-        this.send('updateMenuPresets', newMenuPresets);
+        this.send('deleteMenuLink', index);
     }
 
-    updateTextInput(target, index, value) {
-        const newMenuPresets = this.props.menuPresets;
-
-        newMenuPresets[this.props.editingIndex].links[index][target] = value;
-        newMenuPresets[this.props.editingIndex].links[index][`${target}Error`] = false;
-
-        this.send('updateMenuPresets', newMenuPresets);
+    syncMenuText(index, prop, value) {
+        this.send('syncMenuText', [index, { [prop]: value }]);
     }
 
-    updateTitleInput(value) {
-        const newMenuPresets = this.props.menuPresets;
-
-        newMenuPresets[this.props.editingIndex].title = value;
-        newMenuPresets[this.props.editingIndex].titleError = false;
-
-        this.send('updateMenuPresets', newMenuPresets);
+    updateTextInput(index, prop, value) {
+        this.send('updateMenuPreset', [index, {
+            [prop]: value,
+            [`${prop}Error`]: false,
+        }]);
     }
 
     renderLinkItem(item, index) {
@@ -70,7 +53,8 @@ export default class EditMenuPreset extends React.Component {
                             value={item.text}
                             placeholder='Link text'
                             isError={item.textError}
-                            update={(value) => this.updateTextInput('text', index, value)}
+                            onChange={(e) => this.syncMenuText(index, 'text', e.target.value)}
+                            update={(value) => this.updateTextInput(index, 'text', value)}
                         />
                     </div>
                     <div className={css.inputWrapper}>
@@ -78,7 +62,7 @@ export default class EditMenuPreset extends React.Component {
                             value={item.href}
                             placeholder='URL'
                             isError={item.hrefError}
-                            update={(value) => this.updateTextInput('href', index, value)}
+                            update={(value) => this.updateTextInput(index, 'href', value)}
                         />
                     </div>
                 </div>
@@ -102,17 +86,15 @@ export default class EditMenuPreset extends React.Component {
                         value={currentMenuPreset.title}
                         placeholder='Menu title'
                         isError={currentMenuPreset.titleError}
-                        update={this.updateTitleInput}
+                        onChange={(e) => this.syncMenuText(null, 'title', e.target.value)}
+                        update={(value) => this.updateTextInput(null, 'href', value)}
                     />
                 </div>
 
-                {currentMenuPreset.links.map((item, index) => this.renderLinkItem(item, index))}
+                {currentMenuPreset.links.map(this.renderLinkItem)}
 
                 <div className={css.item}>
-                    <Button
-                        theme={'green'}
-                        onClick={this.addMenuLink}
-                    >
+                    <Button theme={'green'} onClick={this.addMenuLink}>
                         +
                     </Button>
                 </div>

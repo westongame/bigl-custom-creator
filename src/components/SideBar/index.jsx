@@ -14,34 +14,22 @@ export default class Sidebar extends React.Component {
     constructor(props) {
         super(props);
 
-        this.updateMenuPresets = this.updateMenuPresets.bind(this);
         this.onEdit = this.onEdit.bind(this);
         this.onAdd = this.onAdd.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.onMove = this.onMove.bind(this);
-        this.renderItems = this.renderItems.bind(this);
+        this.renderItem = this.renderItem.bind(this);
         this.checkErrors = this.checkErrors.bind(this);
     }
 
     onEdit(item, index) {
         this.send('updateEditMode', 'menu');
         this.send('updateEditingIndex', index);
-
-        const newMenuPresets = this.props.menuPresets;
-
-        newMenuPresets.editingLinksCount = item.links.length;
-
-        this.updateMenuPresets(newMenuPresets);
     }
 
     onDelete(index) {
         this.send('updateEditMode', '');
-
-        const newMenuPresets = this.props.menuPresets;
-
-        newMenuPresets.splice(index, 1);
-
-        this.updateMenuPresets(newMenuPresets);
+        this.send('deleteMenuPreset', index);
     }
 
     onAdd() {
@@ -60,16 +48,9 @@ export default class Sidebar extends React.Component {
         return item.titleError || item.links.some((link) => link.textError || link.hrefError);
     }
 
-    updateMenuPresets(newMenuPresets) {
-        this.send('updateMenuPresets', newMenuPresets);
-    }
-
-    renderItems(structure) {
-        return structure.map((item, index) => (
-            <div
-                className={css.item}
-                key={index}
-            >
+    renderItem(item, index) {
+        return (
+            <div className={css.item} key={index}>
                 <PresetBar
                     editMode={this.props.editMode}
                     editingIndex={this.props.editingIndex}
@@ -79,17 +60,17 @@ export default class Sidebar extends React.Component {
                     onEdit={() => this.onEdit(item, index)}
                     onDelete={() => this.onDelete(index)}
                     onMove={(direction) => this.onMove(index, direction)}
-                    contentLength={structure.length}
+                    contentLength={this.props.menuPresets.length}
                 />
                 <MenuPreset menuProps={item} />
             </div>
-        ));
+        );
     }
 
     render() {
         return (
             <div className={css.root}>
-                {this.renderItems(this.props.menuPresets)}
+                {this.props.menuPresets.map(this.renderItem)}
                 <div className={css.btnHolder}>
                     <Button
                         theme={'green'}

@@ -43,7 +43,7 @@ export default class MenuPreset extends React.Component {
         });
 
         if (this.props.isPreviewMode && this.state.collapse) {
-            const hiddenItemsCount = this.props.menuProps.links.length - 3
+            const hiddenItemsCount = this.props.menuProps.links.length - 3;
 
             links.splice(3, hiddenItemsCount);
 

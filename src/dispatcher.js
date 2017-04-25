@@ -1,7 +1,7 @@
 import { TanokDispatcher, on } from 'tanok';
 
 import { presetTemplates } from './templates';
-import { Preset, MenuPreset } from './utils/entities';
+import { Preset, MenuPreset, MenuLink } from './utils/entities';
 import { isHistoryInitialized, initHistory, saveHistory, historyBack, historyForward } from './utils/history';
 
 const restoreEntities = (state) => {
@@ -112,9 +112,36 @@ export default class AppDispatcher extends TanokDispatcher {
         return [state];
     }
 
-    @on('updateMenuPresets')
-    updateMenuPresets(payload, state) {
-        state.menuPresets = payload;
+    @on('deleteMenuPreset')
+    deleteMenuPreset(payload, state) {
+        state.menuPresets.splice(payload, 1);
+        saveHistory(state);
+        return [state];
+    }
+
+    @on('addMenuLink')
+    addMenuLink(payload, state) {
+        state.menuPresets[state.editingIndex].links.push(new MenuLink());
+        saveHistory(state);
+        return [state];
+    }
+
+    @on('deleteMenuLink')
+    deleteMenuLink(payload, state) {
+        state.menuPresets[state.editingIndex].links.splice(payload, 1);
+        saveHistory(state);
+        return [state];
+    }
+
+    @on('syncMenuText')
+    syncMenuText(payload, state) {
+        state.menuPresets[state.editingIndex].update(...payload);
+        return [state];
+    }
+
+    @on('updateMenuPreset')
+    updateMenuPreset(payload, state) {
+        state.menuPresets[state.editingIndex].update(...payload);
         saveHistory(state);
         return [state];
     }
