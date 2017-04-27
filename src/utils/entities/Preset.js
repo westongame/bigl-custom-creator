@@ -7,6 +7,7 @@ export default class Preset {
         this.validate = this.validate.bind(this);
         this.updateChild = this.updateChild.bind(this);
         this.generateMarkupData = this.generateMarkupData.bind(this);
+        this.serialize = this.serialize.bind(this);
     }
 
     validate() {
@@ -62,5 +63,17 @@ export default class Preset {
         });
 
         return columns;
+    }
+
+    serialize() {
+        return {
+            children: this.children.map((block) => ({
+                title: block.title,
+                link: block.link,
+                imageSrc: block.imageSrc,
+                row: block.row,
+                column: block.column,
+            })),
+        };
     }
 }

@@ -16,9 +16,9 @@ export default class Pane extends React.Component {
     constructor(props) {
         super(props);
 
-        this.renderActionsSection = this.renderActionsSection.bind(this);
         this.onPresetClick = this.onPresetClick.bind(this);
         this.onEditCancel = this.onEditCancel.bind(this);
+        this.renderActionsSection = this.renderActionsSection.bind(this);
     }
 
     onPresetClick(config) {
@@ -26,7 +26,7 @@ export default class Pane extends React.Component {
     }
 
     onEditCancel() {
-        this.send('updateEditMode', '');
+        this.send('setEditMode', ['', 0]);
     }
 
     renderActionsSection() {
@@ -86,11 +86,7 @@ export default class Pane extends React.Component {
     }
 
     render() {
-        return (
-            <div className={css.root}>
-                {this.renderActionsSection()}
-            </div>
-        );
+        return <div className={css.root}>{this.renderActionsSection()}</div>;
     }
 }
 

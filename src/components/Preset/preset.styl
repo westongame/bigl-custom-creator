@@ -3,14 +3,11 @@
     width: calc(100% + 10px)
     margin: -5px
     align-items: stretch
-    flex-wrap: wrap
-
-    @media only screen and (min-width: 768px)
-        flex-wrap: nowrap
 
 // elements
 .column
     display: flex
+    min-width: 0
     flex-direction: column
     flex-basis: 50%
     align-items: stretch
@@ -22,23 +19,17 @@
 
 .item
     display: flex
+    min-height: 0
     flex-basis: 100%
     padding: 5px
     box-sizing: border-box
 
 // modifiers
+.column_size_big
+    flex-basis: 100%
+
 .root_type_smartphonePreview
     flex-wrap: wrap
 
     .column + .column_size_big
         order: 1
-
-.column_size_big
-    flex-basis: 100%
-
-    .column + &
-        order: 1
-
-    @media only screen and (min-width: 768px)
-        .column + &
-            order: initial

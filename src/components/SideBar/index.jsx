@@ -23,12 +23,10 @@ export default class Sidebar extends React.Component {
     }
 
     onEdit(item, index) {
-        this.send('updateEditMode', 'menu');
-        this.send('updateEditingIndex', index);
+        this.send('setEditMode', ['menu', index]);
     }
 
     onDelete(index) {
-        this.send('updateEditMode', '');
         this.send('deleteMenuPreset', index);
     }
 

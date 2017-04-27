@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 
 import ImageHolder from '../ImageHolder';
 
-import { ImgPlaceholder } from '../../svg';
-
 import css from './editImage.styl';
 
 export default function EditImage(props) {
@@ -20,14 +18,7 @@ export default function EditImage(props) {
                 className={css.imgContainer}
                 htmlFor={`imageUpload-${props.itemId}`}
             >
-                {
-                    props.imageSrc ?
-                        <ImageHolder
-                            imgSrc={props.imageSrc}
-                            imgAlt={props.imageName}
-                        />
-                    : <ImgPlaceholder />
-                }
+                <ImageHolder imgSrc={props.imageSrc} imgAlt={props.imageName} />
             </label>
             <div className={css.textContainer}>
                 {

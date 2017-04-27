@@ -1,4 +1,4 @@
-_bar-height = 36px
+$_bar-height = 36px
 
 .root
     position: absolute
@@ -28,7 +28,7 @@ _bar-height = 36px
 .container
     display: flex
     position: absolute
-    height: _bar-height
+    height: $_bar-height
     padding: 0 5px
     left: 0
     top: 0
@@ -38,7 +38,7 @@ _bar-height = 36px
 
 .clickableLayer
     position: absolute
-    top: _bar-height
+    top: $_bar-height
     right: 0
     bottom: 0
     left: 0
@@ -46,8 +46,8 @@ _bar-height = 36px
 
 .button
     display: flex
-    height: _bar-height
-    width: _bar-height
+    height: $_bar-height
+    width: $_bar-height
     cursor: pointer
 
     &:hover
@@ -65,12 +65,6 @@ _bar-height = 36px
     top: 5px
     bottom: 5px
 
-.root_state_active
-    &:before
-        content: ''
-        border-color: #373737
-        box-shadow: none
-
 .root_state_error
     &:before
         content: ''
@@ -81,6 +75,12 @@ _bar-height = 36px
         &:before
             border-color: #373737
             box-shadow: none
+
+.root_state_active
+    &:before
+        content: ''
+        border-color: #373737
+        box-shadow: none
 
 .button_type_right
     margin-left: auto

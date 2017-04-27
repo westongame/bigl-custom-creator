@@ -15,6 +15,7 @@ export default class MenuPreset {
 
         this.validate = this.validate.bind(this);
         this.update = this.update.bind(this);
+        this.serialize = this.serialize.bind(this);
     }
 
     validate() {
@@ -33,5 +34,15 @@ export default class MenuPreset {
                 this[prop] = updates[prop];
             });
         }
+    }
+
+    serialize() {
+        return {
+            title: this.title,
+            links: this.links.map((link) => ({
+                text: link.text,
+                href: link.href,
+            })),
+        };
     }
 }

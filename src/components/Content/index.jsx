@@ -18,28 +18,19 @@ export default class Content extends React.Component {
         this.onDelete = this.onDelete.bind(this);
         this.onMove = this.onMove.bind(this);
         this.checkErrors = this.checkErrors.bind(this);
-        this.renderStartMessage = this.renderStartMessage.bind(this);
         this.placeholderBtnClick = this.placeholderBtnClick.bind(this);
+        this.renderStartMessage = this.renderStartMessage.bind(this);
     }
 
     onEdit(index) {
-        this.send('updateEditMode', 'content');
-        this.send('updateEditingIndex', index);
-
-        const newContent = this.props.content;
-
-        newContent[index].error = false;
-
-        this.send('updateContentPresets', newContent);
+        this.send('setEditMode', ['content', index]);
     }
 
     onDelete(index) {
-        this.send('updateEditMode', '');
         this.send('deletePreset', index);
     }
 
     onMove(index, direction) {
-        this.send('updateEditMode', '');
         this.send('movePreset', {
             array: 'content',
             index,
@@ -52,7 +43,7 @@ export default class Content extends React.Component {
     }
 
     placeholderBtnClick() {
-        this.send('updateEditMode', '');
+        this.send('setEditMode', ['', 0]);
     }
 
     renderStartMessage() {

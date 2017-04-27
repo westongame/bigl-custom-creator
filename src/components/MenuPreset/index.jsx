@@ -9,72 +9,54 @@ export default class MenuPreset extends React.Component {
         super(props);
 
         this.state = {
-            collapse: this.props.menuProps.links.length > 3,
+            collapse: true,
         };
 
-        this.showBtnClick = this.showBtnClick.bind(this);
-        this.hideBtnClick = this.hideBtnClick.bind(this);
+        this.expandLinkClick = this.expandLinkClick.bind(this);
         this.renderLinks = this.renderLinks.bind(this);
+        this.renderExpandLink = this.renderExpandLink.bind(this);
     }
 
-    showBtnClick() {
-        this.setState({
-            collapse: false,
-        });
-    }
-
-    hideBtnClick() {
-        this.setState({
-            collapse: true,
-        });
+    expandLinkClick() {
+        this.setState({ collapse: !this.state.collapse });
     }
 
     renderLinks() {
-        const links = [];
+        const { menuProps, isPreviewMode } = this.props;
+        let links = menuProps.links;
 
-        this.props.menuProps.links.forEach((item, index) => {
-            links.push(
-                <div className={css.item} key={index}>
-                    <a className={css.link} href={item.href ? item.href : '#'}>
-                        {item.text ? item.text : 'New link'}
-                    </a>
-                </div>
-            );
-        });
-
-        if (this.props.isPreviewMode && this.state.collapse) {
-            const hiddenItemsCount = this.props.menuProps.links.length - 3;
-
-            links.splice(3, hiddenItemsCount);
-
-            links.push(
-                <div className={css.item} key='showMore'>
-                    <a
-                        className={css.expandLink}
-                        onClick={this.showBtnClick}
-                    >
-                        {`Show ${hiddenItemsCount} more`}
-                    </a>
-                </div>
-            );
-
-            return links;
+        if (isPreviewMode && this.state.collapse) {
+            links = links.slice(0, 3);
         }
 
-        if (this.props.isPreviewMode && this.props.menuProps.links.length > 3 && !this.state.collapse) {
-            links.push(
-                <div className={css.item} key='hide'>
-                    <a
-                        className={css.expandLink}
-                        onClick={this.hideBtnClick}
-                    >
-                        {`Hide items`}
-                    </a>
-                </div>
-            );
+        return links.map((item, index) => (
+            <div className={css.item} key={index}>
+                <a className={css.link} href={item.href ? item.href : '#'}>
+                    {item.text ? item.text : 'New link'}
+                </a>
+            </div>
+        ));
+    }
+
+    renderExpandLink() {
+        const { menuProps, isPreviewMode } = this.props;
+        const showLink = menuProps.links.length > 3;
+        const hiddenItemsCount = this.props.menuProps.links.length - 3;
+
+        if (!isPreviewMode || !showLink) {
+            return null;
         }
 
-        return links;
+        return (
+            <div className={css.item} key='expandLink'>
+                <a
+                    className={css.expandLink}
+                    onClick={this.expandLinkClick}
+                >
+                    {this.state.collapse ? `Show ${hiddenItemsCount} more` : `Hide items`}
+                </a>
+            </div>
+        );
     }
 
     render() {
@@ -86,10 +68,11 @@ export default class MenuPreset extends React.Component {
                 )}
             >
                 <div className={css.title}>
-                    {this.props.menuProps.title ? this.props.menuProps.title : 'New menu'}
+                    {this.props.menuProps.title || 'New menu'}
                 </div>
                 <div className={css.container}>
                     {this.renderLinks()}
+                    {this.renderExpandLink()}
                 </div>
             </div>
         );

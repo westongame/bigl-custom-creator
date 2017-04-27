@@ -70,8 +70,8 @@ export default class AppDispatcher extends TanokDispatcher {
             const link = payload.currentTarget;
             const data = {
                 title: state.customTitle.text,
-                menu: state.menuPresets,
-                content: state.contentStructure,
+                menu: state.menuPresets.map((item) => item.serialize()),
+                content: state.content.map((item) => item.serialize()),
             };
             const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
 
@@ -86,9 +86,11 @@ export default class AppDispatcher extends TanokDispatcher {
         return [state];
     }
 
-    @on('updateEditMode')
-    updateEditMode(payload, state) {
-        state.editMode = payload;
+    @on('setEditMode')
+    setEditMode(payload, state) {
+        const [editMode, index] = payload;
+        state.editMode = editMode;
+        state.editingIndex = index;
         return [state];
     }
 
@@ -115,6 +117,14 @@ export default class AppDispatcher extends TanokDispatcher {
     @on('deleteMenuPreset')
     deleteMenuPreset(payload, state) {
         state.menuPresets.splice(payload, 1);
+        if (state.editingIndex === payload) {
+            state.editingIndex = 0;
+        } else if (state.editingIndex > payload) {
+            state.editingIndex--;
+        }
+        if (state.menuPresets.length === 0) {
+            state.editMode = '';
+        }
         saveHistory(state);
         return [state];
     }
@@ -195,6 +205,14 @@ export default class AppDispatcher extends TanokDispatcher {
     @on('deletePreset')
     deletePreset(payload, state) {
         state.content.splice(payload, 1);
+        if (state.editingIndex === payload) {
+            state.editingIndex = 0;
+        } else if (state.editingIndex > payload) {
+            state.editingIndex--;
+        }
+        if (state.content.length === 0) {
+            state.editMode = '';
+        }
         saveHistory(state);
         return [state];
     }

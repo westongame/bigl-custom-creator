@@ -3,7 +3,8 @@
 
 // elements
 .container
-    width: 1240px
+    min-width: 1000px
+    max-width: 1240px
     padding: 20px
     margin: 0 auto
     box-sizing: border-box
@@ -31,15 +32,18 @@
         margin-top: 40px
 
 .gridContainer
+    width: 100%
     &:not(:first-child)
         margin-top: 5px
 
 // modifiers
 .container_type_tablet
-    width: 768px
+    min-width: 768px
+    max-width: 768px
 
 .container_type_smartphone
-    width: 320px
+    min-width: 320px
+    max-width: 320px
 
 .sidebar_type_visible
     display: block
