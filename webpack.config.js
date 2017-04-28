@@ -13,7 +13,7 @@ let externals = {
 };
 let entry = ['./src/index.js'];
 let publicPath = './';
-let filename = 'bundle.[hash:10].min.js';
+let filename = 'bundle.min.js';
 let stylLoader = ExtractTextPlugin.extract({
     fallback: 'style-loader',
     use: [
@@ -28,7 +28,7 @@ let plugins = [
         PRODUCTION: JSON.stringify(PRODUCTION),
     }),
     new ExtractTextPlugin({
-        filename: 'index.[contenthash:10].min.css',
+        filename: 'index.min.css',
     }),
     new OptimizeCssAssetsPlugin(),
     new HTMLWebpackPlugin({

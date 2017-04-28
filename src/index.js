@@ -7,11 +7,19 @@ import App from './components/Editor/index';
 
 import css from './main.styl'; // eslint-disable-line no-unused-vars
 
-const node = document.getElementById('app');
+const biglCustomCreator = (node) => {
+    tanok(
+        new Model(),
+        (new AppDispatcher()).collect(),
+        App,
+        { container: node },
+    );
+};
 
-tanok(
-    new Model(),
-    (new AppDispatcher()).collect(),
-    App,
-    { container: node },
-);
+if (process.env.NODE_ENV === 'development') {
+    const node = document.getElementById('app');
+
+    biglCustomCreator(node);
+}
+
+export default biglCustomCreator;

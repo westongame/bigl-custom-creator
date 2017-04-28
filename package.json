@@ -1,13 +1,14 @@
 {
-  "name": "untitled",
+  "name": "bigl-custom-creator",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Visual tool for creating custom pages",
+  "main": "dist/bundle.min.js",
   "scripts": {
     "build": "rimraf dist && NODE_ENV=production webpack --progress",
-    "dev": "NODE_ENV=development node dev-server.js"
+    "dev": "NODE_ENV=development node dev-server.js",
+    "prepublish": "npm run build"
   },
-  "author": "",
+  "author": "bigl-team",
   "license": "ISC",
   "devDependencies": {
     "@evo/eslint-config-uaprom": "^2.0.1",
@@ -41,5 +42,17 @@
     "react-dom": "^15.5.4",
     "rx": "^4.1.0",
     "tanok": "^1.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/westongame/bigl-custom-creator.git"
+  },
+  "keywords": [
+    "custom-creator",
+    "page-constructor"
+  ],
+  "bugs": {
+    "url": "https://github.com/westongame/bigl-custom-creator/issues"
+  },
+  "homepage": "https://github.com/westongame/bigl-custom-creator#readme"
 }

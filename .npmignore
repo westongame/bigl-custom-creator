@@ -1,0 +1,9 @@
+src/
+node_modules/
+.idea/
+index.html
+index-template.html
+dev-server.js
+webpack.config.js
+.babelrc
+.eslintrc
