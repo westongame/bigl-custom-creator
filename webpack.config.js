@@ -17,7 +17,7 @@ let filename = 'bundle.[hash:10].min.js';
 let stylLoader = ExtractTextPlugin.extract({
     fallback: 'style-loader',
     use: [
-        'css-loader?localIdentName=[hash:base64:6]',
+        'css-loader?modules,localIdentName=[hash:base64:6]',
         'stylus-loader',
     ],
 });
