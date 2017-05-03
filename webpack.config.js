@@ -2,14 +2,47 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
 let externals = {
-    react: 'React',
-    'react-dom': 'ReactDOM',
+    react: {
+        commonjs: 'react',
+        commonjs2: 'react',
+        amd: 'react',
+        root: 'react'
+    },
+    'react-dom': {
+        commonjs: 'react-dom',
+        commonjs2: 'react-dom',
+        amd: 'react-dom',
+        root: 'react-dom'
+    },
+    'prop-types': {
+        commonjs: 'prop-types',
+        commonjs2: 'prop-types',
+        amd: 'prop-types',
+        root: 'prop-types'
+    },
+    classnames: {
+        commonjs: 'classnames',
+        commonjs2: 'classnames',
+        amd: 'classnames',
+        root: 'classnames'
+    },
+    rx: {
+        commonjs: 'rx',
+        commonjs2: 'rx',
+        amd: 'rx',
+        root: 'rx'
+    },
+    tanok: {
+        commonjs: 'tanok',
+        commonjs2: 'tanok',
+        amd: 'tanok',
+        root: 'tanok'
+    },
 };
 let entry = ['./src/index.js'];
 let publicPath = './';
@@ -31,9 +64,6 @@ let plugins = [
         filename: 'index.min.css',
     }),
     new OptimizeCssAssetsPlugin(),
-    new HTMLWebpackPlugin({
-        template: 'index-template.html',
-    }),
 ];
 let devtool = false;
 
@@ -73,6 +103,8 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         publicPath,
         filename,
+        library: 'biglCustomCreator',
+        libraryTarget: 'umd'
     },
     module: {
         rules: [
