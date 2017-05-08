@@ -57,8 +57,35 @@ export default class AppDispatcher extends TanokDispatcher {
         return [state];
     }
 
-    @on('downloadJSON')
-    downloadJSON(payload, state) {
+    @on('ImportJSON')
+    ImportJSON(payload, state) {
+        const file = payload.target.files[0];
+        const reader = new FileReader();
+
+        const importState = () => {
+            return (stream) => {
+                reader.onload = (event) => {
+                    const importedData = JSON.parse(event.target.result);
+
+                    state.customTitle = { text: importedData.title, error: false };
+                    state.menuPresets = importedData.menu;
+                    state.content = importedData.content;
+                    saveHistory(state);
+
+                    stream.send('init');
+                };
+
+                if (file) {
+                    reader.readAsText(file);
+                }
+            };
+        };
+
+        return [state, importState()];
+    }
+
+    @on('ExportJSON')
+    ExportJSON(payload, state) {
         const validate = (array) => array.filter((item) => !item.validate()).length === 0;
         const isValidMenuPresets = validate(state.menuPresets);
         const isValidContent = validate(state.content);

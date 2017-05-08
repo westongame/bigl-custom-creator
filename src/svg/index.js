@@ -5,6 +5,7 @@ import IcoTrash from './trash.svg';
 import IcoPencil from './pencil.svg';
 import IcoCrossCircle from './cross-circle.svg';
 import IcoEye from './eye.svg';
+import IcoUpload from './upload.svg';
 import IcoDownload from './download.svg';
 import IcoSmartphone from './smartphone.svg';
 import IcoTablet from './tablet.svg';
@@ -21,6 +22,7 @@ export {
     IcoPencil,
     IcoCrossCircle,
     IcoEye,
+    IcoUpload,
     IcoDownload,
     IcoSmartphone,
     IcoTablet,

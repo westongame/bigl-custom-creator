@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { tanokComponent } from 'tanok';
 import classNames from 'classnames';
 
-import { IcoEye, IcoDownload, IcoSmartphone, IcoTablet, IcoScreen, IcoCross, IcoUndo, IcoRedo } from '../../svg';
+import {
+    IcoEye, IcoDownload, IcoUpload, IcoSmartphone, IcoTablet, IcoScreen, IcoCross, IcoUndo, IcoRedo
+} from '../../svg';
 
 import css from './topBar.styl';
 
@@ -14,7 +16,8 @@ export default class TopBar extends React.Component {
 
         this.onUndo = this.onUndo.bind(this);
         this.onRedo = this.onRedo.bind(this);
-        this.onDownload = this.onDownload.bind(this);
+        this.onImport = this.onImport.bind(this);
+        this.onExport = this.onExport.bind(this);
         this.togglePreviewMode = this.togglePreviewMode.bind(this);
         this.togglePreviewDevice = this.togglePreviewDevice.bind(this);
         this.renderPreviewBar = this.renderPreviewBar.bind(this);
@@ -29,8 +32,12 @@ export default class TopBar extends React.Component {
         this.send('Redo');
     }
 
-    onDownload(e) {
-        this.send('downloadJSON', e);
+    onImport(e) {
+        this.send('ImportJSON', e);
+    }
+
+    onExport(e) {
+        this.send('ExportJSON', e);
     }
 
     togglePreviewMode() {
@@ -114,13 +121,20 @@ export default class TopBar extends React.Component {
                     </div>
                 </div>
                 <div className={css.btnsContainer}>
+                    <label className={css.button}>
+                        <input type='file' onChange={this.onImport} className={css.hiddenInput} />
+                        <IcoUpload className={css.buttonIco} />
+                        <span className={css.buttonText}>
+                            Import JSON
+                        </span>
+                    </label>
                     <a
                         className={css.button}
-                        onClick={this.onDownload}
+                        onClick={this.onExport}
                     >
                         <IcoDownload className={css.buttonIco} />
                         <span className={css.buttonText}>
-                            Download JSON
+                            Export JSON
                         </span>
                     </a>
                     <div
