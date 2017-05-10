@@ -35,6 +35,12 @@ export default class AppDispatcher extends TanokDispatcher {
         return [state];
     }
 
+    @on('toggleFullScreen')
+    toggleFullScreen(payload, state) {
+        state.isFullScreen = !state.isFullScreen;
+        return [state];
+    }
+
     @on('previewMode')
     previewMode(payload, state) {
         state.isPreviewMode = !state.isPreviewMode;

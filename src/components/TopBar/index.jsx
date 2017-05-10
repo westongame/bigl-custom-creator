@@ -4,7 +4,17 @@ import { tanokComponent } from 'tanok';
 import classNames from 'classnames';
 
 import {
-    IcoEye, IcoDownload, IcoUpload, IcoSmartphone, IcoTablet, IcoScreen, IcoCross, IcoUndo, IcoRedo
+    IcoEye,
+    IcoDownload,
+    IcoUpload,
+    IcoSmartphone,
+    IcoTablet,
+    IcoScreen,
+    IcoCross,
+    IcoUndo,
+    IcoRedo,
+    IcoExpand,
+    IcoContract,
 } from '../../svg';
 
 import css from './topBar.styl';
@@ -18,6 +28,7 @@ export default class TopBar extends React.Component {
         this.onRedo = this.onRedo.bind(this);
         this.onImport = this.onImport.bind(this);
         this.onExport = this.onExport.bind(this);
+        this.toggleFullScreen = this.toggleFullScreen.bind(this);
         this.togglePreviewMode = this.togglePreviewMode.bind(this);
         this.togglePreviewDevice = this.togglePreviewDevice.bind(this);
         this.renderPreviewBar = this.renderPreviewBar.bind(this);
@@ -38,6 +49,10 @@ export default class TopBar extends React.Component {
 
     onExport(e) {
         this.send('ExportJSON', e);
+    }
+
+    toggleFullScreen() {
+        this.send('toggleFullScreen');
     }
 
     togglePreviewMode() {
@@ -161,6 +176,18 @@ export default class TopBar extends React.Component {
                             Preview
                         </span>
                     </div>
+                    <div
+                        className={css.button}
+                        onClick={this.toggleFullScreen}
+                    >
+                        {this.props.isFullScreen
+                            ? <IcoContract className={css.buttonIco} />
+                            : <IcoExpand className={css.buttonIco} />
+                        }
+                        <span className={css.buttonText}>
+                            Full Screen
+                        </span>
+                    </div>
                 </div>
             </div>
         );
@@ -177,5 +204,6 @@ export default class TopBar extends React.Component {
 
 TopBar.propTypes = {
     isPreviewMode: PropTypes.bool.isRequired,
+    isFullScreen: PropTypes.bool.isRequired,
     previewDevice: PropTypes.string.isRequired,
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { tanokComponent } from 'tanok';
 
 import CustomPropTypes from '../../customPropTypes';
@@ -92,12 +93,18 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <div className={css.root}>
+            <div
+                className={classNames(
+                    css.root,
+                    { [css.root_type_fullScreen]: this.props.isFullScreen || this.props.isPreviewMode }
+                )}
+            >
                 <div className={css.barContainer}>
                     <TopBar
                         tanokStream={this.props.tanokStream}
                         isPreviewMode={this.props.isPreviewMode}
                         previewDevice={this.props.previewDevice}
+                        isFullScreen={this.props.isFullScreen}
                     />
                 </div>
                 {
@@ -119,6 +126,7 @@ export default class App extends React.Component {
 App.propTypes = {
     tanokStream: PropTypes.object.isRequired,
     isPreviewMode: PropTypes.bool.isRequired,
+    isFullScreen: PropTypes.bool.isRequired,
     previewDevice: PropTypes.string.isRequired,
     showErrorPopup: PropTypes.bool.isRequired,
     editMode: PropTypes.string.isRequired,

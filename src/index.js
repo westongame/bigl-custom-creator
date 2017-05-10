@@ -3,10 +3,7 @@ import { tanok } from 'tanok';
 import AppDispatcher from './dispatcher';
 import Model from './model';
 
-import { presetTemplates } from './templates';
 import App from './components/Editor';
-
-import css from './main.styl'; // eslint-disable-line no-unused-vars
 
 const biglCustomCreator = (node, initialAppData) => {
     tanok(
@@ -18,6 +15,9 @@ const biglCustomCreator = (node, initialAppData) => {
 };
 
 if (process.env.NODE_ENV === 'development') {
+    const presetTemplates = require('./templates'); // eslint-disable-line global-require
+    require('./reset.styl'); // eslint-disable-line global-require
+
     const node = document.getElementById('app');
 
     biglCustomCreator(node, { presetTemplates });

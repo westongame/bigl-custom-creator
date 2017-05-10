@@ -1,16 +1,18 @@
+$_editor-height = 50% // % from width
 $_bar-height = 55px
 $_workspace-width = 70%
 
 .root
-    position: absolute
-    top: $_bar-height
-    bottom: 0
-    left: 0
-    right: 0
+    font-family: 'Open Sans', sans-serif
+    position: relative
+    width: 100%
+    padding-top: $_editor-height
+    box-sizing: border-box
+    border: 2px solid #373737
 
 // elements
 .barContainer
-    position: fixed
+    position: absolute
     top: 0
     left: 0
     right: 0
@@ -20,15 +22,26 @@ $_workspace-width = 70%
 .workspaceContainer
     position: absolute
     left: 0
-    top: 0
+    top: $_bar-height
     bottom: 0
     width: $_workspace-width
 
 .paneContainer
     position: absolute
     right: 0
-    top: 0
+    top: $_bar-height
     bottom: 0
     left: $_workspace-width
 
 // modifiers
+.root_type_fullScreen
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    padding-top: $_bar-height
+    border: none
+
+    .barContainer
+        position: fixed

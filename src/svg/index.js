@@ -13,6 +13,8 @@ import IcoScreen from './screen.svg';
 import IcoCross from './cross.svg';
 import IcoUndo from './undo.svg';
 import IcoRedo from './redo.svg';
+import IcoExpand from './frame-expand.svg';
+import IcoContract from './frame-contract.svg';
 
 export {
     ImgPlaceholder,
@@ -30,4 +32,6 @@ export {
     IcoCross,
     IcoUndo,
     IcoRedo,
+    IcoExpand,
+    IcoContract,
 };
