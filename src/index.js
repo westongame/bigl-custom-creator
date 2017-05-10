@@ -3,13 +3,14 @@ import { tanok } from 'tanok';
 import AppDispatcher from './dispatcher';
 import Model from './model';
 
-import App from './components/Editor/index';
+import { presetTemplates } from './templates';
+import App from './components/Editor';
 
 import css from './main.styl'; // eslint-disable-line no-unused-vars
 
-const biglCustomCreator = (node) => {
+const biglCustomCreator = (node, initialAppData) => {
     tanok(
-        new Model(),
+        new Model(initialAppData),
         (new AppDispatcher()).collect(),
         App,
         { container: node },
@@ -19,7 +20,7 @@ const biglCustomCreator = (node) => {
 if (process.env.NODE_ENV === 'development') {
     const node = document.getElementById('app');
 
-    biglCustomCreator(node);
+    biglCustomCreator(node, { presetTemplates });
 }
 
 export default biglCustomCreator;

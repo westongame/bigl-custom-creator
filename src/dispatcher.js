@@ -1,13 +1,12 @@
 import { TanokDispatcher, on } from 'tanok';
 
-import { presetTemplates } from './templates';
 import { Preset, MenuPreset, MenuLink } from './utils/entities';
 import { isHistoryInitialized, initHistory, saveHistory, historyBack, historyForward } from './utils/history';
 
 const restoreEntities = (state) => {
     state.content = state.content.map((config) => new Preset(config.children));
     state.menuPresets = state.menuPresets.map((config) => new MenuPreset(config));
-    state.presetTemplates = presetTemplates.map((config) => new Preset(config));
+    state.presetTemplates = state.presetTemplates.map((config) => new Preset(config.children));
 };
 
 export default class AppDispatcher extends TanokDispatcher {
@@ -15,7 +14,7 @@ export default class AppDispatcher extends TanokDispatcher {
     init(payload, state) {
         if (!isHistoryInitialized()) {
             state.menuPresets = [new MenuPreset()];
-            state.presetTemplates = presetTemplates.map((config) => new Preset(config));
+            state.presetTemplates = state.presetTemplates.map((config) => new Preset(config));
         }
         state = initHistory(state);
         restoreEntities(state);

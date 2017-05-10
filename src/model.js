@@ -1,5 +1,5 @@
 export default class Model {
-    constructor() {
+    constructor(initialAppData) {
         this.isPreviewMode = false;
         this.previewDevice = 'desktop';
         this.showErrorPopup = false;
@@ -11,6 +11,6 @@ export default class Model {
         };
         this.menuPresets = [];
         this.content = [];
-        this.presetTemplates = [];
+        this.presetTemplates = initialAppData.presetTemplates;
     }
 }
