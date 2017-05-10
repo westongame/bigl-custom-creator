@@ -99,6 +99,21 @@ export default class TopBar extends React.Component {
         return (
             <div className={css.container}>
                 <div className={css.btnsContainer}>
+                    {process.env.NODE_ENV === 'development' ?
+                        <a
+                            className={css.button}
+                            onClick={() => {
+                                localStorage.clear();
+                                window.location.reload();
+                            }}
+                            title='Clear LocalStorage'
+                        >
+                            <span className={css.buttonText}>
+                                Clear LocalStorage
+                            </span>
+                        </a>
+                        : null
+                    }
                     <a
                         className={css.button}
                         onClick={this.onUndo}

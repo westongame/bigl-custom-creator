@@ -13,9 +13,6 @@ const restoreEntities = (state) => {
 export default class AppDispatcher extends TanokDispatcher {
     @on('init')
     init(payload, state) {
-        if (process.env.NODE_ENV === 'development') {
-            localStorage.clear();
-        }
         if (!isHistoryInitialized()) {
             state.menuPresets = [new MenuPreset()];
             state.presetTemplates = presetTemplates.map((config) => new Preset(config));
