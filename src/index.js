@@ -19,8 +19,16 @@ if (process.env.NODE_ENV === 'development') {
     require('./reset.styl'); // eslint-disable-line global-require
 
     const node = document.getElementById('app');
+    const importJSON = null;
+    const onExportJSON = (data, link) => {
+        const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
 
-    biglCustomCreator(node, { presetTemplates });
+        link.href = URL.createObjectURL(blob);
+        link.download = `${data.title}.json`;
+        URL.revokeObjectURL(blob);
+    };
+
+    biglCustomCreator(node, { presetTemplates, importJSON, onExportJSON });
 }
 
 export default biglCustomCreator;
