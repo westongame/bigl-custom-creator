@@ -32,7 +32,7 @@ import 'bigl-custom-creator/dist/index.min.css';
 
 const node = document.getElementById('app');
 const presetTemplates = [
-	[
+    [
         { row: 1, column: 1 },
         { row: 1, column: 2 },
         { row: 1, column: [3, 4] },
