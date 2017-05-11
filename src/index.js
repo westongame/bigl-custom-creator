@@ -15,7 +15,7 @@ const biglCustomCreator = (node, initialAppData) => {
 };
 
 if (process.env.NODE_ENV === 'development') {
-    const presetTemplates = require('./templates'); // eslint-disable-line global-require
+    const { presetTemplates } = require('./templates'); // eslint-disable-line global-require
     require('./reset.styl'); // eslint-disable-line global-require
 
     const node = document.getElementById('app');
