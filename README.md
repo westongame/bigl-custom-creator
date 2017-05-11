@@ -2,7 +2,7 @@
 
 Visual tool for constructing custom banner pages layout
 
-![](https://cloud.githubusercontent.com/assets/12530822/25941399/01ff3c8e-3642-11e7-889d-068dde4ca043.png)
+![](https://cloud.githubusercontent.com/assets/12530822/25944126/e075d574-364a-11e7-8db6-b9f0ee72417d.png)
 
 ## Installation
 
