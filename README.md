@@ -47,8 +47,9 @@ const presetTemplates = [
 ];
 const importJSON = null; // or an exported JSON you want to load
 const onExportJSON = null; // or a callback which will receive data in JSON format
+const onUploadImage = null; // or a callback wich receives file and returns a promise with image url address
 
-biglCustomCreator(node, { presetTemplates, importJSON, onExportJSON });
+biglCustomCreator(node, { presetTemplates, importJSON, onExportJSON, onUploadImage });
 ```
 
 > Note that you need to require css file from this package. This example will work if your build system supports requiring css files (webpack is one that does).

@@ -11,6 +11,7 @@ export default class Model {
         this.content = [];
         this.presetTemplates = initialAppData.presetTemplates;
         this.onExportJSON = initialAppData.onExportJSON;
+        this.onUploadImage = initialAppData.onUploadImage;
 
         if (initialAppData.importJSON) {
             this.customTitle.text = initialAppData.importJSON.title;

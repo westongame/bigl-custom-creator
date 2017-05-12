@@ -202,20 +202,39 @@ export default class AppDispatcher extends TanokDispatcher {
     uploadImage(payload, state) {
         const [e, index] = payload;
         const file = e.target.files[0];
-        const reader = new FileReader();
 
         const updateImage = () => {
             return (stream) => {
-                reader.onload = (event) => {
-                    stream.send('updateContentItem', [index, {
-                        imageSrc: event.target.result,
-                        imageName: file.name,
-                        imageError: false,
-                    }]);
-                };
+                if (state.onUploadImage) {
+                    state.onUploadImage(file)
+                        .then((imgUrl) => {
+                            stream.send('updateContentItem', [index, {
+                                imageSrc: imgUrl,
+                                imageName: file.name,
+                                imageError: false,
+                            }]);
+                        })
+                        .catch((err) => {
+                            if (err) {
+                                throw err;
+                            } else {
+                                throw new Error(`Unable to get image url`);
+                            }
+                        });
+                } else {
+                    const reader = new FileReader();
 
-                if (file) {
-                    reader.readAsDataURL(file);
+                    reader.onload = () => {
+                        stream.send('updateContentItem', [index, {
+                            imageSrc: reader.result,
+                            imageName: file.name,
+                            imageError: false,
+                        }]);
+                    };
+
+                    if (file) {
+                        reader.readAsDataURL(file);
+                    }
                 }
             };
         };

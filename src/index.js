@@ -50,8 +50,9 @@ if (process.env.NODE_ENV === 'development') {
     ];
     const importJSON = null;
     const onExportJSON = null;
+    const onUploadImage = null;
 
-    biglCustomCreator(node, { presetTemplates, importJSON, onExportJSON });
+    biglCustomCreator(node, { presetTemplates, importJSON, onExportJSON, onUploadImage });
 }
 
 export default biglCustomCreator;
