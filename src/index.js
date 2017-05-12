@@ -15,18 +15,41 @@ const biglCustomCreator = (node, initialAppData) => {
 };
 
 if (process.env.NODE_ENV === 'development') {
-    const { presetTemplates } = require('./templates'); // eslint-disable-line global-require
     require('./reset.styl'); // eslint-disable-line global-require
 
     const node = document.getElementById('app');
+    const presetTemplates = [
+        [
+            { column: 1, row: 1 },
+            { column: 2, row: 1 },
+            { column: 3, row: 1 },
+            { column: 4, row: 1 },
+        ],
+        [
+            { column: [1, 2], row: 1 },
+            { column: 3, row: 1 },
+            { column: 4, row: 1 },
+        ],
+        [
+            { column: 1, row: 1 },
+            { column: [2, 3], row: 1 },
+            { column: 4, row: 1 },
+        ],
+        [
+            { column: 1, row: 1 },
+            { column: 2, row: 1 },
+            { column: [3, 4], row: 1 },
+        ],
+        [
+            { column: [1, 2], row: 1 },
+            { column: [3, 4], row: 1 },
+        ],
+        [
+            { column: [1, 2, 3, 4], row: 1 },
+        ],
+    ];
     const importJSON = null;
-    const onExportJSON = (data, link) => {
-        const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-
-        link.href = URL.createObjectURL(blob);
-        link.download = `${data.title}.json`;
-        URL.revokeObjectURL(blob);
-    };
+    const onExportJSON = null;
 
     biglCustomCreator(node, { presetTemplates, importJSON, onExportJSON });
 }

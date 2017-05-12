@@ -96,17 +96,22 @@ export default class AppDispatcher extends TanokDispatcher {
         state.customTitle.error = !isValidTitle;
 
         if (isValidMenuPresets && isValidContent && isValidTitle) {
-            const data = {
+            const data = JSON.stringify({
                 title: state.customTitle.text,
                 menu: state.menuPresets.map((item) => item.serialize()),
                 content: state.content.map((item) => item.serialize()),
-            };
+            });
 
-            if (process.env.NODE_ENV === 'development') {
-                state.onExportJSON(data, payload.currentTarget);
-            } else {
+            if (state.onExportJSON) {
                 payload.preventDefault();
                 state.onExportJSON(data);
+            } else {
+                const link = payload.currentTarget;
+                const blob = new Blob([data], { type: 'application/json' });
+
+                link.href = URL.createObjectURL(blob);
+                link.download = `${state.customTitle.text}.json`;
+                URL.revokeObjectURL(blob);
             }
         } else {
             payload.preventDefault();

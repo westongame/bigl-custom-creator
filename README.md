@@ -33,20 +33,20 @@ import 'bigl-custom-creator/dist/index.min.css';
 const node = document.getElementById('app');
 const presetTemplates = [
     [
-        { row: 1, column: 1 },
-        { row: 1, column: 2 },
-        { row: 1, column: [3, 4] },
+        { column: 1, row: 1 },
+        { column: 2, row: 1 },
+        { column: [3, 4], row: 1 },
     ],
     [
-        { row: 1, column: [1, 2] },
-        { row: 1, column: [3, 4] },
+        { column: [1, 2], row: 1 },
+        { column: [3, 4], row: 1 },
     ],
     [
-        { row: 1, column: [1, 2, 3, 4] },
+        { column: [1, 2, 3, 4], row: 1 },
     ],
 ];
 const importJSON = null; // or an exported JSON you want to load
-const onExportJSON = ...; // a callback which will receive data in JSON format
+const onExportJSON = null; // or a callback which will receive data in JSON format
 
 biglCustomCreator(node, { { presetTemplates, importJSON, onExportJSON } });
 ```
