@@ -42,7 +42,7 @@ const presetTemplates = [
         { column: [3, 4], row: 1 },
     ],
     [
-        { column: [1, 2, 3, 4], row: 1 },
+        { column: [1, 2, 3, 4], row: 1 }
     ],
 ];
 const importJSON = null; // or an exported JSON you want to load
